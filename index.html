@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESENCIA - Inicio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-outer">
+    <div class="card-container">
+        <!-- Navegación -->
+        <header class="navbar">
+            <div class="brand">
+                <img src="logo.png" alt="ESENCIA Logo" class="logo-img">
+                <span class="brand-text">ESENCIA</span>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="active">INICIO</a>
+                <a href="productos.html">PRODUCTOS</a>
+                <a href="contacto.html">CONTACTO</a>
+                <a href="quienes-somos.html">¿QUIENES SOMOS?</a>
+            </nav>
+        </header>
+
+        <!-- Contenido Inicio -->
+        <main class="hero-content">
+            <h1 class="hero-title">CREEMOS TU ESENCIA</h1>
+            <p class="hero-subtitle">Diseñamos tu brandig (paleta de colores, logo, eslogan y mas)</p>
+           <a href="contacto.html" class="btn-primary">COMENZAR</a>
+        </main>
+    </div>
+    <!-- ... contenido anterior de tu página ... -->
+    </div>
+
+    <!-- Traductor Persistente por URL -->
+<div class="translator-box">
+    <div id="google_translate_element"></div>
+</div>
+
+<script type="text/javascript">
+  // 1. Obtener idioma desde la URL o localStorage
+  var urlParams = new URLSearchParams(window.location.search);
+  var currentLang = urlParams.get('lang') || localStorage.getItem('user_lang') || '';
+
+  if (currentLang) {
+    document.cookie = "googtrans=/es/" + currentLang + "; path=/";
+    document.cookie = "googtrans=/es/" + currentLang + "; domain=" + window.location.hostname + "; path=/";
+  }
+
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'es',
+      includedLanguages: 'en,fr,de,it,pt',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+
+    // 2. Preservar idioma en todos los enlaces del menú
+    if (currentLang) {
+      document.querySelectorAll('.nav-links a, .btn-primary').forEach(function(link) {
+        var page = link.getAttribute('data-page') || link.getAttribute('href');
+        if (page && !page.startsWith('http')) {
+          link.href = page + '?lang=' + currentLang;
+        }
+      });
+    }
+
+    // 3. Detectar si el usuario cambia el idioma en el desplegable
+    var checkSelect = setInterval(function() {
+      var select = document.querySelector('.goog-te-combo');
+      if (select) {
+        clearInterval(checkSelect);
+        select.addEventListener('change', function() {
+          var lang = this.value;
+          if (lang) {
+            localStorage.setItem('user_lang', lang);
+            window.location.search = '?lang=' + lang;
+          } else {
+            localStorage.removeItem('user_lang');
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = window.location.pathname;
+          }
+        });
+      }
+    }, 400);
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
