@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!-- =========================================================
+     ESENCIA — INICIO DE SESIÓN
+     ========================================================= -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión — ESENCIA | Panel Administrativo</title>
+    <meta name="description" content="Acceso al panel de administración del estudio ESENCIA.">
+    <meta name="theme-color" content="#040509">
+    <link rel="icon" href="img/esencia-logo.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-outer">
+
+    <div class="card-container">
+
+        <!-- ===== BARRA SUPERIOR ===== -->
+        <header class="navbar">
+            <a href="index.html" class="brand notranslate" translate="no">
+                <img src="img/esencia-logo.png" alt="Logo de ESENCIA" class="logo-img">
+                <span class="brand-divider"></span>
+                <span class="brand-text notranslate" translate="no">ESENCIA</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html">&#8592; VOLVER AL SITIO</a>
+            </nav>
+        </header>
+
+        <!-- ===== CONTENIDO DE LOGIN ===== -->
+        <main class="login-wrapper">
+            <div class="login-card">
+                <div class="eyebrow"><span></span>ÁREA RESTRINGIDA<span></span></div>
+                <h1 class="login-title">Iniciar Sesión</h1>
+                <p class="login-subtitle">Acceso administrativo para gestionar proyectos de portafolio y revisar mensajes recibidos.</p>
+
+                <form id="login-form" class="custom-form login-form">
+                    <div class="form-group">
+                        <label for="login-username">Usuario o Correo</label>
+                        <input type="text" id="login-username" name="username" required placeholder="Ej. admin" autocomplete="username" autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" name="password" required placeholder="Tu contraseña de acceso" autocomplete="current-password">
+                    </div>
+
+                    <button type="submit" id="btn-submit-login" class="btn-primary form-submit-btn">
+                        <span class="btn-text">INGRESAR AL PANEL &#8594;</span>
+                        <span class="btn-loader" style="display:none;">Verificando...</span>
+                    </button>
+
+                    <div id="login-alert" class="status-box alert-error" style="display:none;" role="alert"></div>
+
+                    <!-- Nota con credenciales por defecto -->
+                    <div class="demo-credentials-box">
+                        <strong>Credenciales iniciales:</strong>
+                        <p>Usuario: <code>admin</code> | Clave: <code>admin123</code></p>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
+    </div>
+
+    <!-- Script de autenticación -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if already logged in
+            const token = localStorage.getItem('esencia_token');
+            if (token) {
+                fetch('/api/auth/me', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = 'admin.html';
+                    }
+                })
+                .catch(() => {});
+            }
+
+            const loginForm = document.getElementById('login-form');
+            const alertBox = document.getElementById('login-alert');
+            const btn = document.getElementById('btn-submit-login');
+            const btnText = btn.querySelector('.btn-text');
+            const btnLoader = btn.querySelector('.btn-loader');
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                alertBox.style.display = 'none';
+
+                const username = document.getElementById('login-username').value.trim();
+                const password = document.getElementById('login-password').value;
+
+                if (!username || !password) {
+                    alertBox.textContent = 'Por favor ingresa usuario y contraseña.';
+                    alertBox.style.display = 'block';
+                    return;
+                }
+
+                btnText.style.display = 'none';
+                btnLoader.style.display = 'inline';
+                btn.disabled = true;
+
+                try {
+                    const res = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await res.json();
+
+                    if (!res.ok || !data.success) {
+                        throw new Error(data.error || 'Credenciales inválidas');
+                    }
+
+                    // Save token and user info
+                    localStorage.setItem('esencia_token', data.token);
+                    localStorage.setItem('esencia_user', JSON.stringify(data.user));
+
+                    // Redirect to dashboard
+                    window.location.href = 'admin.html';
+                } catch (err) {
+                    alertBox.textContent = err.message || 'Error de conexión. Asegúrate de que el servidor esté activo.';
+                    alertBox.style.display = 'block';
+                } finally {
+                    btnText.style.display = 'inline';
+                    btnLoader.style.display = 'none';
+                    btn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

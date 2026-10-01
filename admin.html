@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<!-- =========================================================
+     ESENCIA — PANEL ADMINISTRATIVO
+     ========================================================= -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo — ESENCIA</title>
+    <meta name="theme-color" content="#040509">
+    <link rel="icon" href="img/esencia-logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos específicos del panel administrativo */
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding-bottom: 60px;
+        }
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px 0 30px;
+            border-bottom: 1px solid var(--borde);
+            margin-bottom: 30px;
+        }
+        .admin-user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .admin-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--dorado);
+            display: grid;
+            place-items: center;
+            font-size: 1.2rem;
+            background: rgba(185, 138, 80, 0.15);
+        }
+        .admin-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--borde);
+            background: var(--panel);
+            color: var(--texto);
+            transition: all 0.2s ease;
+        }
+        .btn-sm:hover {
+            border-color: var(--dorado);
+            color: var(--dorado-claro);
+        }
+        .btn-danger-sm {
+            background: rgba(180, 40, 40, 0.2);
+            border-color: rgba(220, 60, 60, 0.4);
+            color: #ff9999;
+        }
+        .btn-danger-sm:hover {
+            background: rgba(220, 60, 60, 0.3);
+            border-color: #ff6666;
+            color: #fff;
+        }
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+        .stat-card {
+            background: var(--panel-fuerte);
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--texto-suave);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .stat-value {
+            font-size: 2.2rem;
+            font-family: var(--serif);
+            color: var(--dorado-claro);
+            font-weight: 600;
+        }
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid var(--borde);
+            margin-bottom: 25px;
+        }
+        .admin-tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            color: var(--texto-suave);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .admin-tab-btn.active {
+            color: var(--dorado-claro);
+            border-bottom-color: var(--dorado);
+            font-weight: 600;
+        }
+        .admin-table-wrap {
+            overflow-x: auto;
+            background: var(--panel-fuerte);
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+        .admin-table th, .admin-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(185, 138, 80, 0.15);
+        }
+        .admin-table th {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--dorado-claro);
+            background: rgba(10, 10, 14, 0.95);
+        }
+        .admin-table tr:hover {
+            background: rgba(185, 138, 80, 0.04);
+        }
+        .badge-unread {
+            display: inline-block;
+            background: rgba(215, 183, 123, 0.2);
+            color: var(--dorado-claro);
+            border: 1px solid var(--dorado);
+            font-size: 0.68rem;
+            padding: 2px 7px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+        .badge-read {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--texto-suave);
+            font-size: 0.68rem;
+            padding: 2px 7px;
+            border-radius: 999px;
+        }
+        .message-preview {
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--texto-suave);
+        }
+        .table-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .admin-project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .admin-project-card {
+            background: var(--panel-fuerte);
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .admin-project-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #08080c;
+        }
+        .admin-project-content {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .admin-project-title {
+            font-size: 1.15rem;
+            font-family: var(--serif);
+            color: var(--texto);
+            margin-bottom: 4px;
+        }
+        .admin-project-cat {
+            font-size: 0.72rem;
+            color: var(--dorado-claro);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+        .admin-project-desc {
+            font-size: 0.82rem;
+            color: var(--texto-suave);
+            margin-bottom: 14px;
+            flex: 1;
+        }
+        .project-add-card {
+            background: var(--panel);
+            border: 1px dashed var(--dorado);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body class="bg-outer">
+
+    <div class="card-container">
+
+        <!-- ===== BARRA SUPERIOR ADMIN ===== -->
+        <header class="navbar">
+            <a href="index.html" class="brand notranslate" translate="no">
+                <img src="img/esencia-logo.png" alt="Logo de ESENCIA" class="logo-img">
+                <span class="brand-divider"></span>
+                <span class="brand-text notranslate" translate="no">ESENCIA</span>
+            </a>
+
+            <div class="admin-actions">
+                <a href="index.html" class="btn-sm" target="_blank">&#127760; Ver Sitio Web</a>
+                <button id="btn-logout" class="btn-sm btn-danger-sm">&#128274; Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <!-- ===== CONTENEDOR PRINCIPAL DEL PANEL ===== -->
+        <main class="admin-container">
+
+            <div class="admin-header">
+                <div class="admin-user-info">
+                    <div class="admin-avatar">&#128100;</div>
+                    <div>
+                        <h1 style="font-size: 1.5rem; font-family: var(--serif);" id="admin-greeting">Hola, Sofía</h1>
+                        <p style="font-size: 0.8rem; color: var(--texto-suave);">Directora &amp; Administración de ESENCIA</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="badge-unread" style="font-size: 0.8rem; padding: 6px 12px;">Panel Activo</span>
+                </div>
+            </div>
+
+            <!-- Métricas resumen -->
+            <section class="admin-stats">
+                <div class="stat-card">
+                    <span class="stat-label">Total Mensajes Recibidos</span>
+                    <span class="stat-value" id="stat-total-messages">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Mensajes Sin Leer</span>
+                    <span class="stat-value" id="stat-unread-messages">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Proyectos en Portafolio</span>
+                    <span class="stat-value" id="stat-total-projects">0</span>
+                </div>
+            </section>
+
+            <!-- Pestañas -->
+            <div class="admin-tabs" role="tablist">
+                <button class="admin-tab-btn active" data-tab="tab-messages">&#128233; Bandeja de Mensajes</button>
+                <button class="admin-tab-btn" data-tab="tab-projects">&#128188; Gestión de Portafolio</button>
+            </div>
+
+            <!-- TAB 1: BANDEJA DE MENSAJES -->
+            <section id="tab-messages" class="admin-tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h2 style="font-size: 1.2rem; font-family: var(--serif); color: var(--dorado-claro);">Mensajes de Clientes (Formulario Web)</h2>
+                    <button id="btn-refresh-messages" class="btn-sm">&#8635; Actualizar</button>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Contacto</th>
+                                <th>Servicio</th>
+                                <th>Mensaje</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messages-tbody">
+                            <tr>
+                                <td colspan="7" style="text-align:center; padding: 30px; color: var(--texto-suave);">Cargando mensajes...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 2: GESTIÓN DE PORTAFOLIO -->
+            <section id="tab-projects" class="admin-tab-content" style="display:none;">
+                <!-- Formulario para agregar proyecto -->
+                <div class="project-add-card">
+                    <h2 style="font-size: 1.25rem; font-family: var(--serif); color: var(--dorado-claro); margin-bottom: 15px;">+ Agregar Nuevo Proyecto al Portafolio</h2>
+                    <form id="add-project-form" class="custom-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="proj-title">Nombre del Proyecto *</label>
+                                <input type="text" id="proj-title" required placeholder="Ej. Aura Cosmética">
+                            </div>
+                            <div class="form-group">
+                                <label for="proj-cat">Categoría *</label>
+                                <select id="proj-cat" required>
+                                    <option value="Identidad Visual">Identidad Visual</option>
+                                    <option value="Redes Sociales">Redes Sociales</option>
+                                    <option value="Branding & Sostenibilidad">Branding & Sostenibilidad</option>
+                                    <option value="Multimedia">Multimedia / Videos</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="proj-client">Nombre del Cliente</label>
+                                <input type="text" id="proj-client" placeholder="Ej. Aura Natural Care">
+                            </div>
+                            <div class="form-group">
+                                <label for="proj-image">Ruta de Imagen o URL *</label>
+                                <input type="text" id="proj-image" required placeholder="Ej. img/logo-blendbar.png o https://...">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-desc">Descripción del Proyecto *</label>
+                            <textarea id="proj-desc" rows="3" required placeholder="Describe el reto, concepto y resultado del diseño..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="min-width: 200px; padding: 12px 24px;">GUARDAR PROYECTO &#8594;</button>
+                    </form>
+                </div>
+
+                <h2 style="font-size: 1.2rem; font-family: var(--serif); color: var(--dorado-claro); margin-bottom: 16px;">Proyectos Publicados en el Sitio</h2>
+                <div class="admin-project-grid" id="admin-project-list">
+                    <!-- Dynamic project cards -->
+                </div>
+            </section>
+
+        </main>
+
+        <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
+    </div>
+
+    <!-- Modal Detalle Mensaje -->
+    <div id="message-modal" class="modal-backdrop" aria-hidden="true">
+        <div class="modal-box" style="max-width: 600px;">
+            <button class="modal-close" id="msg-modal-close">&times;</button>
+            <div style="padding: 10px 0;">
+                <div class="eyebrow eyebrow-left"><span></span>Detalle de Mensaje<span></span></div>
+                <h2 id="msg-modal-name" style="font-family: var(--serif); margin: 10px 0 5px; color: var(--texto);"></h2>
+                <p id="msg-modal-date" style="font-size: 0.78rem; color: var(--dorado-claro); margin-bottom: 15px;"></p>
+
+                <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--borde); border-radius: 6px; padding: 14px; margin-bottom: 16px; font-size: 0.88rem; line-height: 1.6;">
+                    <p><strong>Correo:</strong> <span id="msg-modal-email"></span></p>
+                    <p><strong>Teléfono:</strong> <span id="msg-modal-phone"></span></p>
+                    <p><strong>Servicio:</strong> <span id="msg-modal-service"></span></p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <strong style="color: var(--dorado-claro); font-size: 0.85rem; text-transform: uppercase;">Mensaje recibido:</strong>
+                    <p id="msg-modal-body" style="margin-top: 8px; color: var(--texto); line-height: 1.7; font-size: 0.95rem; white-space: pre-wrap;"></p>
+                </div>
+
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a id="msg-modal-whatsapp" href="#" target="_blank" class="btn-sm" style="background: #25d366; color: #000; border: none; font-weight: 600;">
+                        Responder por WhatsApp &#8594;
+                    </a>
+                    <a id="msg-modal-mailto" href="#" class="btn-sm">
+                        Responder por Correo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Panel Administrativo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('esencia_token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Headers for auth API calls
+            const authHeaders = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            };
+
+            // Verify authentication
+            fetch('/api/auth/me', { headers: authHeaders })
+                .then(res => {
+                    if (!res.ok) throw new Error('Unauthorized');
+                    return res.json();
+                })
+                .then(data => {
+                    if (data.user && data.user.name) {
+                        document.getElementById('admin-greeting').textContent = 'Hola, ' + data.user.name;
+                    }
+                })
+                .catch(() => {
+                    localStorage.removeItem('esencia_token');
+                    localStorage.removeItem('esencia_user');
+                    window.location.href = 'login.html';
+                });
+
+            // Logout
+            document.getElementById('btn-logout').addEventListener('click', () => {
+                localStorage.removeItem('esencia_token');
+                localStorage.removeItem('esencia_user');
+                window.location.href = 'login.html';
+            });
+
+            // Tab Switching
+            const tabs = document.querySelectorAll('.admin-tab-btn');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const target = tab.dataset.tab;
+                    document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
+                    document.getElementById(target).style.display = 'block';
+                });
+            });
+
+            let currentMessages = [];
+
+            // Load Messages
+            function loadMessages() {
+                const tbody = document.getElementById('messages-tbody');
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 20px;">Cargando...</td></tr>';
+
+                fetch('/api/admin/messages', { headers: authHeaders })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            currentMessages = data.messages;
+                            renderMessages(data.messages);
+                            updateStats();
+                        }
+                    })
+                    .catch(err => {
+                        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 20px; color: #ff9999;">Error al cargar mensajes</td></tr>';
+                    });
+            }
+
+            function renderMessages(messages) {
+                const tbody = document.getElementById('messages-tbody');
+                if (!messages || messages.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 30px; color: var(--texto-suave);">No hay mensajes registrados aún.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = messages.map(msg => {
+                    const dateFormatted = new Date(msg.date).toLocaleDateString('es-CO', {
+                        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                    });
+                    const statusBadge = msg.read
+                        ? '<span class="badge-read">Leído</span>'
+                        : '<span class="badge-unread">Nuevo</span>';
+
+                    return `
+                        <tr>
+                            <td>${statusBadge}</td>
+                            <td style="font-size: 0.8rem; color: var(--texto-suave);">${dateFormatted}</td>
+                            <td><strong>${escapeHtml(msg.name)}</strong></td>
+                            <td>
+                                <a href="mailto:${escapeHtml(msg.email)}" style="color:var(--dorado-claro); text-decoration:none;">${escapeHtml(msg.email)}</a>
+                                ${msg.phone && msg.phone !== 'No especificado' ? `<br><small style="color:var(--texto-suave);">${escapeHtml(msg.phone)}</small>` : ''}
+                            </td>
+                            <td><span style="font-size:0.75rem; color:var(--dorado-claro);">${escapeHtml(msg.service)}</span></td>
+                            <td><div class="message-preview">${escapeHtml(msg.message)}</div></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-sm btn-view-msg" data-id="${msg.id}">Ver</button>
+                                    <button class="btn-sm btn-toggle-read" data-id="${msg.id}" data-read="${msg.read}">${msg.read ? 'Marcar no leído' : 'Marcar leído'}</button>
+                                    <button class="btn-sm btn-danger-sm btn-del-msg" data-id="${msg.id}">Borrar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                attachMessageEvents();
+            }
+
+            function attachMessageEvents() {
+                // View message modal
+                document.querySelectorAll('.btn-view-msg').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.dataset.id;
+                        const msg = currentMessages.find(m => m.id === id);
+                        if (!msg) return;
+
+                        document.getElementById('msg-modal-name').textContent = msg.name;
+                        document.getElementById('msg-modal-date').textContent = new Date(msg.date).toLocaleString('es-CO');
+                        document.getElementById('msg-modal-email').textContent = msg.email;
+                        document.getElementById('msg-modal-phone').textContent = msg.phone;
+                        document.getElementById('msg-modal-service').textContent = msg.service;
+                        document.getElementById('msg-modal-body').textContent = msg.message;
+                        document.getElementById('msg-modal-mailto').href = `mailto:${msg.email}?subject=Respuesta ESENCIA - Cotización ${encodeURIComponent(msg.service)}`;
+
+                        const cleanPhone = msg.phone.replace(/[^0-9]/g, '');
+                        if (cleanPhone) {
+                            document.getElementById('msg-modal-whatsapp').href = `https://wa.me/${cleanPhone}?text=Hola%20${encodeURIComponent(msg.name)},%20te%20escribimos%20del%20estudio%20ESENCIA%20en%20relación%20a%20tu%20consulta.`;
+                            document.getElementById('msg-modal-whatsapp').style.display = 'inline-flex';
+                        } else {
+                            document.getElementById('msg-modal-whatsapp').style.display = 'none';
+                        }
+
+                        // Mark as read automatically when opened
+                        if (!msg.read) {
+                            fetch(`/api/admin/messages/${id}/read`, {
+                                method: 'PATCH',
+                                headers: authHeaders,
+                                body: JSON.stringify({ isRead: true })
+                            }).then(() => loadMessages());
+                        }
+
+                        document.getElementById('message-modal').classList.add('open');
+                    });
+                });
+
+                // Toggle read
+                document.querySelectorAll('.btn-toggle-read').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.dataset.id;
+                        const currentlyRead = btn.dataset.read === 'true';
+                        fetch(`/api/admin/messages/${id}/read`, {
+                            method: 'PATCH',
+                            headers: authHeaders,
+                            body: JSON.stringify({ isRead: !currentlyRead })
+                        }).then(() => loadMessages());
+                    });
+                });
+
+                // Delete
+                document.querySelectorAll('.btn-del-msg').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (!confirm('¿Estás seguro de eliminar este mensaje?')) return;
+                        const id = btn.dataset.id;
+                        fetch(`/api/admin/messages/${id}`, {
+                            method: 'DELETE',
+                            headers: authHeaders
+                        }).then(() => loadMessages());
+                    });
+                });
+            }
+
+            // Message modal close
+            document.getElementById('msg-modal-close').addEventListener('click', () => {
+                document.getElementById('message-modal').classList.remove('open');
+            });
+
+            document.getElementById('btn-refresh-messages').addEventListener('click', loadMessages);
+
+            // Load Projects
+            function loadProjects() {
+                fetch('/api/portfolio')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            renderAdminProjects(data.projects);
+                            updateStats(data.projects.length);
+                        }
+                    });
+            }
+
+            function renderAdminProjects(projects) {
+                const list = document.getElementById('admin-project-list');
+                if (!projects || projects.length === 0) {
+                    list.innerHTML = '<p style="color:var(--texto-suave);">No hay proyectos publicados.</p>';
+                    return;
+                }
+
+                list.innerHTML = projects.map(p => `
+                    <div class="admin-project-card">
+                        <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" class="admin-project-img" onerror="this.src='img/servicio-logos.jpg'">
+                        <div class="admin-project-content">
+                            <span class="admin-project-cat">${escapeHtml(p.category)}</span>
+                            <h3 class="admin-project-title">${escapeHtml(p.title)}</h3>
+                            <p class="admin-project-desc">${escapeHtml(p.description)}</p>
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <small style="color:var(--texto-suave); font-size:0.75rem;">${escapeHtml(p.client || '')}</small>
+                                <button class="btn-sm btn-danger-sm btn-del-proj" data-id="${p.id}">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                document.querySelectorAll('.btn-del-proj').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (!confirm('¿Estás seguro de eliminar este proyecto del portafolio?')) return;
+                        const id = btn.dataset.id;
+                        fetch(`/api/portfolio/${id}`, {
+                            method: 'DELETE',
+                            headers: authHeaders
+                        }).then(() => loadProjects());
+                    });
+                });
+            }
+
+            // Add Project Form
+            document.getElementById('add-project-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const title = document.getElementById('proj-title').value.trim();
+                const category = document.getElementById('proj-cat').value;
+                const client = document.getElementById('proj-client').value.trim();
+                const image = document.getElementById('proj-image').value.trim();
+                const description = document.getElementById('proj-desc').value.trim();
+
+                fetch('/api/portfolio', {
+                    method: 'POST',
+                    headers: authHeaders,
+                    body: JSON.stringify({ title, category, client, image, description })
+                })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('¡Proyecto agregado con éxito al portafolio!');
+                        document.getElementById('add-project-form').reset();
+                        loadProjects();
+                    } else {
+                        alert(data.error || 'Error al guardar proyecto');
+                    }
+                })
+                .catch(() => alert('Error de conexión'));
+            });
+
+            function updateStats(projCount) {
+                const total = currentMessages.length;
+                const unread = currentMessages.filter(m => !m.read).length;
+                document.getElementById('stat-total-messages').textContent = total;
+                document.getElementById('stat-unread-messages').textContent = unread;
+                if (projCount !== undefined) {
+                    document.getElementById('stat-total-projects').textContent = projCount;
+                }
+            }
+
+            function escapeHtml(str) {
+                if (!str) return '';
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+
+            // Initial load
+            loadMessages();
+            loadProjects();
+        });
+    </script>
+</body>
+</html>
