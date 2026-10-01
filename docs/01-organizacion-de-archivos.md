@@ -44,6 +44,7 @@ sofiwis/
 ## 🏢 ¿Por qué separamos la carpeta `public/` del resto?
 
 Imagina un restaurante elegante:
+
 - El **comedor y las mesas** son la carpeta `public/`: es el espacio diseñado para los clientes. Aquí están los menús (HTML), la decoración y luces (CSS), la música (JS) y los cuadros en las paredes (imágenes).
 - La **cocina y la caja fuerte** son los archivos de la raíz (`server.js`, `db.js`, `data/`): ningún cliente debe poder entrar libremente a la cocina a manipular las recetas o ver la contabilidad.
 
@@ -54,12 +55,15 @@ Separar la carpeta `public/` garantiza que el navegador del usuario únicamente 
 ## 🔗 ¿Por qué quitamos el `.html` de las direcciones web? (URLs Limpias)
 
 Antes, para visitar el portafolio, el cliente tenía que ver una dirección larga y técnica:
+
 - ❌ `https://esencia.onrender.com/portafolio.html`
 
 Ahora, la dirección es limpia, moderna y profesional:
+
 - ✅ `https://esencia.onrender.com/portafolio`
 
 ### Ventajas de las URLs Limpias:
+
 1. **Confianza y Marca:** Da la apariencia de una marca consolidada y un software moderno (como Instagram, Airbnb o Notion), en vez de un archivo escolar suelto.
 2. **Posicionamiento en Google (SEO):** A los motores de búsqueda les resulta más fácil clasificar e indexar direcciones sencillas y legibles.
 3. **Fáciles de Compartir:** Es mucho más cómodo enviar por WhatsApp o escribir en una tarjeta de presentación: `esencia.com/contacto`.

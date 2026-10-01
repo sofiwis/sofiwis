@@ -23,8 +23,8 @@ Esta guía explica paso a paso cómo operar el sitio web en el día a día, tant
    ===============================================
    ```
 4. Abre tu navegador preferido (Chrome, Safari, Edge) y entra en:
-   * **Sitio web:** [http://localhost:3000](http://localhost:3000)
-   * **Panel administrativo:** [http://localhost:3000/login](http://localhost:3000/login)
+   - **Sitio web:** [http://localhost:3000](http://localhost:3000)
+   - **Panel administrativo:** [http://localhost:3000/login](http://localhost:3000/login)
 
 ---
 
@@ -32,8 +32,8 @@ Esta guía explica paso a paso cómo operar el sitio web en el día a día, tant
 
 1. Dirígete a la ruta `/login` (o haz clic en el botón superior **"ACCESO"** en la barra de navegación).
 2. Ingresa las credenciales maestras:
-   * **Usuario:** `admin`
-   * **Contraseña:** `admin123`
+   - **Usuario:** `admin`
+   - **Contraseña:** `admin123`
 3. Al pulsar **"INGRESAR AL PANEL"**, serás redirigido automáticamente a `/admin`.
 4. Nota: El botón de la barra de navegación cambiará a **"PANEL ADMIN"** en color dorado mientras tu sesión siga abierta.
 
@@ -42,27 +42,29 @@ Esta guía explica paso a paso cómo operar el sitio web en el día a día, tant
 ## 📥 3. Gestión de Mensajes de Clientes
 
 Dentro del Panel de Administración, en la pestaña **"Mensajes Recibidos"**:
-* Verás una lista organizada por orden de llegada con todos los prospectos que han enviado el formulario de cotización.
-* Podrás ver:
-  * Nombre completo y correo electrónico.
-  * Número de teléfono / WhatsApp (puedes hacer clic para iniciar una llamada o chat).
-  * El servicio que solicitaron cotizar (ej. *Diseño de Logo*, *Branding Completo*).
-  * El texto íntegro de la consulta del cliente.
-* **Acciones:** Puedes marcar cada mensaje como *Leído* o presionar el botón de papelera para eliminar mensajes antiguos.
+
+- Verás una lista organizada por orden de llegada con todos los prospectos que han enviado el formulario de cotización.
+- Podrás ver:
+  - Nombre completo y correo electrónico.
+  - Número de teléfono / WhatsApp (puedes hacer clic para iniciar una llamada o chat).
+  - El servicio que solicitaron cotizar (ej. _Diseño de Logo_, _Branding Completo_).
+  - El texto íntegro de la consulta del cliente.
+- **Acciones:** Puedes marcar cada mensaje como _Leído_ o presionar el botón de papelera para eliminar mensajes antiguos.
 
 ---
 
 ## 🖼️ 4. Cómo publicar un nuevo Proyecto en el Portafolio
 
 Dentro del Panel de Administración, en la pestaña **"Gestión de Portafolio"**:
+
 1. En la columna izquierda encontrarás el formulario **"Publicar Nuevo Proyecto"**:
-   * **Título del Proyecto:** El nombre de la marca o campaña (ej. *Café Origen Santo*).
-   * **Categoría:** Selecciona una categoría existente (*Identidad Visual*, *Redes Sociales*, *Branding & Sostenibilidad*) o escribe una nueva categoría.
-   * **Nombre del Cliente:** El nombre de la empresa o emprendedor.
-   * **Ruta o URL de la Imagen:**
-     * Puedes usar una imagen interna guardada en la carpeta de imágenes: `/img/nombre-de-tu-foto.jpg`.
-     * O puedes pegar un enlace directo de internet: `https://ejemplo.com/foto.jpg`.
-   * **Descripción del Proyecto:** Breve explicación del concepto creativo y valor aportado.
+   - **Título del Proyecto:** El nombre de la marca o campaña (ej. _Café Origen Santo_).
+   - **Categoría:** Selecciona una categoría existente (_Identidad Visual_, _Redes Sociales_, _Branding & Sostenibilidad_) o escribe una nueva categoría.
+   - **Nombre del Cliente:** El nombre de la empresa o emprendedor.
+   - **Ruta o URL de la Imagen:**
+     - Puedes usar una imagen interna guardada en la carpeta de imágenes: `/img/nombre-de-tu-foto.jpg`.
+     - O puedes pegar un enlace directo de internet: `https://ejemplo.com/foto.jpg`.
+   - **Descripción del Proyecto:** Breve explicación del concepto creativo y valor aportado.
 2. Pulsa el botón **"PUBLICAR EN EL PORTAFOLIO"**.
 3. ¡Listo! El proyecto se guardará en la base de datos y aparecerá instantáneamente en la página pública `/portafolio`. Si creaste una categoría nueva, se creará un nuevo botón de filtro automáticamente.
 

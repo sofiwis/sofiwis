@@ -8,12 +8,12 @@ Este compendio de guías fue redactado con un lenguaje sencillo, claro y sin tec
 
 ## 🗂️ Índice de Guías
 
-| Guía | Contenido Principal |
-| :--- | :--- |
-| [**1. Organización de Carpetas y Archivos**](./01-organizacion-de-archivos.md) | Cómo está ordenado el proyecto, qué hace cada carpeta y por qué ya no usamos `.html` en los enlaces. |
-| [**2. Funcionalidades del Sitio**](./02-funcionalidades.md) | Explicación detallada de todas las funciones creadas: portafolio dinámico, contacto directo, panel admin, etc. |
-| [**3. Stack Tecnológico**](./03-stack-tecnologico.md) | Qué herramientas y programas hacen funcionar el sitio, explicados con analogías cotidianas. |
-| [**4. Guía de Uso y Administración**](./04-guia-de-uso-y-administracion.md) | Instrucciones paso a paso para encender el sitio en tu computadora, iniciar sesión y publicar proyectos. |
+| Guía                                                                           | Contenido Principal                                                                                            |
+| :----------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------- |
+| [**1. Organización de Carpetas y Archivos**](./01-organizacion-de-archivos.md) | Cómo está ordenado el proyecto, qué hace cada carpeta y por qué ya no usamos `.html` en los enlaces.           |
+| [**2. Funcionalidades del Sitio**](./02-funcionalidades.md)                    | Explicación detallada de todas las funciones creadas: portafolio dinámico, contacto directo, panel admin, etc. |
+| [**3. Stack Tecnológico**](./03-stack-tecnologico.md)                          | Qué herramientas y programas hacen funcionar el sitio, explicados con analogías cotidianas.                    |
+| [**4. Guía de Uso y Administración**](./04-guia-de-uso-y-administracion.md)    | Instrucciones paso a paso para encender el sitio en tu computadora, iniciar sesión y publicar proyectos.       |
 
 ---
 
