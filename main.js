@@ -28,7 +28,7 @@ function initNavbar() {
     e.stopPropagation();
     const isOpen = navLinks.classList.toggle('open');
     menuBtn.setAttribute('aria-expanded', isOpen);
-    menuBtn.textContent = isOpen ? '\u2715' : '\u2630';
+    menuBtn.innerHTML = isOpen ? '<i class="ti ti-x"></i>' : '<i class="ti ti-menu-2"></i>';
   });
 
   // Cerrar menú al hacer click fuera
@@ -36,7 +36,7 @@ function initNavbar() {
     if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && e.target !== menuBtn) {
       navLinks.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
-      menuBtn.textContent = '\u2630';
+      menuBtn.innerHTML = '<i class="ti ti-menu-2"></i>';
     }
   });
 
@@ -45,7 +45,7 @@ function initNavbar() {
     if (e.key === 'Escape' && navLinks.classList.contains('open')) {
       navLinks.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
-      menuBtn.textContent = '\u2630';
+      menuBtn.innerHTML = '<i class="ti ti-menu-2"></i>';
     }
   });
 }
@@ -165,7 +165,7 @@ function initContactForm() {
 
       if (sentSuccess) {
         showStatus(
-          `✨ ¡Gracias ${escapeHtml(name)}! Hemos recibido tu mensaje con éxito. Te responderemos directamente a ${escapeHtml(email)} en menos de 24 horas.`,
+          `<i class="ti ti-circle-check"></i> ¡Gracias ${escapeHtml(name)}! Hemos recibido tu mensaje con éxito. Te responderemos directamente a ${escapeHtml(email)} en menos de 24 horas.`,
           'success'
         );
         form.reset();
@@ -185,7 +185,7 @@ function initContactForm() {
         localStorage.setItem('esencia_offline_messages', JSON.stringify(localMessages));
 
         showStatus(
-          `✨ ¡Gracias ${escapeHtml(name)}! Tu mensaje ha sido registrado exitosamente. También puedes escribirnos directamente por WhatsApp para atención inmediata.`,
+          `<i class="ti ti-circle-check"></i> ¡Gracias ${escapeHtml(name)}! Tu mensaje ha sido registrado exitosamente. También puedes escribirnos directamente por WhatsApp para atención inmediata.`,
           'success'
         );
         form.reset();
@@ -332,7 +332,7 @@ function initPortfolio() {
                 <div class="portfolio-img-wrap">
                     <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
                     <div class="portfolio-overlay">
-                        <span class="view-tag">Ver Detalle &#128065;</span>
+                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
                     </div>
                 </div>
                 <div class="portfolio-info">

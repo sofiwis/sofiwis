@@ -17,6 +17,8 @@
     <meta property="og:image" content="img/esencia-logo.png">
 
     <link rel="icon" href="img/esencia-logo.png">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-outer">
@@ -31,7 +33,9 @@
                 <span class="brand-text notranslate" translate="no">ESENCIA</span>
             </a>
 
-            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
+            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">
+                <i class="ti ti-menu-2"></i>
+            </button>
 
             <!-- Menú principal con Portafolio y Acceso -->
             <nav class="nav-links">
@@ -46,32 +50,26 @@
 
         <!-- ===== CONTENIDO DE INICIO ===== -->
         <main class="hero-content">
-            <!-- Frase pequeña dorada corregida (sin coma criminal y con tilde) -->
             <div class="eyebrow"><span></span>TU IDENTIDAD ES NUESTRA INSPIRACIÓN<span></span></div>
 
-            <!-- Título principal -->
             <h1 class="hero-title">CREAMOS</h1>
 
-            <!-- Descripción clara y atractiva -->
             <p class="hero-subtitle">Diseñamos tu branding, paleta de colores, logotipo, eslogan y contenido de alto impacto para que tu marca deje huella.</p>
 
-            <!-- Acciones duales: Comenzar o Explorar Portafolio -->
             <div class="hero-actions">
-                <a href="contacto.html" class="btn-primary">COMENZAR &#8594;</a>
-                <a href="portafolio.html" class="btn-secondary">VER PORTAFOLIO</a>
+                <a href="contacto.html" class="btn-primary">COMENZAR <i class="ti ti-arrow-right"></i></a>
+                <a href="portafolio.html" class="btn-secondary"><i class="ti ti-briefcase"></i> VER PORTAFOLIO</a>
             </div>
         </main>
 
-        <!-- Frase de la esquina inferior -->
         <div class="corner-motto">Ideas que<br>dejan huella</div>
 
-        <!-- Palabra decorativa del fondo -->
         <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
     </div>
 
     <!-- Selector de idioma -->
     <div class="language-switcher">
-        <span aria-hidden="true">🌐</span>
+        <i class="ti ti-world" aria-hidden="true"></i>
         <label for="language-select" class="sr-only">Seleccionar idioma</label>
         <select id="language-select" aria-label="Seleccionar idioma">
             <option value="es">ES</option>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!-- =========================================================
      ESENCIA — CONTÁCTANOS
-     Formulario directo en la página + canales rápidos
      ========================================================= -->
 <html lang="es">
 <head>
@@ -11,6 +10,8 @@
     <meta name="description" content="Escríbenos directamente desde la página para cotizar tu proyecto de identidad visual, logos o contenido multimedia.">
     <meta name="theme-color" content="#040509">
     <link rel="icon" href="img/esencia-logo.png">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-outer">
@@ -25,7 +26,9 @@
                 <span class="brand-text notranslate" translate="no">ESENCIA</span>
             </a>
 
-            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
+            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">
+                <i class="ti ti-menu-2"></i>
+            </button>
 
             <nav class="nav-links">
                 <a href="index.html">INICIO</a>
@@ -82,8 +85,8 @@
                     </div>
 
                     <button type="submit" id="btn-submit-contact" class="btn-primary form-submit-btn">
-                        <span class="btn-text">ENVIAR MENSAJE DIRECTO &#8594;</span>
-                        <span class="btn-loader" style="display:none;">Enviando...</span>
+                        <span class="btn-text">ENVIAR MENSAJE DIRECTO <i class="ti ti-send"></i></span>
+                        <span class="btn-loader" style="display:none;"><i class="ti ti-loader"></i> Enviando...</span>
                     </button>
 
                     <!-- Mensajes de respuesta en pantalla -->
@@ -99,7 +102,7 @@
                     <h2>¿Prefieres chatear al instante?</h2>
                     <p class="channel-desc">Escríbenos directamente a nuestra línea oficial de WhatsApp para atención inmediata.</p>
                     <a href="https://wa.me/573505243153?text=Hola%20ESENCIA,%20quisiera%20información%20sobre%20sus%20servicios%20de%20diseño%20y%20branding" class="btn-whatsapp" target="_blank" rel="noopener noreferrer">
-                        <img src="img/icon-whatsapp.png" alt="WhatsApp">
+                        <i class="ti ti-brand-whatsapp" style="font-size: 1.8rem; color: #25d366;"></i>
                         <span>+57 350 5243153</span>
                     </a>
                 </div>
@@ -109,10 +112,10 @@
                     <h2>Síguenos en redes</h2>
                     <div class="social-icons">
                         <a href="https://instagram.com/esencia_design" target="_blank" rel="noopener noreferrer" aria-label="Instagram de ESENCIA">
-                            <img src="img/icon-instagram.png" alt="Instagram">
+                            <i class="ti ti-brand-instagram"></i>
                         </a>
                         <a href="https://facebook.com/esencia_design" target="_blank" rel="noopener noreferrer" aria-label="Facebook de ESENCIA">
-                            <img src="img/icon-facebook.png" alt="Facebook">
+                            <i class="ti ti-brand-facebook"></i>
                         </a>
                     </div>
                     <p class="handle-text notranslate" translate="no">@ESENCIA_DESIGN</p>
@@ -121,14 +124,14 @@
                 <!-- Bloque Datos de Contacto -->
                 <div class="channel-info-list">
                     <div class="info-item">
-                        <span class="info-icon">✉️</span>
+                        <i class="ti ti-mail info-icon"></i>
                         <div>
                             <strong>Correo oficial:</strong>
                             <p class="notranslate" translate="no">esenciadesign9@gmail.com</p>
                         </div>
                     </div>
                     <div class="info-item">
-                        <span class="info-icon">📍</span>
+                        <i class="ti ti-map-pin info-icon"></i>
                         <div>
                             <strong>Ubicación:</strong>
                             <p>Colombia • Cobertura global online</p>
@@ -144,7 +147,7 @@
 
     <!-- Selector de idioma -->
     <div class="language-switcher">
-        <span aria-hidden="true">🌐</span>
+        <i class="ti ti-world" aria-hidden="true"></i>
         <label for="language-select" class="sr-only">Seleccionar idioma</label>
         <select id="language-select" aria-label="Seleccionar idioma">
             <option value="es">ES</option>

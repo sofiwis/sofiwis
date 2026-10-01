@@ -10,6 +10,8 @@
     <meta name="description" content="Conoce el propósito creativo de ESENCIA: nuestra misión, visión, valores y la fundadora detrás de cada proyecto.">
     <meta name="theme-color" content="#040509">
     <link rel="icon" href="img/esencia-logo.png">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="quienes-somos.css">
 </head>
@@ -25,7 +27,9 @@
                 <span class="brand-text notranslate" translate="no">ESENCIA</span>
             </a>
 
-            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
+            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">
+                <i class="ti ti-menu-2"></i>
+            </button>
 
             <nav class="nav-links">
                 <a href="index.html">INICIO</a>
@@ -52,7 +56,7 @@
                 <div class="section-signature"><span></span>Ideas que dejan huella</div>
             </div>
 
-            <!-- Columna derecha: Video sin reproducción automática -->
+            <!-- Columna derecha: Video sin reproducción automática con controles -->
             <figure class="about-visual">
                 <video id="miVideo" src="img/about-studio.mp4" controls playsinline preload="metadata" class="video-mismo-espacio">
                     Tu navegador no soporta el formato de video.
@@ -118,7 +122,7 @@
 
     <!-- Selector de idioma -->
     <div class="language-switcher">
-        <span aria-hidden="true">🌐</span>
+        <i class="ti ti-world" aria-hidden="true"></i>
         <label for="language-select" class="sr-only">Seleccionar idioma</label>
         <select id="language-select" aria-label="Seleccionar idioma">
             <option value="es">ES</option>

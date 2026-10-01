@@ -543,9 +543,24 @@ body.bg-outer {
   border-radius: 50%;
   background: var(--dorado-claro);
   transition: transform .2s ease, box-shadow .2s ease;
+  text-decoration: none;
 }
 .social-icons a:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(185, 138, 80, .22); }
 .social-icons img { width: 37px; height: 37px; object-fit: contain; }
+.social-icons a i { font-size: 2.2rem; color: #040509; transition: transform .2s ease; }
+.social-icons a:hover i { transform: scale(1.1); }
+
+/* TABLER ICONS UTILITIES */
+i.ti {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+.btn-primary i, .btn-card-cta i { margin-left: 6px; font-size: 1.15em; }
+.btn-secondary i { margin-right: 6px; font-size: 1.15em; }
+.view-tag i { margin-right: 5px; font-size: 1.1em; }
+.info-icon { font-size: 1.35rem; color: var(--dorado-claro); display: inline-flex; align-items: center; }
 .handle-text { color: var(--texto); font-size: 1rem; letter-spacing: .08em; }
 .email-bar {
   position: absolute;

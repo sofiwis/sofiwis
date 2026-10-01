@@ -10,6 +10,8 @@
     <meta name="description" content="Explora los proyectos de branding, logotipos, estrategia visual y contenido multimedia creados por el estudio ESENCIA.">
     <meta name="theme-color" content="#040509">
     <link rel="icon" href="img/esencia-logo.png">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-outer">
@@ -24,7 +26,9 @@
                 <span class="brand-text notranslate" translate="no">ESENCIA</span>
             </a>
 
-            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
+            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">
+                <i class="ti ti-menu-2"></i>
+            </button>
 
             <nav class="nav-links">
                 <a href="index.html">INICIO</a>
@@ -58,7 +62,7 @@
                 <div class="portfolio-img-wrap">
                     <img src="img/logo-blendbar.png" alt="Logotipo Blend Bar" loading="lazy">
                     <div class="portfolio-overlay">
-                        <span class="view-tag">Ver Detalle &#128065;</span>
+                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
                     </div>
                 </div>
                 <div class="portfolio-info">
@@ -73,7 +77,7 @@
                 <div class="portfolio-img-wrap">
                     <img src="img/logo-rotoxas.png" alt="Logotipo Rotoxas" loading="lazy">
                     <div class="portfolio-overlay">
-                        <span class="view-tag">Ver Detalle &#128065;</span>
+                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
                     </div>
                 </div>
                 <div class="portfolio-info">
@@ -88,7 +92,7 @@
                 <div class="portfolio-img-wrap">
                     <img src="img/logo-zerowaste.png" alt="Logotipo Zero Waste" loading="lazy">
                     <div class="portfolio-overlay">
-                        <span class="view-tag">Ver Detalle &#128065;</span>
+                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
                     </div>
                 </div>
                 <div class="portfolio-info">
@@ -103,7 +107,7 @@
                 <div class="portfolio-img-wrap">
                     <img src="img/post-crone.jpeg" alt="Estrategia de contenido Crone" loading="lazy">
                     <div class="portfolio-overlay">
-                        <span class="view-tag">Ver Detalle &#128065;</span>
+                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
                     </div>
                 </div>
                 <div class="portfolio-info">
@@ -117,7 +121,7 @@
         <!-- CTA final -->
         <section class="portfolio-cta-section">
             <h2>¿Quieres que tu marca sea nuestro próximo caso de éxito?</h2>
-            <a href="contacto.html" class="btn-primary">COTIZAR MI PROYECTO &#8594;</a>
+            <a href="contacto.html" class="btn-primary">COTIZAR MI PROYECTO <i class="ti ti-arrow-right"></i></a>
         </section>
 
         <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
@@ -126,7 +130,7 @@
     <!-- Modal Lightbox para detalles de proyecto -->
     <div id="project-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
         <div class="modal-box">
-            <button class="modal-close" id="modal-close-btn" aria-label="Cerrar modal">&times;</button>
+            <button class="modal-close" id="modal-close-btn" aria-label="Cerrar modal"><i class="ti ti-x"></i></button>
             <div class="modal-body">
                 <div class="modal-img-col">
                     <img id="modal-img" src="" alt="Vista previa del proyecto">
@@ -137,7 +141,7 @@
                     <p id="modal-client" class="modal-client-text"></p>
                     <p id="modal-desc" class="modal-desc-text"></p>
                     <div class="modal-actions">
-                        <a id="modal-cta-btn" href="contacto.html" class="btn-primary">COTIZAR PROYECTO SIMILAR &#8594;</a>
+                        <a id="modal-cta-btn" href="contacto.html" class="btn-primary">COTIZAR PROYECTO SIMILAR <i class="ti ti-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -146,7 +150,7 @@
 
     <!-- Selector de idioma -->
     <div class="language-switcher">
-        <span aria-hidden="true">🌐</span>
+        <i class="ti ti-world" aria-hidden="true"></i>
         <label for="language-select" class="sr-only">Seleccionar idioma</label>
         <select id="language-select" aria-label="Seleccionar idioma">
             <option value="es">ES</option>

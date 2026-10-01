@@ -9,9 +9,10 @@
     <title>Panel Administrativo — ESENCIA</title>
     <meta name="theme-color" content="#040509">
     <link rel="icon" href="img/esencia-logo.png">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Estilos específicos del panel administrativo */
         .admin-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -40,7 +41,8 @@
             border: 1px solid var(--dorado);
             display: grid;
             place-items: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            color: var(--dorado-claro);
             background: rgba(185, 138, 80, 0.15);
         }
         .admin-actions {
@@ -119,6 +121,9 @@
             cursor: pointer;
             border-bottom: 2px solid transparent;
             transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         .admin-tab-btn.active {
             color: var(--dorado-claro);
@@ -247,8 +252,8 @@
             </a>
 
             <div class="admin-actions">
-                <a href="index.html" class="btn-sm" target="_blank">&#127760; Ver Sitio Web</a>
-                <button id="btn-logout" class="btn-sm btn-danger-sm">&#128274; Cerrar Sesión</button>
+                <a href="index.html" class="btn-sm" target="_blank"><i class="ti ti-world"></i> Ver Sitio Web</a>
+                <button id="btn-logout" class="btn-sm btn-danger-sm"><i class="ti ti-logout"></i> Cerrar Sesión</button>
             </div>
         </header>
 
@@ -257,14 +262,14 @@
 
             <div class="admin-header">
                 <div class="admin-user-info">
-                    <div class="admin-avatar">&#128100;</div>
+                    <div class="admin-avatar"><i class="ti ti-user"></i></div>
                     <div>
                         <h1 style="font-size: 1.5rem; font-family: var(--serif);" id="admin-greeting">Hola, Sofía</h1>
                         <p style="font-size: 0.8rem; color: var(--texto-suave);">Directora &amp; Administración de ESENCIA</p>
                     </div>
                 </div>
                 <div>
-                    <span class="badge-unread" style="font-size: 0.8rem; padding: 6px 12px;">Panel Activo</span>
+                    <span class="badge-unread" style="font-size: 0.8rem; padding: 6px 12px;"><i class="ti ti-circle-check"></i> Panel Activo</span>
                 </div>
             </div>
 
@@ -286,15 +291,15 @@
 
             <!-- Pestañas -->
             <div class="admin-tabs" role="tablist">
-                <button class="admin-tab-btn active" data-tab="tab-messages">&#128233; Bandeja de Mensajes</button>
-                <button class="admin-tab-btn" data-tab="tab-projects">&#128188; Gestión de Portafolio</button>
+                <button class="admin-tab-btn active" data-tab="tab-messages"><i class="ti ti-inbox"></i> Bandeja de Mensajes</button>
+                <button class="admin-tab-btn" data-tab="tab-projects"><i class="ti ti-briefcase"></i> Gestión de Portafolio</button>
             </div>
 
             <!-- TAB 1: BANDEJA DE MENSAJES -->
             <section id="tab-messages" class="admin-tab-content">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                     <h2 style="font-size: 1.2rem; font-family: var(--serif); color: var(--dorado-claro);">Mensajes de Clientes (Formulario Web)</h2>
-                    <button id="btn-refresh-messages" class="btn-sm">&#8635; Actualizar</button>
+                    <button id="btn-refresh-messages" class="btn-sm"><i class="ti ti-refresh"></i> Actualizar</button>
                 </div>
 
                 <div class="admin-table-wrap">
@@ -321,9 +326,8 @@
 
             <!-- TAB 2: GESTIÓN DE PORTAFOLIO -->
             <section id="tab-projects" class="admin-tab-content" style="display:none;">
-                <!-- Formulario para agregar proyecto -->
                 <div class="project-add-card">
-                    <h2 style="font-size: 1.25rem; font-family: var(--serif); color: var(--dorado-claro); margin-bottom: 15px;">+ Agregar Nuevo Proyecto al Portafolio</h2>
+                    <h2 style="font-size: 1.25rem; font-family: var(--serif); color: var(--dorado-claro); margin-bottom: 15px;"><i class="ti ti-plus"></i> Agregar Nuevo Proyecto al Portafolio</h2>
                     <form id="add-project-form" class="custom-form">
                         <div class="form-row">
                             <div class="form-group">
@@ -357,7 +361,7 @@
                             <textarea id="proj-desc" rows="3" required placeholder="Describe el reto, concepto y resultado del diseño..."></textarea>
                         </div>
 
-                        <button type="submit" class="btn-primary" style="min-width: 200px; padding: 12px 24px;">GUARDAR PROYECTO &#8594;</button>
+                        <button type="submit" class="btn-primary" style="min-width: 200px; padding: 12px 24px;"><i class="ti ti-device-floppy"></i> GUARDAR PROYECTO</button>
                     </form>
                 </div>
 
@@ -375,7 +379,7 @@
     <!-- Modal Detalle Mensaje -->
     <div id="message-modal" class="modal-backdrop" aria-hidden="true">
         <div class="modal-box" style="max-width: 600px;">
-            <button class="modal-close" id="msg-modal-close">&times;</button>
+            <button class="modal-close" id="msg-modal-close"><i class="ti ti-x"></i></button>
             <div style="padding: 10px 0;">
                 <div class="eyebrow eyebrow-left"><span></span>Detalle de Mensaje<span></span></div>
                 <h2 id="msg-modal-name" style="font-family: var(--serif); margin: 10px 0 5px; color: var(--texto);"></h2>
@@ -394,10 +398,10 @@
 
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <a id="msg-modal-whatsapp" href="#" target="_blank" class="btn-sm" style="background: #25d366; color: #000; border: none; font-weight: 600;">
-                        Responder por WhatsApp &#8594;
+                        <i class="ti ti-brand-whatsapp"></i> Responder por WhatsApp
                     </a>
                     <a id="msg-modal-mailto" href="#" class="btn-sm">
-                        Responder por Correo
+                        <i class="ti ti-mail"></i> Responder por Correo
                     </a>
                 </div>
             </div>
@@ -413,13 +417,11 @@
                 return;
             }
 
-            // Headers for auth API calls
             const authHeaders = {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             };
 
-            // Verify authentication
             fetch('/api/auth/me', { headers: authHeaders })
                 .then(res => {
                     if (!res.ok) throw new Error('Unauthorized');
@@ -436,14 +438,12 @@
                     window.location.href = 'login.html';
                 });
 
-            // Logout
             document.getElementById('btn-logout').addEventListener('click', () => {
                 localStorage.removeItem('esencia_token');
                 localStorage.removeItem('esencia_user');
                 window.location.href = 'login.html';
             });
 
-            // Tab Switching
             const tabs = document.querySelectorAll('.admin-tab-btn');
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
@@ -457,7 +457,6 @@
 
             let currentMessages = [];
 
-            // Load Messages
             function loadMessages() {
                 const tbody = document.getElementById('messages-tbody');
                 tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 20px;">Cargando...</td></tr>';
@@ -517,7 +516,6 @@
             }
 
             function attachMessageEvents() {
-                // View message modal
                 document.querySelectorAll('.btn-view-msg').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const id = btn.dataset.id;
@@ -540,7 +538,6 @@
                             document.getElementById('msg-modal-whatsapp').style.display = 'none';
                         }
 
-                        // Mark as read automatically when opened
                         if (!msg.read) {
                             fetch(`/api/admin/messages/${id}/read`, {
                                 method: 'PATCH',
@@ -553,7 +550,6 @@
                     });
                 });
 
-                // Toggle read
                 document.querySelectorAll('.btn-toggle-read').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const id = btn.dataset.id;
@@ -566,7 +562,6 @@
                     });
                 });
 
-                // Delete
                 document.querySelectorAll('.btn-del-msg').forEach(btn => {
                     btn.addEventListener('click', () => {
                         if (!confirm('¿Estás seguro de eliminar este mensaje?')) return;
@@ -579,14 +574,12 @@
                 });
             }
 
-            // Message modal close
             document.getElementById('msg-modal-close').addEventListener('click', () => {
                 document.getElementById('message-modal').classList.remove('open');
             });
 
             document.getElementById('btn-refresh-messages').addEventListener('click', loadMessages);
 
-            // Load Projects
             function loadProjects() {
                 fetch('/api/portfolio')
                     .then(res => res.json())
@@ -614,7 +607,7 @@
                             <p class="admin-project-desc">${escapeHtml(p.description)}</p>
                             <div style="display:flex; justify-content:space-between; align-items:center;">
                                 <small style="color:var(--texto-suave); font-size:0.75rem;">${escapeHtml(p.client || '')}</small>
-                                <button class="btn-sm btn-danger-sm btn-del-proj" data-id="${p.id}">Eliminar</button>
+                                <button class="btn-sm btn-danger-sm btn-del-proj" data-id="${p.id}"><i class="ti ti-trash"></i> Eliminar</button>
                             </div>
                         </div>
                     </div>
@@ -632,7 +625,6 @@
                 });
             }
 
-            // Add Project Form
             document.getElementById('add-project-form').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const title = document.getElementById('proj-title').value.trim();
@@ -679,7 +671,6 @@
                     .replace(/'/g, '&#39;');
             }
 
-            // Initial load
             loadMessages();
             loadProjects();
         });

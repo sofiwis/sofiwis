@@ -10,6 +10,8 @@
     <meta name="description" content="Acceso al panel de administración del estudio ESENCIA.">
     <meta name="theme-color" content="#040509">
     <link rel="icon" href="img/esencia-logo.png">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-outer">
@@ -25,7 +27,7 @@
             </a>
 
             <nav class="nav-links">
-                <a href="index.html">&#8592; VOLVER AL SITIO</a>
+                <a href="index.html"><i class="ti ti-arrow-left"></i> VOLVER AL SITIO</a>
             </nav>
         </header>
 
@@ -48,8 +50,8 @@
                     </div>
 
                     <button type="submit" id="btn-submit-login" class="btn-primary form-submit-btn">
-                        <span class="btn-text">INGRESAR AL PANEL &#8594;</span>
-                        <span class="btn-loader" style="display:none;">Verificando...</span>
+                        <span class="btn-text">INGRESAR AL PANEL <i class="ti ti-arrow-right"></i></span>
+                        <span class="btn-loader" style="display:none;"><i class="ti ti-loader"></i> Verificando...</span>
                     </button>
 
                     <div id="login-alert" class="status-box alert-error" style="display:none;" role="alert"></div>
@@ -69,7 +71,6 @@
     <!-- Script de autenticación -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if already logged in
             const token = localStorage.getItem('esencia_token');
             if (token) {
                 fetch('/api/auth/me', {
@@ -104,7 +105,7 @@
                 }
 
                 btnText.style.display = 'none';
-                btnLoader.style.display = 'inline';
+                btnLoader.style.display = 'inline-flex';
                 btn.disabled = true;
 
                 try {
@@ -120,17 +121,15 @@
                         throw new Error(data.error || 'Credenciales inválidas');
                     }
 
-                    // Save token and user info
                     localStorage.setItem('esencia_token', data.token);
                     localStorage.setItem('esencia_user', JSON.stringify(data.user));
 
-                    // Redirect to dashboard
                     window.location.href = 'admin.html';
                 } catch (err) {
                     alertBox.textContent = err.message || 'Error de conexión. Asegúrate de que el servidor esté activo.';
                     alertBox.style.display = 'block';
                 } finally {
-                    btnText.style.display = 'inline';
+                    btnText.style.display = 'inline-flex';
                     btnLoader.style.display = 'none';
                     btn.disabled = false;
                 }
