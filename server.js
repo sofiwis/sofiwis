@@ -14,8 +14,21 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static assets from project root
-app.use(express.static(__dirname));
+// Redirección 301 automática de URLs con .html a URLs limpias
+app.use((req, res, next) => {
+  if (req.path.endsWith('.html') && req.path !== '/index.html') {
+    const cleanPath = req.path.slice(0, -5);
+    const query = req.url.slice(req.path.length);
+    return res.redirect(301, cleanPath + query);
+  }
+  next();
+});
+
+// Servir frontend estático desde /public con soporte nativo de extensiones limpias
+app.use(express.static(path.join(__dirname, 'public'), {
+  extensions: ['html']
+}));
+
 
 // JWT Authentication Middleware
 function authenticateToken(req, res, next) {
@@ -243,7 +256,7 @@ if (require.main === module) {
       console.log(`===============================================`);
       console.log(`✨ ESENCIA Studio Server funcionando en:`);
       console.log(`👉 http://localhost:${portToTry}`);
-      console.log(`👉 Panel Admin: http://localhost:${portToTry}/login.html`);
+      console.log(`👉 Panel Admin: http://localhost:${portToTry}/login`);
       console.log(`===============================================`);
     });
 

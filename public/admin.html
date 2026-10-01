@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrativo — ESENCIA</title>
     <meta name="theme-color" content="#040509">
-    <link rel="icon" href="img/esencia-logo.png">
+    <link rel="icon" href="/img/esencia-logo.png">
     <!-- Tabler Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <style>
         .admin-container {
             max-width: 1200px;
@@ -245,14 +245,14 @@
 
         <!-- ===== BARRA SUPERIOR ADMIN ===== -->
         <header class="navbar">
-            <a href="index.html" class="brand notranslate" translate="no">
-                <img src="img/esencia-logo.png" alt="Logo de ESENCIA" class="logo-img">
+            <a href="/" class="brand notranslate" translate="no">
+                <img src="/img/esencia-logo.png" alt="Logo de ESENCIA" class="logo-img">
                 <span class="brand-divider"></span>
                 <span class="brand-text notranslate" translate="no">ESENCIA</span>
             </a>
 
             <div class="admin-actions">
-                <a href="index.html" class="btn-sm" target="_blank"><i class="ti ti-world"></i> Ver Sitio Web</a>
+                <a href="/" class="btn-sm" target="_blank"><i class="ti ti-world"></i> Ver Sitio Web</a>
                 <button id="btn-logout" class="btn-sm btn-danger-sm"><i class="ti ti-logout"></i> Cerrar Sesión</button>
             </div>
         </header>
@@ -413,7 +413,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('esencia_token');
             if (!token) {
-                window.location.href = 'login.html';
+                window.location.href = '/login';
                 return;
             }
 
@@ -435,13 +435,13 @@
                 .catch(() => {
                     localStorage.removeItem('esencia_token');
                     localStorage.removeItem('esencia_user');
-                    window.location.href = 'login.html';
+                    window.location.href = '/login';
                 });
 
             document.getElementById('btn-logout').addEventListener('click', () => {
                 localStorage.removeItem('esencia_token');
                 localStorage.removeItem('esencia_user');
-                window.location.href = 'login.html';
+                window.location.href = '/login';
             });
 
             const tabs = document.querySelectorAll('.admin-tab-btn');
@@ -600,7 +600,7 @@
 
                 list.innerHTML = projects.map(p => `
                     <div class="admin-project-card">
-                        <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" class="admin-project-img" onerror="this.src='img/servicio-logos.jpg'">
+                        <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" class="admin-project-img" onerror="this.src='/img/servicio-logos.jpg'">
                         <div class="admin-project-content">
                             <span class="admin-project-cat">${escapeHtml(p.category)}</span>
                             <h3 class="admin-project-title">${escapeHtml(p.title)}</h3>

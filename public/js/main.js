@@ -60,7 +60,7 @@ function initAuthBadge() {
   if (token && loginBtns.length > 0) {
     loginBtns.forEach(btn => {
       btn.textContent = 'PANEL ADMIN';
-      btn.href = 'admin.html';
+      btn.href = '/admin';
       btn.style.borderColor = 'var(--dorado)';
       btn.style.color = 'var(--dorado-claro)';
     });
@@ -241,7 +241,7 @@ function initPortfolio() {
       category: 'Identidad Visual',
       client: 'Blend Bar Coffee & Cocktails',
       description: 'Creación de logotipo, identidad de marca moderna y concepto visual para coctelería y café de especialidad.',
-      image: 'img/logo-blendbar.png'
+      image: '/img/logo-blendbar.png'
     },
     {
       id: 'proj-2',
@@ -249,7 +249,7 @@ function initPortfolio() {
       category: 'Identidad Visual',
       client: 'Rotoxas Soluciones',
       description: 'Diseño de logotipo industrial e isotipo de alto impacto con paleta metálica y sobria.',
-      image: 'img/logo-rotoxas.png'
+      image: '/img/logo-rotoxas.png'
     },
     {
       id: 'proj-3',
@@ -257,7 +257,7 @@ function initPortfolio() {
       category: 'Branding & Sostenibilidad',
       client: 'Zero Waste Initiative',
       description: 'Identidad visual ecológica, líneas orgánicas y empaques sustentables para concientización ambiental.',
-      image: 'img/logo-zerowaste.png'
+      image: '/img/logo-zerowaste.png'
     },
     {
       id: 'proj-4',
@@ -265,7 +265,7 @@ function initPortfolio() {
       category: 'Redes Sociales',
       client: 'Crone Digital',
       description: 'Estrategia visual para feeds de Instagram, diseño de publicaciones y carruseles de alta conversión.',
-      image: 'img/post-crone.jpeg'
+      image: '/img/post-crone.jpeg'
     }
   ];
 
@@ -354,7 +354,7 @@ function initPortfolio() {
 
       card.innerHTML = `
         <div class="portfolio-img-wrap">
-            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.src='img/servicio-logos.jpg'">
+            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.src='/img/servicio-logos.jpg'">
             <div class="portfolio-overlay">
                 <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
             </div>
@@ -376,7 +376,7 @@ function initPortfolio() {
 
   function openProjectModal(project) {
     if (!modal) return;
-    document.getElementById('modal-img').src = project.image || 'img/servicio-logos.jpg';
+    document.getElementById('modal-img').src = project.image || '/img/servicio-logos.jpg';
     document.getElementById('modal-title').textContent = project.title || 'Proyecto ESENCIA';
     document.getElementById('modal-cat').textContent = project.category || 'Identidad Visual';
     document.getElementById('modal-client').textContent = project.client ? `Cliente: ${project.client}` : '';
@@ -384,7 +384,7 @@ function initPortfolio() {
 
     const ctaBtn = document.getElementById('modal-cta-btn');
     if (ctaBtn) {
-      ctaBtn.href = `contacto.html?service=${encodeURIComponent(project.category || 'Branding')}`;
+      ctaBtn.href = `/contacto?service=${encodeURIComponent(project.category || 'Branding')}`;
     }
 
     modal.classList.add('open');

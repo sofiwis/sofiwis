@@ -25,7 +25,7 @@ const DEFAULT_PROJECTS = [
     category: 'Identidad Visual',
     client: 'Blend Bar Coffee & Cocktails',
     description: 'Creación de logotipo, identidad de marca moderna y concepto visual para coctelería y café de especialidad.',
-    image: 'img/logo-blendbar.png',
+    image: '/img/logo-blendbar.png',
     featured: 1
   },
   {
@@ -34,7 +34,7 @@ const DEFAULT_PROJECTS = [
     category: 'Identidad Visual',
     client: 'Rotoxas Soluciones',
     description: 'Diseño de logotipo industrial e isotipo de alto impacto con paleta metálica y sobria.',
-    image: 'img/logo-rotoxas.png',
+    image: '/img/logo-rotoxas.png',
     featured: 1
   },
   {
@@ -43,7 +43,7 @@ const DEFAULT_PROJECTS = [
     category: 'Branding & Sostenibilidad',
     client: 'Zero Waste Initiative',
     description: 'Identidad visual ecológica, líneas orgánicas y empaques sustentables para concientización ambiental.',
-    image: 'img/logo-zerowaste.png',
+    image: '/img/logo-zerowaste.png',
     featured: 1
   },
   {
@@ -52,7 +52,7 @@ const DEFAULT_PROJECTS = [
     category: 'Redes Sociales',
     client: 'Crone Digital',
     description: 'Estrategia visual para feeds de Instagram, diseño de publicaciones y carruseles de alta conversión.',
-    image: 'img/post-crone.jpeg',
+    image: '/img/post-crone.jpeg',
     featured: 1
   }
 ];
@@ -391,7 +391,7 @@ const db = {
     const id = 'proj-' + Date.now();
     const createdAt = new Date().toISOString();
     const client = project.client || 'Cliente confidencial';
-    const image = project.image || 'img/servicio-logos.jpg';
+    const image = project.image || '/img/servicio-logos.jpg';
 
     if (isPostgres) {
       await pgPool.query(

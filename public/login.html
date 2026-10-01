@@ -9,10 +9,10 @@
     <title>Iniciar Sesión — ESENCIA | Panel Administrativo</title>
     <meta name="description" content="Acceso al panel de administración del estudio ESENCIA.">
     <meta name="theme-color" content="#040509">
-    <link rel="icon" href="img/esencia-logo.png">
+    <link rel="icon" href="/img/esencia-logo.png">
     <!-- Tabler Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body class="bg-outer">
 
@@ -20,14 +20,14 @@
 
         <!-- ===== BARRA SUPERIOR ===== -->
         <header class="navbar">
-            <a href="index.html" class="brand notranslate" translate="no">
-                <img src="img/esencia-logo.png" alt="Logo de ESENCIA" class="logo-img">
+            <a href="/" class="brand notranslate" translate="no">
+                <img src="/img/esencia-logo.png" alt="Logo de ESENCIA" class="logo-img">
                 <span class="brand-divider"></span>
                 <span class="brand-text notranslate" translate="no">ESENCIA</span>
             </a>
 
             <nav class="nav-links">
-                <a href="index.html"><i class="ti ti-arrow-left"></i> VOLVER AL SITIO</a>
+                <a href="/"><i class="ti ti-arrow-left"></i> VOLVER AL SITIO</a>
             </nav>
         </header>
 
@@ -79,7 +79,7 @@
                 .then(r => r.json())
                 .then(data => {
                     if (data.success) {
-                        window.location.href = 'admin.html';
+                        window.location.href = '/admin';
                     }
                 })
                 .catch(() => {});
@@ -124,7 +124,7 @@
                     localStorage.setItem('esencia_token', data.token);
                     localStorage.setItem('esencia_user', JSON.stringify(data.user));
 
-                    window.location.href = 'admin.html';
+                    window.location.href = '/admin';
                 } catch (err) {
                     alertBox.textContent = err.message || 'Error de conexión. Asegúrate de que el servidor esté activo.';
                     alertBox.style.display = 'block';
