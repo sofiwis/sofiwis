@@ -62,16 +62,19 @@ sofiwis/
 ### Instalación
 
 1. Clona el repositorio o abre la carpeta en tu terminal:
+
    ```bash
    cd sofiwis
    ```
 
 2. Instala las dependencias del proyecto:
+
    ```bash
    npm install
    ```
 
 3. Inicia el servidor de desarrollo:
+
    ```bash
    npm start
    ```
@@ -95,11 +98,11 @@ El sistema inicializa automáticamente un usuario administrador predeterminado s
 
 El servidor funciona directamente sin necesidad de archivo `.env`. Si deseas personalizar la configuración para producción (por ejemplo, en Render):
 
-| Variable | Descripción | Valor por Defecto |
-| :--- | :--- | :--- |
-| `PORT` | Puerto en el que escucha el servidor | `3000` |
-| `DATABASE_URL` | Cadena de conexión para PostgreSQL (activa el modo Postgres) | `undefined` (utiliza SQLite local) |
-| `JWT_SECRET` | Clave secreta para firmar los tokens de sesión de administración | Clave interna predeterminada |
+| Variable       | Descripción                                                      | Valor por Defecto                  |
+| :------------- | :--------------------------------------------------------------- | :--------------------------------- |
+| `PORT`         | Puerto en el que escucha el servidor                             | `3000`                             |
+| `DATABASE_URL` | Cadena de conexión para PostgreSQL (activa el modo Postgres)     | `undefined` (utiliza SQLite local) |
+| `JWT_SECRET`   | Clave secreta para firmar los tokens de sesión de administración | Clave interna predeterminada       |
 
 ---
 
