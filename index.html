@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <!-- =========================================================
-     PÁGINA 1 de 4 — INICIO
-     Para cambiar textos, busca los comentarios de abajo.
+     ESENCIA — INICIO
      ========================================================= -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESENCIA — Creemos tu esencia</title>
-    <meta name="description" content="Creamos identidades visuales memorables para emprendimientos y pequeñas empresas.">
+    <title>ESENCIA — Creamos tu esencia | Branding y Multimedia</title>
+    <meta name="description" content="Creamos identidades visuales memorables, diseño de marca, logos y estrategias multimedia para emprendimientos y empresas.">
+    <meta name="theme-color" content="#040509">
+    
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ESENCIA — Identidad Visual y Multimedia">
+    <meta property="og:description" content="Transformamos ideas en identidades visuales auténticas y memorables. Ideas que dejan huella.">
+    <meta property="og:image" content="img/esencia-logo.png">
+
     <link rel="icon" href="img/esencia-logo.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-outer">
 
-    <!-- Tarjeta grande que contiene toda la página -->
     <div class="card-container">
 
-        <!-- ===== BARRA SUPERIOR (igual en las 4 páginas) ===== -->
+        <!-- ===== BARRA SUPERIOR ===== -->
         <header class="navbar">
             <a href="index.html" class="brand notranslate" translate="no">
                 <img src="img/esencia-logo.png" alt="Logo de ESENCIA" class="logo-img">
@@ -25,31 +31,35 @@
                 <span class="brand-text notranslate" translate="no">ESENCIA</span>
             </a>
 
-            <button class="menu-btn" aria-label="Abrir menú">&#9776;</button>
+            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
 
-            <!-- Orden del menú: Inicio, ¿Quiénes somos?, Productos, Contáctanos.
-                 La clase "active" marca la página en la que estás. -->
+            <!-- Menú principal con Portafolio y Acceso -->
             <nav class="nav-links">
                 <a href="index.html" class="active">INICIO</a>
                 <a href="quienes-somos.html">¿QUIÉNES SOMOS?</a>
                 <a href="productos.html">PRODUCTOS</a>
+                <a href="portafolio.html">PORTAFOLIO</a>
                 <a href="contacto.html">CONTÁCTANOS</a>
+                <a href="login.html" class="nav-login-btn">ACCESO</a>
             </nav>
         </header>
 
         <!-- ===== CONTENIDO DE INICIO ===== -->
         <main class="hero-content">
-            <!-- Frase pequeña dorada sobre el título -->
-            <div class="eyebrow"><span></span>TU IDENTIDAD, ES NUESTRA INSPIRACION<span></span></div>
+            <!-- Frase pequeña dorada corregida (sin coma criminal y con tilde) -->
+            <div class="eyebrow"><span></span>TU IDENTIDAD ES NUESTRA INSPIRACIÓN<span></span></div>
 
             <!-- Título principal -->
-            <h1 class="hero-title">CREEMOS</h1>
+            <h1 class="hero-title">CREAMOS</h1>
 
-            <!-- Descripción corta -->
-            <p class="hero-subtitle">Diseñamos tu branding, paleta de colores, logo, eslogan y más.</p>
+            <!-- Descripción clara y atractiva -->
+            <p class="hero-subtitle">Diseñamos tu branding, paleta de colores, logotipo, eslogan y contenido de alto impacto para que tu marca deje huella.</p>
 
-            <!-- Botón COMENZAR: lleva a la página de contacto -->
-            <a href="contacto.html" class="btn-primary">COMENZAR &#8594;</a>
+            <!-- Acciones duales: Comenzar o Explorar Portafolio -->
+            <div class="hero-actions">
+                <a href="contacto.html" class="btn-primary">COMENZAR &#8594;</a>
+                <a href="portafolio.html" class="btn-secondary">VER PORTAFOLIO</a>
+            </div>
         </main>
 
         <!-- Frase de la esquina inferior -->
@@ -59,7 +69,7 @@
         <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
     </div>
 
-    <!-- Selector discreto; el idioma se conserva en todas las páginas -->
+    <!-- Selector de idioma -->
     <div class="language-switcher">
         <span aria-hidden="true">🌐</span>
         <label for="language-select" class="sr-only">Seleccionar idioma</label>

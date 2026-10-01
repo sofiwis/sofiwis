@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <!-- =========================================================
-     PÁGINA 2 de 4 — ¿QUIÉNES SOMOS?
-     Texto a la izquierda e imagen a la derecha.
-     Abajo: Misión, Visión, Valores y el rol de la fundadora.
+     ESENCIA — ¿QUIÉNES SOMOS?
      ========================================================= -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Quiénes somos? — ESENCIA</title>
+    <title>¿Quiénes somos? — ESENCIA | Propósito Creativo</title>
     <meta name="description" content="Conoce el propósito creativo de ESENCIA: nuestra misión, visión, valores y la fundadora detrás de cada proyecto.">
+    <meta name="theme-color" content="#040509">
     <link rel="icon" href="img/esencia-logo.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="quienes-somos.css">
@@ -26,17 +25,19 @@
                 <span class="brand-text notranslate" translate="no">ESENCIA</span>
             </a>
 
-            <button class="menu-btn" aria-label="Abrir menú">&#9776;</button>
+            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
 
             <nav class="nav-links">
                 <a href="index.html">INICIO</a>
                 <a href="quienes-somos.html" class="active">¿QUIÉNES SOMOS?</a>
                 <a href="productos.html">PRODUCTOS</a>
+                <a href="portafolio.html">PORTAFOLIO</a>
                 <a href="contacto.html">CONTÁCTANOS</a>
+                <a href="login.html" class="nav-login-btn">ACCESO</a>
             </nav>
         </header>
 
-        <!-- ===== CONTENIDO ===== -->
+        <!-- ===== CONTENIDO PRINCIPAL ===== -->
         <main class="about-grid">
 
             <!-- Columna izquierda: los textos -->
@@ -51,26 +52,13 @@
                 <div class="section-signature"><span></span>Ideas que dejan huella</div>
             </div>
 
-           <figure class="about-visual">
-  <video id="miVideo" src="img/about-studio.mp4" autoplay playsinline class="video-mismo-espacio">
-    Tu navegador no soporta el formato de video.
-  </video>
-</figure>
-
-<script>
-  const video = document.getElementById('miVideo');
-
-  video.play().catch(() => {
-    video.muted = true;
-    video.play();
-
-    const activarAudio = () => {
-      video.muted = false;
-      document.removeEventListener('click', activarAudio);
-    };
-    document.addEventListener('click', activarAudio);
-  });
-</script>
+            <!-- Columna derecha: Video sin reproducción automática -->
+            <figure class="about-visual">
+                <video id="miVideo" src="img/about-studio.mp4" controls playsinline preload="metadata" class="video-mismo-espacio">
+                    Tu navegador no soporta el formato de video.
+                </video>
+            </figure>
+        </main>
 
         <!-- ===== MISIÓN Y VISIÓN ===== -->
         <section class="mv-section" aria-label="Misión y visión">
@@ -105,21 +93,21 @@
             </ul>
         </section>
 
-        <!-- ===== MI ROL — FUNDADORA ===== -->
+        <!-- ===== ROL — FUNDADORA ===== -->
         <section class="founder-section" aria-label="Fundadora y directora de ESENCIA">
             <figure class="founder-photo">
-                <img src="img/fundadora.jpg" alt="Fundadora y Directora de ESENCIA">
+                <img src="img/fundadora.jpg" alt="Sofía — Fundadora y Directora de ESENCIA" loading="lazy">
             </figure>
 
             <div class="founder-copy">
-                <div class="eyebrow eyebrow-left"><span></span>Mi rol<span></span></div>
+                <div class="eyebrow eyebrow-left"><span></span>Liderazgo Creativo<span></span></div>
 
-                <h2>Fundadora &amp; Directora de <em class="notranslate" translate="no">ESENCIA</em></h2>
+                <h2>Sofía — Fundadora &amp; Directora de <em class="notranslate" translate="no">ESENCIA</em></h2>
 
-                <p>Soy la creadora de <span class="notranslate" translate="no">ESENCIA</span> y quien está detrás de cada proyecto,
-                   idea y detalle de la agencia. Mi pasión por el diseño y la creatividad me llevó
-                   a convertir una necesidad cercana en un espacio donde las marcas pueden potenciar
-                   su identidad y dejar huella.</p>
+                <p>Soy la creadora de <span class="notranslate" translate="no">ESENCIA</span> y quien lidera cada proyecto,
+                   estrategia y detalle de la agencia. Mi pasión por el diseño y la dirección visual me impulsó
+                   a crear un espacio donde las marcas puedan descubrir su autenticidad, potenciar
+                   su valor y dejar una huella imborrable.</p>
 
                 <div class="section-signature"><span></span>Con creatividad y propósito</div>
             </div>
@@ -128,6 +116,7 @@
         <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
     </div>
 
+    <!-- Selector de idioma -->
     <div class="language-switcher">
         <span aria-hidden="true">🌐</span>
         <label for="language-select" class="sr-only">Seleccionar idioma</label>
