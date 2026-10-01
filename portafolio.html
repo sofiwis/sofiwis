@@ -46,76 +46,18 @@
             <h1 class="portfolio-title">Ideas que dejan huella</h1>
             <p class="portfolio-subtitle">Descubre una selección de identidades visuales, logotipos, campañas y soluciones creativas desarrolladas para marcas con autenticidad.</p>
 
-            <!-- Filtros de categoría -->
-            <div class="portfolio-filters" role="tablist" aria-label="Filtrar proyectos">
+            <!-- Filtros de categoría dinámicos -->
+            <div class="portfolio-filters" id="portfolio-filters" role="tablist" aria-label="Filtrar proyectos">
                 <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="Identidad Visual">Identidad Visual</button>
-                <button class="filter-btn" data-filter="Redes Sociales">Redes Sociales</button>
-                <button class="filter-btn" data-filter="Branding & Sostenibilidad">Sostenibilidad</button>
             </div>
         </section>
 
-        <!-- ===== GRID DE PROYECTOS ===== -->
+        <!-- ===== GRID DE PROYECTOS (100% CONECTADO A LA BASE DE DATOS) ===== -->
         <main class="portfolio-grid" id="portfolio-grid">
-            <!-- Proyecto 1: Blend Bar -->
-            <article class="portfolio-card" data-category="Identidad Visual" data-title="Blend Bar" data-client="Blend Bar Coffee & Cocktails" data-desc="Creación de logotipo, identidad de marca moderna y concepto visual para coctelería y café de especialidad." data-img="img/logo-blendbar.png">
-                <div class="portfolio-img-wrap">
-                    <img src="img/logo-blendbar.png" alt="Logotipo Blend Bar" loading="lazy">
-                    <div class="portfolio-overlay">
-                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <span class="portfolio-cat">Identidad Visual</span>
-                    <h3 class="portfolio-name">Blend Bar</h3>
-                    <p class="portfolio-desc">Concepto visual y diseño de marca para café de especialidad y coctelería.</p>
-                </div>
-            </article>
-
-            <!-- Proyecto 2: Rotoxas -->
-            <article class="portfolio-card" data-category="Identidad Visual" data-title="Rotoxas" data-client="Rotoxas Soluciones" data-desc="Diseño de logotipo industrial e isotipo de alto impacto con paleta sobria y moderna." data-img="img/logo-rotoxas.png">
-                <div class="portfolio-img-wrap">
-                    <img src="img/logo-rotoxas.png" alt="Logotipo Rotoxas" loading="lazy">
-                    <div class="portfolio-overlay">
-                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <span class="portfolio-cat">Identidad Visual</span>
-                    <h3 class="portfolio-name">Rotoxas</h3>
-                    <p class="portfolio-desc">Logotipo sobrio, geométrico e industrial para ingeniería y soluciones técnicas.</p>
-                </div>
-            </article>
-
-            <!-- Proyecto 3: Zero Waste -->
-            <article class="portfolio-card" data-category="Branding & Sostenibilidad" data-title="Zero Waste Colombia" data-client="Zero Waste Initiative" data-desc="Identidad visual ecológica, líneas orgánicas y empaques sustentables para concientización ambiental." data-img="img/logo-zerowaste.png">
-                <div class="portfolio-img-wrap">
-                    <img src="img/logo-zerowaste.png" alt="Logotipo Zero Waste" loading="lazy">
-                    <div class="portfolio-overlay">
-                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <span class="portfolio-cat">Branding & Sostenibilidad</span>
-                    <h3 class="portfolio-name">Zero Waste</h3>
-                    <p class="portfolio-desc">Branding ecológico con líneas orgánicas para iniciativa ambiental sustentable.</p>
-                </div>
-            </article>
-
-            <!-- Proyecto 4: Crone -->
-            <article class="portfolio-card" data-category="Redes Sociales" data-title="Crone Studio" data-client="Crone Digital" data-desc="Estrategia visual para feeds de Instagram, diseño de publicaciones y carruseles de alta conversión." data-img="img/post-crone.jpeg">
-                <div class="portfolio-img-wrap">
-                    <img src="img/post-crone.jpeg" alt="Estrategia de contenido Crone" loading="lazy">
-                    <div class="portfolio-overlay">
-                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <span class="portfolio-cat">Redes Sociales</span>
-                    <h3 class="portfolio-name">Crone Studio</h3>
-                    <p class="portfolio-desc">Estrategia de feed, carruseles de impacto y diseño editorial digital.</p>
-                </div>
-            </article>
+            <div class="portfolio-loading">
+                <i class="ti ti-loader ti-spin"></i>
+                <p>Cargando proyectos desde el estudio...</p>
+            </div>
         </main>
 
         <!-- CTA final -->

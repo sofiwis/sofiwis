@@ -628,11 +628,36 @@ i.ti {
   border-color: var(--dorado);
   font-weight: 600;
 }
+.portfolio-loading,
+.portfolio-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--texto-suave);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.portfolio-loading i,
+.portfolio-empty i {
+  font-size: 2.2rem;
+  color: var(--dorado-claro);
+}
+@keyframes ti-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.ti-spin {
+  display: inline-block;
+  animation: ti-spin 1s linear infinite;
+}
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 26px;
   margin-bottom: 50px;
+  min-height: 280px;
 }
 .portfolio-card {
   border: 1px solid var(--borde);

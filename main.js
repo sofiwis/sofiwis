@@ -229,53 +229,159 @@ function initPortfolio() {
   const filters = document.querySelectorAll('.filter-btn');
   const modal = document.getElementById('project-modal');
   const modalClose = document.getElementById('modal-close-btn');
+  const filtersContainer = document.getElementById('portfolio-filters');
 
-  // Filtros de categoría
-  if (filters.length > 0) {
-    filters.forEach(btn => {
+  if (!grid) return;
+
+  // Fallback inicial por si la página se abre sin servidor
+  const FALLBACK_PROJECTS = [
+    {
+      id: 'proj-1',
+      title: 'Blend Bar',
+      category: 'Identidad Visual',
+      client: 'Blend Bar Coffee & Cocktails',
+      description: 'Creación de logotipo, identidad de marca moderna y concepto visual para coctelería y café de especialidad.',
+      image: 'img/logo-blendbar.png'
+    },
+    {
+      id: 'proj-2',
+      title: 'Rotoxas',
+      category: 'Identidad Visual',
+      client: 'Rotoxas Soluciones',
+      description: 'Diseño de logotipo industrial e isotipo de alto impacto con paleta metálica y sobria.',
+      image: 'img/logo-rotoxas.png'
+    },
+    {
+      id: 'proj-3',
+      title: 'Zero Waste Colombia',
+      category: 'Branding & Sostenibilidad',
+      client: 'Zero Waste Initiative',
+      description: 'Identidad visual ecológica, líneas orgánicas y empaques sustentables para concientización ambiental.',
+      image: 'img/logo-zerowaste.png'
+    },
+    {
+      id: 'proj-4',
+      title: 'Crone Studio',
+      category: 'Redes Sociales',
+      client: 'Crone Digital',
+      description: 'Estrategia visual para feeds de Instagram, diseño de publicaciones y carruseles de alta conversión.',
+      image: 'img/post-crone.jpeg'
+    }
+  ];
+
+  let allProjects = [];
+
+  // Consulta directa a la API de Base de Datos
+  fetch('/api/portfolio')
+    .then(res => {
+      if (!res.ok) throw new Error('API offline');
+      return res.json();
+    })
+    .then(data => {
+      if (data.success && Array.isArray(data.projects) && data.projects.length > 0) {
+        allProjects = data.projects;
+      } else {
+        allProjects = FALLBACK_PROJECTS;
+      }
+      renderPortfolio();
+    })
+    .catch(() => {
+      allProjects = FALLBACK_PROJECTS;
+      renderPortfolio();
+    });
+
+  function renderPortfolio() {
+    renderFilterButtons();
+    renderCards('all');
+  }
+
+  // Genera filtros dinámicos según las categorías existentes en la base de datos
+  function renderFilterButtons() {
+    if (!filtersContainer) return;
+    const categories = Array.from(new Set(allProjects.map(p => p.category).filter(Boolean)));
+
+    filtersContainer.innerHTML = '';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn active';
+    allBtn.dataset.filter = 'all';
+    allBtn.textContent = 'Todos';
+    filtersContainer.appendChild(allBtn);
+
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.dataset.filter = cat;
+      btn.textContent = cat;
+      filtersContainer.appendChild(btn);
+    });
+
+    filtersContainer.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        filters.forEach(b => b.classList.remove('active'));
+        filtersContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const filter = btn.dataset.filter;
-
-        const cards = document.querySelectorAll('.portfolio-card');
-        cards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+        renderCards(btn.dataset.filter);
       });
     });
   }
 
-  // Abrir Modal de Proyecto
-  function attachCardClickEvents() {
-    const cards = document.querySelectorAll('.portfolio-card');
-    cards.forEach(card => {
+  // Renderiza tarjetas 100% dependientes de la base de datos
+  function renderCards(filterCategory) {
+    grid.innerHTML = '';
+
+    const filtered = filterCategory === 'all'
+      ? allProjects
+      : allProjects.filter(p => p.category === filterCategory);
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="portfolio-empty">
+          <i class="ti ti-folder-off"></i>
+          <p>No hay proyectos en esta categoría.</p>
+        </div>
+      `;
+      return;
+    }
+
+    filtered.forEach(p => {
+      const card = document.createElement('article');
+      card.className = 'portfolio-card';
+      card.dataset.id = p.id;
+      card.dataset.category = p.category;
+      card.dataset.title = p.title;
+      card.dataset.client = p.client || '';
+      card.dataset.desc = p.description;
+      card.dataset.img = p.image;
+
+      card.innerHTML = `
+        <div class="portfolio-img-wrap">
+            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.src='img/servicio-logos.jpg'">
+            <div class="portfolio-overlay">
+                <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
+            </div>
+        </div>
+        <div class="portfolio-info">
+            <span class="portfolio-cat">${escapeHtml(p.category)}</span>
+            <h3 class="portfolio-name">${escapeHtml(p.title)}</h3>
+            <p class="portfolio-desc">${escapeHtml(p.description)}</p>
+        </div>
+      `;
+
       card.addEventListener('click', () => {
-        openProjectModal({
-          title: card.dataset.title || card.querySelector('.portfolio-name')?.textContent,
-          category: card.dataset.category,
-          client: card.dataset.client,
-          desc: card.dataset.desc || card.querySelector('.portfolio-desc')?.textContent,
-          img: card.dataset.img || card.querySelector('img')?.src
-        });
+        openProjectModal(p);
       });
+
+      grid.appendChild(card);
     });
   }
-
-  attachCardClickEvents();
 
   function openProjectModal(project) {
     if (!modal) return;
-    document.getElementById('modal-img').src = project.img || 'img/servicio-logos.jpg';
+    document.getElementById('modal-img').src = project.image || 'img/servicio-logos.jpg';
     document.getElementById('modal-title').textContent = project.title || 'Proyecto ESENCIA';
     document.getElementById('modal-cat').textContent = project.category || 'Identidad Visual';
     document.getElementById('modal-client').textContent = project.client ? `Cliente: ${project.client}` : '';
-    document.getElementById('modal-desc').textContent = project.desc || '';
-    
+    document.getElementById('modal-desc').textContent = project.description || '';
+
     const ctaBtn = document.getElementById('modal-cta-btn');
     if (ctaBtn) {
       ctaBtn.href = `contacto.html?service=${encodeURIComponent(project.category || 'Branding')}`;
@@ -305,49 +411,6 @@ function initPortfolio() {
         closeModal();
       }
     });
-  }
-
-  // Carga dinámica de proyectos adicionales desde la API si existe
-  if (grid) {
-    fetch('/api/portfolio')
-      .then(res => res.json())
-      .then(data => {
-        if (data.success && Array.isArray(data.projects)) {
-          // Render dynamic projects if there are new ones
-          const existingTitles = new Set(
-            Array.from(document.querySelectorAll('.portfolio-card')).map(c => (c.dataset.title || '').trim().toLowerCase())
-          );
-
-          data.projects.forEach(p => {
-            if (!existingTitles.has((p.title || '').trim().toLowerCase())) {
-              const card = document.createElement('article');
-              card.className = 'portfolio-card';
-              card.dataset.category = p.category;
-              card.dataset.title = p.title;
-              card.dataset.client = p.client || '';
-              card.dataset.desc = p.description;
-              card.dataset.img = p.image;
-
-              card.innerHTML = `
-                <div class="portfolio-img-wrap">
-                    <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
-                    <div class="portfolio-overlay">
-                        <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <span class="portfolio-cat">${escapeHtml(p.category)}</span>
-                    <h3 class="portfolio-name">${escapeHtml(p.title)}</h3>
-                    <p class="portfolio-desc">${escapeHtml(p.description)}</p>
-                </div>
-              `;
-              grid.appendChild(card);
-            }
-          });
-          attachCardClickEvents();
-        }
-      })
-      .catch(() => {});
   }
 }
 
