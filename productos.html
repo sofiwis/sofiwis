@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <!-- =========================================================
-     PÁGINA 3 de 4 — PRODUCTOS
-     Cuatro tarjetas: LOGOS, ESLÓGANES, POST y VIDEOS.
-     Cada tarjeta es un bloque <div class="product-column">.
-     Para cambiar una foto, reemplaza el archivo del src.
+     ESENCIA — PRODUCTOS Y SERVICIOS
      ========================================================= -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos y servicios — ESENCIA</title>
-    <meta name="description" content="Logos, eslóganes, publicaciones y videos para comunicar la esencia de tu marca.">
+    <title>Productos y Servicios — ESENCIA | Soluciones Creativas</title>
+    <meta name="description" content="Logotipos, eslóganes, contenido para redes sociales y videos publicitarios para comunicar la esencia de tu marca.">
+    <meta name="theme-color" content="#040509">
     <link rel="icon" href="img/esencia-logo.png">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -26,62 +24,83 @@
                 <span class="brand-text notranslate" translate="no">ESENCIA</span>
             </a>
 
-            <button class="menu-btn" aria-label="Abrir menú">&#9776;</button>
+            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
 
             <nav class="nav-links">
                 <a href="index.html">INICIO</a>
                 <a href="quienes-somos.html">¿QUIÉNES SOMOS?</a>
                 <a href="productos.html" class="active">PRODUCTOS</a>
+                <a href="portafolio.html">PORTAFOLIO</a>
                 <a href="contacto.html">CONTÁCTANOS</a>
+                <a href="login.html" class="nav-login-btn">ACCESO</a>
             </nav>
         </header>
 
         <!-- Frase dorada sobre las tarjetas -->
         <div class="eyebrow" style="margin-top: 26px;"><span></span>Ideas que dan vida a tu marca<span></span></div>
 
-        <!-- ===== LAS CUATRO TARJETAS ===== -->
+        <!-- ===== LAS CUATRO TARJETAS DE SERVICIOS ===== -->
         <main class="products-grid">
 
-            <!-- Tarjeta 1 -->
+            <!-- Tarjeta 1: LOGOS -->
             <div class="product-column">
                 <h2>LOGOS</h2>
-                <p class="product-text">Identidad visual que deja huella.</p>
+                <p class="product-text">Identidad visual auténtica, memorable y vectorizada que deja huella.</p>
                 <div class="card-box">
-                    <img src="img/servicio-logos.jpg" alt="Ejemplo de logos">
+                    <img src="img/servicio-logos.jpg" alt="Servicio de diseño de logos e isotipos" loading="lazy">
+                </div>
+                <div class="product-card-footer">
+                    <a href="contacto.html?service=Diseño+de+Logo" class="btn-card-cta">Cotizar Logo &#8594;</a>
                 </div>
             </div>
 
-            <!-- Tarjeta 2 -->
+            <!-- Tarjeta 2: ESLÓGANES -->
             <div class="product-column">
                 <h2>ESLÓGANES</h2>
-                <p class="product-text">Frases que conectan, inspiran y venden.</p>
+                <p class="product-text">Naming, copy y frases de marca que conectan, inspiran y venden.</p>
                 <div class="card-box">
-                    <img src="img/servicio-eslogans.jpg" alt="Ejemplo de eslóganes">
+                    <img src="img/servicio-eslogans.jpg" alt="Servicio de eslóganes y redacción de marca" loading="lazy">
+                </div>
+                <div class="product-card-footer">
+                    <a href="contacto.html?service=Eslóganes+y+Mensaje+de+Marca" class="btn-card-cta">Cotizar Eslogan &#8594;</a>
                 </div>
             </div>
 
-            <!-- Tarjeta 3 -->
+            <!-- Tarjeta 3: POSTS Y CONTENIDO -->
             <div class="product-column">
-                <h2>POST</h2>
-                <p class="product-text">Contenido visual que cuenta tu historia.</p>
+                <h2>POSTS Y FEED</h2>
+                <p class="product-text">Contenido visual estratégico y carruseles para contar la historia de tu marca.</p>
                 <div class="card-box">
-                    <img src="img/servicio-posts.jpg" alt="Ejemplo de publicaciones">
+                    <img src="img/servicio-posts.jpg" alt="Servicio de contenido y posts para redes sociales" loading="lazy">
+                </div>
+                <div class="product-card-footer">
+                    <a href="contacto.html?service=Posts+y+Redes+Sociales" class="btn-card-cta">Cotizar Posts &#8594;</a>
                 </div>
             </div>
 
-            <!-- Tarjeta 4 -->
+            <!-- Tarjeta 4: VIDEOS -->
             <div class="product-column">
                 <h2>VIDEOS</h2>
-                <p class="product-text">Historias en movimiento que generan impacto.</p>
+                <p class="product-text">Reels y producciones multimedia en movimiento que generan alto impacto.</p>
                 <div class="card-box">
-                    <img src="img/servicio-videos.jpg" alt="Ejemplo de videos">
+                    <img src="img/servicio-videos.jpg" alt="Servicio de producción y edición de videos" loading="lazy">
+                </div>
+                <div class="product-card-footer">
+                    <a href="contacto.html?service=Videos+y+Multimedia" class="btn-card-cta">Cotizar Video &#8594;</a>
                 </div>
             </div>
         </main>
 
+        <!-- Banner de llamada a portafolio -->
+        <div class="portfolio-banner">
+            <p>¿Quieres ver proyectos reales creados por ESENCIA?</p>
+            <a href="portafolio.html" class="portfolio-banner-link">Explorar Nuestro Portafolio &#8594;</a>
+        </div>
+
         <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
     </div>
 
+    <!-- Selector de idioma -->
     <div class="language-switcher">
         <span aria-hidden="true">🌐</span>
         <label for="language-select" class="sr-only">Seleccionar idioma</label>
