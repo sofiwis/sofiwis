@@ -40,83 +40,94 @@ function authenticateToken(req, res, next) {
 // =========================================================
 
 // 1. Contact Form submission (directly from page, no mail client)
-app.post('/api/contact', (req, res) => {
-  const { name, email, phone, service, message } = req.body;
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, phone, service, message } = req.body;
 
-  if (!name || !name.trim()) {
-    return res.status(400).json({ error: 'Por favor ingresa tu nombre completo.' });
+    if (!name || !name.trim()) {
+      return res.status(400).json({ error: 'Por favor ingresa tu nombre completo.' });
+    }
+
+    if (!email || !email.includes('@')) {
+      return res.status(400).json({ error: 'Por favor ingresa un correo electrónico válido.' });
+    }
+
+    if (!message || !message.trim()) {
+      return res.status(400).json({ error: 'Por favor escribe tu mensaje o consulta.' });
+    }
+
+    const savedMessage = await db.addMessage({
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone ? phone.trim() : 'No especificado',
+      service: service ? service.trim() : 'General',
+      message: message.trim()
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: '¡Gracias por escribirnos! Hemos recibido tu mensaje directamente en el estudio ESENCIA y te responderemos en breve.',
+      data: { id: savedMessage.id, date: savedMessage.date }
+    });
+  } catch (error) {
+    console.error('Error al guardar mensaje:', error);
+    return res.status(500).json({ error: 'Error interno al procesar el mensaje' });
   }
-
-  if (!email || !email.includes('@')) {
-    return res.status(400).json({ error: 'Por favor ingresa un correo electrónico válido.' });
-  }
-
-  if (!message || !message.trim()) {
-    return res.status(400).json({ error: 'Por favor escribe tu mensaje o consulta.' });
-  }
-
-  const savedMessage = db.addMessage({
-    name: name.trim(),
-    email: email.trim(),
-    phone: phone ? phone.trim() : 'No especificado',
-    service: service ? service.trim() : 'General',
-    message: message.trim()
-  });
-
-  return res.status(201).json({
-    success: true,
-    message: '¡Gracias por escribirnos! Hemos recibido tu mensaje directamente en el estudio ESENCIA y te responderemos en breve.',
-    data: { id: savedMessage.id, date: savedMessage.date }
-  });
 });
 
 // 2. Public Portfolio listing
-app.get('/api/portfolio', (req, res) => {
+app.get('/api/portfolio', async (req, res) => {
   try {
-    const projects = db.getProjects();
+    const projects = await db.getProjects();
     res.json({ success: true, projects });
   } catch (error) {
+    console.error('Error al listar proyectos:', error);
     res.status(500).json({ error: 'Error al obtener proyectos' });
   }
 });
 
 // 3. Admin Login
-app.post('/api/auth/login', (req, res) => {
-  const { username, password } = req.body;
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).json({ error: 'Ingresa tu usuario y contraseña.' });
-  }
-
-  const user = db.getUserByUsername(username);
-  if (!user) {
-    return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
-  }
-
-  const validPassword = bcrypt.compareSync(password, user.passwordHash);
-  if (!validPassword) {
-    return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
-  }
-
-  // Generate JWT token valid for 7 days
-  const token = jwt.sign(
-    { id: user.id, username: user.username, role: user.role, name: user.name },
-    JWT_SECRET,
-    { expiresIn: '7d' }
-  );
-
-  return res.json({
-    success: true,
-    message: 'Inicio de sesión exitoso',
-    token,
-    user: {
-      id: user.id,
-      username: user.username,
-      name: user.name,
-      email: user.email,
-      role: user.role
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Ingresa tu usuario y contraseña.' });
     }
-  });
+
+    const user = await db.getUserByUsername(username);
+    if (!user) {
+      return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
+    }
+
+    const validPassword = bcrypt.compareSync(password, user.passwordHash);
+    if (!validPassword) {
+      return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
+    }
+
+    // Generate JWT token valid for 7 days
+    const token = jwt.sign(
+      { id: user.id, username: user.username, role: user.role, name: user.name },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    return res.json({
+      success: true,
+      message: 'Inicio de sesión exitoso',
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    console.error('Error en login:', error);
+    res.status(500).json({ error: 'Error interno en el servidor' });
+  }
 });
 
 // =========================================================
@@ -124,80 +135,110 @@ app.post('/api/auth/login', (req, res) => {
 // =========================================================
 
 // Verify current session
-app.get('/api/auth/me', authenticateToken, (req, res) => {
-  const user = db.getUserById(req.user.id);
-  if (!user) {
-    return res.status(404).json({ error: 'Usuario no encontrado' });
-  }
-  res.json({
-    success: true,
-    user: {
-      id: user.id,
-      username: user.username,
-      name: user.name,
-      email: user.email,
-      role: user.role
+app.get('/api/auth/me', authenticateToken, async (req, res) => {
+  try {
+    const user = await db.getUserById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
     }
-  });
+    res.json({
+      success: true,
+      user: {
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al verificar sesión' });
+  }
 });
 
 // Get all contact form messages
-app.get('/api/admin/messages', authenticateToken, (req, res) => {
-  const messages = db.getMessages();
-  res.json({ success: true, messages });
+app.get('/api/admin/messages', authenticateToken, async (req, res) => {
+  try {
+    const messages = await db.getMessages();
+    res.json({ success: true, messages });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener mensajes' });
+  }
 });
 
 // Mark message as read/unread
-app.patch('/api/admin/messages/:id/read', authenticateToken, (req, res) => {
-  const { isRead } = req.body;
-  const updated = db.markMessageRead(req.params.id, isRead !== undefined ? isRead : true);
-  if (!updated) {
-    return res.status(404).json({ error: 'Mensaje no encontrado' });
+app.patch('/api/admin/messages/:id/read', authenticateToken, async (req, res) => {
+  try {
+    const { isRead } = req.body;
+    const updated = await db.markMessageRead(req.params.id, isRead !== undefined ? isRead : true);
+    if (!updated) {
+      return res.status(404).json({ error: 'Mensaje no encontrado' });
+    }
+    res.json({ success: true, message: updated });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar mensaje' });
   }
-  res.json({ success: true, message: updated });
 });
 
 // Delete message
-app.delete('/api/admin/messages/:id', authenticateToken, (req, res) => {
-  const deleted = db.deleteMessage(req.params.id);
-  if (!deleted) {
-    return res.status(404).json({ error: 'Mensaje no encontrado o ya eliminado' });
+app.delete('/api/admin/messages/:id', authenticateToken, async (req, res) => {
+  try {
+    const deleted = await db.deleteMessage(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ error: 'Mensaje no encontrado o ya eliminado' });
+    }
+    res.json({ success: true, message: 'Mensaje eliminado' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar mensaje' });
   }
-  res.json({ success: true, message: 'Mensaje eliminado' });
 });
 
 // Add project to portfolio
-app.post('/api/portfolio', authenticateToken, (req, res) => {
-  const { title, category, client, description, image } = req.body;
+app.post('/api/portfolio', authenticateToken, async (req, res) => {
+  try {
+    const { title, category, client, description, image } = req.body;
 
-  if (!title || !category || !description) {
-    return res.status(400).json({ error: 'Título, categoría y descripción son requeridos.' });
+    if (!title || !category || !description) {
+      return res.status(400).json({ error: 'Título, categoría y descripción son requeridos.' });
+    }
+
+    const newProject = await db.addProject({
+      title: title.trim(),
+      category: category.trim(),
+      client: client ? client.trim() : 'Cliente confidencial',
+      description: description.trim(),
+      image: image && image.trim() ? image.trim() : 'img/servicio-logos.jpg',
+      featured: true
+    });
+
+    res.status(201).json({ success: true, project: newProject });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al crear proyecto' });
   }
-
-  const newProject = db.addProject({
-    title: title.trim(),
-    category: category.trim(),
-    client: client ? client.trim() : 'Cliente confidencial',
-    description: description.trim(),
-    image: image && image.trim() ? image.trim() : 'img/servicio-logos.jpg',
-    featured: true
-  });
-
-  res.status(201).json({ success: true, project: newProject });
 });
 
 // Delete project from portfolio
-app.delete('/api/portfolio/:id', authenticateToken, (req, res) => {
-  const deleted = db.deleteProject(req.params.id);
-  if (!deleted) {
-    return res.status(404).json({ error: 'Proyecto no encontrado' });
+app.delete('/api/portfolio/:id', authenticateToken, async (req, res) => {
+  try {
+    const deleted = await db.deleteProject(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ error: 'Proyecto no encontrado' });
+    }
+    res.json({ success: true, message: 'Proyecto eliminado con éxito' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar proyecto' });
   }
-  res.json({ success: true, message: 'Proyecto eliminado con éxito' });
 });
 
 // Start server with automatic port fallback if port is in use
 if (require.main === module) {
-  function startServer(portToTry) {
+  async function startServer(portToTry) {
+    try {
+      await db.init();
+    } catch (dbErr) {
+      console.error('Error al inicializar la base de datos:', dbErr);
+    }
+
     const server = app.listen(portToTry, () => {
       console.log(`===============================================`);
       console.log(`✨ ESENCIA Studio Server funcionando en:`);
