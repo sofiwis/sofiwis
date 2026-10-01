@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- =========================================================
+     PÁGINA 4 de 4 — CONTÁCTANOS
+     Aquí están el WhatsApp, las redes y el correo.
+     ========================================================= -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contáctanos — ESENCIA</title>
+    <meta name="description" content="Conversemos sobre la identidad y el contenido que harán crecer tu marca.">
+    <link rel="icon" href="img/esencia-logo.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-outer">
+
+    <div class="card-container">
+
+        <!-- ===== BARRA SUPERIOR ===== -->
+        <header class="navbar">
+            <a href="index.html" class="brand notranslate" translate="no">
+                <img src="img/esencia-logo.png" alt="Logo de ESENCIA" class="logo-img">
+                <span class="brand-divider"></span>
+                <span class="brand-text notranslate" translate="no">ESENCIA</span>
+            </a>
+
+            <button class="menu-btn" aria-label="Abrir menú">&#9776;</button>
+
+            <nav class="nav-links">
+                <a href="index.html">INICIO</a>
+                <a href="quienes-somos.html">¿QUIÉNES SOMOS?</a>
+                <a href="productos.html">PRODUCTOS</a>
+                <a href="contacto.html" class="active">CONTÁCTANOS</a>
+            </nav>
+        </header>
+
+        <!-- ===== CONTENIDO ===== -->
+        <main class="contact-layout">
+
+            <!-- Lado izquierdo: WhatsApp -->
+            <div class="contact-left">
+                <h2>Chatea con nosotros</h2>
+                <p class="contact-title">Puedes hacernos tus preguntas, sugerencias e intereses.</p>
+
+                <!-- IMPORTANTE: si cambias el número, cámbialo en los DOS lugares:
+                     en el enlace (href="https://wa.me/57...") y en el texto visible. -->
+                <a href="https://wa.me/573505243153" class="btn-whatsapp" target="_blank" rel="noreferrer">
+                    <img src="img/icon-whatsapp.png" alt="WhatsApp">
+                    <span>+57 350 5243153</span>
+                </a>
+            </div>
+
+            <!-- Lado derecho: redes sociales -->
+            <div class="contact-right">
+                <h1>Encuéntranos en</h1>
+                <div class="social-icons">
+                    <a href="https://instagram.com/esencia_desing9" target="_blank" rel="noreferrer">
+                        <img src="img/icon-instagram.png" alt="Instagram">
+                    </a>
+                    <a href="https://facebook.com/esencia_desing9" target="_blank" rel="noreferrer">
+                        <img src="img/icon-facebook.png" alt="Facebook">
+                    </a>
+                </div>
+                <p class="handle-text notranslate" translate="no">@ESENCIA_DESING9</p>
+            </div>
+        </main>
+
+        <!-- Barra inferior con el correo -->
+        <a class="email-bar" href="mailto:esenciadesing9@gmail.com">esenciadesing9@gmail.com</a>
+
+        <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
+    </div>
+
+    <div class="language-switcher">
+        <span aria-hidden="true">🌐</span>
+        <label for="language-select" class="sr-only">Seleccionar idioma</label>
+        <select id="language-select" aria-label="Seleccionar idioma">
+            <option value="es">ES</option>
+            <option value="en">EN</option>
+            <option value="pt">PT</option>
+            <option value="fr">FR</option>
+        </select>
+    </div>
+    <div id="google_translate_element" aria-hidden="true"></div>
+
+    <script src="main.js"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

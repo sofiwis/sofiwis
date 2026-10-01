@@ -1,0 +1,168 @@
+/* =========================================================
+   ESENCIA — quienes-somos.css
+   Estilos propios de la página ¿Quiénes somos?
+   Los estilos generales están en styles.css.
+   ========================================================= */
+@import url("styles.css");
+
+/* ===== MISIÓN Y VISIÓN ===== */
+.mv-section {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(22px, 3.5vw, 44px);
+  margin-top: clamp(20px, 4vh, 48px);
+}
+
+.mv-card {
+  padding: clamp(26px, 3vw, 42px);
+  border: 1px solid var(--borde);
+  border-radius: 7px;
+  background: linear-gradient(160deg, rgba(26, 23, 28, .88), rgba(8, 8, 12, .78));
+  box-shadow: 0 22px 50px rgba(0, 0, 0, .34);
+  transition: transform .25s ease, border-color .25s ease;
+}
+
+.mv-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--dorado);
+}
+
+.mv-card h2 {
+  margin-bottom: 14px;
+  color: var(--dorado-claro);
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.mv-card p {
+  color: var(--texto-suave);
+  font-size: clamp(.9rem, 1.3vw, 1.05rem);
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+/* ===== VALORES ===== */
+.values-section {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(38px, 7vh, 78px);
+  text-align: center;
+}
+
+.values-title {
+  margin: 18px 0 30px;
+  color: var(--texto);
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+  font-weight: 400;
+  letter-spacing: .04em;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 24px);
+  padding: 0;
+  list-style: none;
+}
+
+.value-item {
+  padding: clamp(18px, 2.4vw, 30px) 14px;
+  border: 1px solid var(--borde);
+  border-radius: 7px;
+  background: linear-gradient(160deg, rgba(26, 23, 28, .82), rgba(8, 8, 12, .74));
+  color: var(--texto);
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1.9vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: .08em;
+  transition: transform .25s ease, border-color .25s ease, color .25s ease;
+}
+
+.value-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--dorado);
+  color: var(--dorado-claro);
+}
+
+/* ===== MI ROL — FUNDADORA ===== */
+.founder-section {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  align-items: center;
+  gap: clamp(34px, 5vw, 80px);
+  margin: clamp(44px, 8vh, 90px) 0 30px;
+}
+
+.founder-photo {
+  position: relative;
+  margin: 0;
+  max-width: 420px;
+  justify-self: center;
+}
+
+.founder-photo::before {
+  content: '';
+  position: absolute;
+  inset: -12px 12px 12px -12px;
+  z-index: -1;
+  border: 1px solid var(--dorado);
+}
+
+.founder-photo img {
+  display: block;
+  width: 100%;
+  max-height: 560px;
+  object-fit: cover;
+  filter: saturate(.85) contrast(1.06);
+}
+
+.founder-copy h2 {
+  max-width: 640px;
+  margin: 20px 0 18px;
+  color: var(--texto);
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.22;
+}
+
+.founder-copy h2 em {
+  color: var(--dorado-claro);
+  font-family: var(--serif);
+  font-size: 1.2em;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.founder-copy p {
+  max-width: 640px;
+  color: var(--texto-suave);
+  font-size: clamp(.95rem, 1.4vw, 1.18rem);
+  font-weight: 300;
+  line-height: 1.78;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .mv-section { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .founder-section {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    text-align: left;
+  }
+  .founder-photo { width: 82%; }
+}
+
+@media (max-width: 560px) {
+  .values-grid { grid-template-columns: 1fr; }
+  .founder-photo { width: 92%; }
+  .founder-photo img { max-height: 480px; }
+}
