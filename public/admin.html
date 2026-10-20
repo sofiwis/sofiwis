@@ -78,6 +78,16 @@
             border-color: #ff6666;
             color: #fff;
         }
+        .btn-edit-sm {
+            background: rgba(185, 138, 80, 0.15);
+            border-color: rgba(215, 183, 123, 0.4);
+            color: var(--dorado-claro);
+        }
+        .btn-edit-sm:hover {
+            background: rgba(185, 138, 80, 0.3);
+            border-color: var(--dorado);
+            color: #fff;
+        }
         .admin-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -327,8 +337,9 @@
             <!-- TAB 2: GESTIÓN DE PORTAFOLIO -->
             <section id="tab-projects" class="admin-tab-content" style="display:none;">
                 <div class="project-add-card">
-                    <h2 style="font-size: 1.25rem; font-family: var(--serif); color: var(--dorado-claro); margin-bottom: 15px;"><i class="ti ti-plus"></i> Agregar Nuevo Proyecto al Portafolio</h2>
+                    <h2 id="form-proj-title" style="font-size: 1.25rem; font-family: var(--serif); color: var(--dorado-claro); margin-bottom: 15px;"><i class="ti ti-plus"></i> Agregar Nuevo Proyecto al Portafolio</h2>
                     <form id="add-project-form" class="custom-form">
+                        <input type="hidden" id="proj-edit-id" value="">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="proj-title">Nombre del Proyecto *</label>
@@ -361,7 +372,10 @@
                             <textarea id="proj-desc" rows="3" required placeholder="Describe el reto, concepto y resultado del diseño..."></textarea>
                         </div>
 
-                        <button type="submit" class="btn-primary" style="min-width: 200px; padding: 12px 24px;"><i class="ti ti-device-floppy"></i> GUARDAR PROYECTO</button>
+                        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                            <button type="submit" id="btn-save-proj" class="btn-primary" style="min-width: 200px; padding: 12px 24px;"><i class="ti ti-device-floppy"></i> GUARDAR PROYECTO</button>
+                            <button type="button" id="btn-cancel-edit-proj" class="btn-sm" style="display: none; padding: 12px 20px;"><i class="ti ti-x"></i> Cancelar Edición</button>
+                        </div>
                     </form>
                 </div>
 
@@ -456,6 +470,7 @@
             });
 
             let currentMessages = [];
+            let currentProjects = [];
 
             function loadMessages() {
                 const tbody = document.getElementById('messages-tbody');
@@ -585,8 +600,9 @@
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
-                            renderAdminProjects(data.projects);
-                            updateStats(data.projects.length);
+                            currentProjects = data.projects || [];
+                            renderAdminProjects(currentProjects);
+                            updateStats(currentProjects.length);
                         }
                     });
             }
@@ -605,13 +621,37 @@
                             <span class="admin-project-cat">${escapeHtml(p.category)}</span>
                             <h3 class="admin-project-title">${escapeHtml(p.title)}</h3>
                             <p class="admin-project-desc">${escapeHtml(p.description)}</p>
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 10px; gap: 8px;">
                                 <small style="color:var(--texto-suave); font-size:0.75rem;">${escapeHtml(p.client || '')}</small>
-                                <button class="btn-sm btn-danger-sm btn-del-proj" data-id="${p.id}"><i class="ti ti-trash"></i> Eliminar</button>
+                                <div style="display:flex; gap: 8px;">
+                                    <button class="btn-sm btn-edit-sm btn-edit-proj" data-id="${p.id}"><i class="ti ti-pencil"></i> Editar</button>
+                                    <button class="btn-sm btn-danger-sm btn-del-proj" data-id="${p.id}"><i class="ti ti-trash"></i> Eliminar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 `).join('');
+
+                document.querySelectorAll('.btn-edit-proj').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.dataset.id;
+                        const p = currentProjects.find(item => item.id === id);
+                        if (!p) return;
+
+                        document.getElementById('proj-edit-id').value = p.id;
+                        document.getElementById('proj-title').value = p.title || '';
+                        document.getElementById('proj-cat').value = p.category || 'Identidad Visual';
+                        document.getElementById('proj-client').value = p.client || '';
+                        document.getElementById('proj-image').value = p.image || '';
+                        document.getElementById('proj-desc').value = p.description || '';
+
+                        document.getElementById('form-proj-title').innerHTML = `<i class="ti ti-pencil"></i> Editando Proyecto: <span style="color:#fff;">${escapeHtml(p.title)}</span>`;
+                        document.getElementById('btn-save-proj').innerHTML = '<i class="ti ti-check"></i> ACTUALIZAR PROYECTO';
+                        document.getElementById('btn-cancel-edit-proj').style.display = 'inline-flex';
+
+                        document.querySelector('.project-add-card').scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
 
                 document.querySelectorAll('.btn-del-proj').forEach(btn => {
                     btn.addEventListener('click', () => {
@@ -625,24 +665,39 @@
                 });
             }
 
+            function resetProjectForm() {
+                document.getElementById('add-project-form').reset();
+                document.getElementById('proj-edit-id').value = '';
+                document.getElementById('form-proj-title').innerHTML = '<i class="ti ti-plus"></i> Agregar Nuevo Proyecto al Portafolio';
+                document.getElementById('btn-save-proj').innerHTML = '<i class="ti ti-device-floppy"></i> GUARDAR PROYECTO';
+                document.getElementById('btn-cancel-edit-proj').style.display = 'none';
+            }
+
+            document.getElementById('btn-cancel-edit-proj').addEventListener('click', resetProjectForm);
+
             document.getElementById('add-project-form').addEventListener('submit', (e) => {
                 e.preventDefault();
+                const editId = document.getElementById('proj-edit-id').value;
                 const title = document.getElementById('proj-title').value.trim();
                 const category = document.getElementById('proj-cat').value;
                 const client = document.getElementById('proj-client').value.trim();
                 const image = document.getElementById('proj-image').value.trim();
                 const description = document.getElementById('proj-desc').value.trim();
 
-                fetch('/api/portfolio', {
-                    method: 'POST',
+                const isEditing = Boolean(editId);
+                const url = isEditing ? `/api/portfolio/${editId}` : '/api/portfolio';
+                const method = isEditing ? 'PUT' : 'POST';
+
+                fetch(url, {
+                    method: method,
                     headers: authHeaders,
                     body: JSON.stringify({ title, category, client, image, description })
                 })
                 .then(r => r.json())
                 .then(data => {
                     if (data.success) {
-                        alert('¡Proyecto agregado con éxito al portafolio!');
-                        document.getElementById('add-project-form').reset();
+                        alert(isEditing ? '¡Proyecto actualizado con éxito!' : '¡Proyecto agregado con éxito al portafolio!');
+                        resetProjectForm();
                         loadProjects();
                     } else {
                         alert(data.error || 'Error al guardar proyecto');
