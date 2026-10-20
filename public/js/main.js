@@ -299,25 +299,6 @@ function initPortfolio() {
     });
   }
 
-  // Renderiza tarjetas 100% dependientes de la base de datos
-  function renderCards(filterCategory) {
-    if (!grid) return;
-    grid.innerHTML = '';
-
-    const filtered = filterCategory === 'all'
-      ? allProjects
-      : allProjects.filter(p => p.category === filterCategory);
-
-    if (filtered.length === 0) {
-      grid.innerHTML = `
-        <div class="portfolio-empty">
-          <i class="ti ti-folder-off"></i>
-          <p>No hay proyectos en esta categoría.</p>
-        </div>
-      `;
-      return;
-    }
-
   function buildVideoEmbed(url) {
     if (!url || typeof url !== 'string') return null;
     const cleanUrl = url.trim();
@@ -351,7 +332,26 @@ function initPortfolio() {
     return null;
   }
 
-  filtered.forEach(p => {
+  // Renderiza tarjetas 100% dependientes de la base de datos
+  function renderCards(filterCategory) {
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const filtered = filterCategory === 'all'
+      ? allProjects
+      : allProjects.filter(p => p.category === filterCategory);
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="portfolio-empty">
+          <i class="ti ti-folder-off"></i>
+          <p>No hay proyectos en esta categoría.</p>
+        </div>
+      `;
+      return;
+    }
+
+    filtered.forEach(p => {
       const hasVideo = Boolean(p.video_url && p.video_url.trim());
       const card = document.createElement('article');
       card.className = 'portfolio-card' + (hasVideo ? ' has-video' : '');

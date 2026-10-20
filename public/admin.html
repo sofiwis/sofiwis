@@ -626,7 +626,7 @@
                         <div class="admin-project-content">
                             <div style="display:flex; justify-content:space-between; align-items:center; gap: 8px;">
                                 <span class="admin-project-cat">${escapeHtml(p.category)}</span>
-                                ${p.video_url ? '<span style="display:inline-flex; align-items:center; gap:4px; font-size:0.7rem; color:var(--dorado-claro); background:rgba(185,138,80,0.15); border:1px solid var(--borde); padding:2px 8px; border-radius:10px;"><i class="ti ti-video"></i> Video</span>' : ''}
+                                ${p.video_url ? `<a href="${escapeHtml(p.video_url)}" target="_blank" rel="noopener noreferrer" title="Abrir video en nueva pestaña" style="display:inline-flex; align-items:center; gap:4px; font-size:0.7rem; color:var(--dorado-claro); background:rgba(185,138,80,0.15); border:1px solid var(--borde); padding:2px 8px; border-radius:10px; text-decoration:none;"><i class="ti ti-video"></i> Video <i class="ti ti-external-link" style="font-size:0.65rem;"></i></a>` : ''}
                             </div>
                             <h3 class="admin-project-title">${escapeHtml(p.title)}</h3>
                             <p class="admin-project-desc">${escapeHtml(p.description)}</p>
