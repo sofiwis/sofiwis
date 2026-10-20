@@ -139,7 +139,7 @@ body.bg-outer {
   letter-spacing: 0.24em;
 }
 
-.nav-links { display: flex; align-items: center; gap: clamp(26px, 5vw, 70px); }
+.nav-links { display: flex; align-items: center; gap: clamp(16px, 2.2vw, 36px); margin: 0 auto; }
 .nav-links a {
   position: relative;
   padding: 13px 0;
@@ -165,6 +165,45 @@ body.bg-outer {
 .nav-links a.active { opacity: 1; font-weight: 700; }
 .nav-links a:hover::after,
 .nav-links a.active::after { right: 0; }
+
+
+/* 3. Contenedor Derecho: Botones de Acción y Recursos Agrupados */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.nav-resource-btn {
+  padding: 6px 13px !important;
+  border: 1px solid rgba(215, 183, 123, 0.4) !important;
+  border-radius: 6px !important;
+  background: rgba(185, 138, 80, 0.08) !important;
+  color: var(--dorado-claro) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap;
+}
+.nav-resource-btn::after {
+  display: none !important;
+}
+.nav-resource-btn:hover {
+  background: rgba(185, 138, 80, 0.22) !important;
+  border-color: var(--dorado) !important;
+  color: #fff !important;
+  box-shadow: 0 0 10px rgba(185, 138, 80, 0.3);
+}
+
+.mobile-nav-actions {
+  display: none;
+}
 
 .nav-login-btn {
   padding: 6px 16px !important;
@@ -1089,6 +1128,26 @@ html, body { top: 0 !important; margin-top: 0 !important; }
     box-shadow: 0 20px 40px rgba(0, 0, 0, .48);
   }
   .nav-links.open { display: flex; }
+
+  .nav-actions {
+    display: none;
+  }
+  .mobile-nav-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--borde);
+  }
+  .mobile-nav-actions .nav-resource-btn,
+  .mobile-nav-actions .nav-login-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    margin: 2px 0 !important;
+  }
+
   .nav-links a { width: 100%; }
   .nav-login-btn { width: 100%; text-align: center; }
   .about-grid, .contact-layout, .contact-grid-wrapper { grid-template-columns: 1fr; }
