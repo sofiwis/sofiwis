@@ -418,6 +418,60 @@ const db = {
     }
   },
 
+  async getProjectById(id) {
+    if (isPostgres) {
+      const res = await pgPool.query('SELECT * FROM projects WHERE id = $1', [id]);
+      if (res.rows.length === 0) return null;
+      const p = res.rows[0];
+      return {
+        id: p.id,
+        title: p.title,
+        category: p.category,
+        client: p.client,
+        description: p.description,
+        image: p.image,
+        featured: Boolean(p.featured),
+        createdAt: p.created_at
+      };
+    } else {
+      const p = sqliteDb.prepare('SELECT * FROM projects WHERE id = ?').get(id);
+      if (!p) return null;
+      return {
+        id: p.id,
+        title: p.title,
+        category: p.category,
+        client: p.client,
+        description: p.description,
+        image: p.image,
+        featured: Boolean(p.featured),
+        createdAt: p.created_at
+      };
+    }
+  },
+
+  async updateProject(id, project) {
+    const title = (project.title || '').trim();
+    const category = (project.category || '').trim();
+    const client = (project.client || 'Cliente confidencial').trim();
+    const description = (project.description || '').trim();
+    const image = (project.image && project.image.trim()) ? project.image.trim() : '/img/esencia-logo.png';
+
+    if (isPostgres) {
+      const res = await pgPool.query(
+        'UPDATE projects SET title = $1, category = $2, client = $3, description = $4, image = $5 WHERE id = $6',
+        [title, category, client, description, image, id]
+      );
+      return res.rowCount > 0;
+    } else {
+      const info = sqliteDb.prepare(`
+        UPDATE projects 
+        SET title = ?, category = ?, client = ?, description = ?, image = ? 
+        WHERE id = ?
+      `).run(title, category, client, description, image, id);
+      return info.changes > 0;
+    }
+  },
+
   ALLOWED_ADMIN_EMAILS,
 
   isEmailAllowed(email) {

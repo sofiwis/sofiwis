@@ -278,6 +278,34 @@ app.post('/api/portfolio', authenticateToken, async (req, res) => {
   }
 });
 
+// Update project in portfolio
+app.put('/api/portfolio/:id', authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, category, client, description, image } = req.body;
+
+    if (!title || !category || !description) {
+      return res.status(400).json({ error: 'Título, categoría y descripción son requeridos.' });
+    }
+
+    const updated = await db.updateProject(id, {
+      title: title.trim(),
+      category: category.trim(),
+      client: client ? client.trim() : 'Cliente confidencial',
+      description: description.trim(),
+      image: image && image.trim() ? image.trim() : '/img/esencia-logo.png'
+    });
+
+    if (!updated) {
+      return res.status(404).json({ error: 'Proyecto no encontrado' });
+    }
+
+    res.json({ success: true, message: 'Proyecto actualizado con éxito' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar proyecto' });
+  }
+});
+
 // Delete project from portfolio
 app.delete('/api/portfolio/:id', authenticateToken, async (req, res) => {
   try {
