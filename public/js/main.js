@@ -119,49 +119,38 @@ function initContactForm() {
     try {
       let sentSuccess = false;
 
-      // 1. Si no estamos en GitHub Pages, intentar enviar al backend local Express
-      const isGitHubPages = window.location.hostname.includes('github.io');
-      
-      if (!isGitHubPages) {
-        try {
-          const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, phone, service, message })
-          });
-          if (response.ok) {
-            const data = await response.json();
-            if (data.success) {
-              sentSuccess = true;
-            }
-          }
-        } catch (e) {
-          // Si el servidor local no está corriendo, continuamos al fallback
-        }
+      // 1. Registrar en la base de datos interna si el servidor está disponible
+      try {
+        await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, phone, service, message })
+        });
+      } catch (e) {
+        // Silencioso, el correo es el canal prioritario
       }
 
-      // 2. Si es GitHub Pages o el backend local no respondió, usar envío cloud directo (FormSubmit AJAX)
-      if (!sentSuccess) {
-        const cloudResponse = await fetch('https://formsubmit.co/ajax/esenciadesign9@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            nombre: name,
-            email: email,
-            telefono: phone || 'No especificado',
-            servicio: service,
-            mensaje: message,
-            _subject: `Nuevo mensaje de ${name} — ESENCIA Web`
-          })
-        });
+      // 2. Envío directo garantizado a ambos correos electrónicos (esencia + personal)
+      const cloudResponse = await fetch('https://formsubmit.co/ajax/esenciadesign9@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          nombre: name,
+          email: email,
+          telefono: phone || 'No especificado',
+          servicio: service,
+          mensaje: message,
+          _cc: 'angelavalanta2009@gmail.com',
+          _subject: `Solicitud de Cotización: ${service} — ${name}`
+        })
+      });
 
-        const cloudData = await cloudResponse.json();
-        if (cloudResponse.ok && (cloudData.success === 'true' || cloudData.success === true)) {
-          sentSuccess = true;
-        }
+      const cloudData = await cloudResponse.json().catch(() => ({}));
+      if (cloudResponse.ok || cloudData.success === true || cloudData.success === 'true') {
+        sentSuccess = true;
       }
 
       if (sentSuccess) {
@@ -227,14 +216,14 @@ function initContactForm() {
    ========================================================= */
 function initPortfolio() {
   const grid = document.getElementById('portfolio-grid');
-  const filters = document.querySelectorAll('.filter-btn');
   const modal = document.getElementById('project-modal');
   const modalClose = document.getElementById('modal-close-btn');
   const filtersContainer = document.getElementById('portfolio-filters');
+  const trailChips = document.querySelectorAll('.trail-chip');
 
-  if (!grid) return;
+  if (!grid && !modal && trailChips.length === 0) return;
 
-  // Fallback inicial por si la página se abre sin servidor
+  // Fallback inicial por si la página se abre sin conexión al servidor
   const FALLBACK_PROJECTS = [
     {
       id: 'proj-1',
@@ -267,6 +256,14 @@ function initPortfolio() {
       client: 'Crone Digital',
       description: 'Estrategia visual para feeds de Instagram, diseño de publicaciones y carruseles de alta conversión.',
       image: '/img/post-crone.jpeg'
+    },
+    {
+      id: 'proj-5',
+      title: 'Spot Reel & Motion',
+      category: 'Multimedia & Video',
+      client: 'ESENCIA Showcase',
+      description: 'Producción audiovisual publicitaria con cortes dinámicos, motion graphics e identidad sonora de alto impacto.',
+      image: '/img/servicio-videos.jpg'
     }
   ];
 
@@ -284,33 +281,52 @@ function initPortfolio() {
       } else {
         allProjects = FALLBACK_PROJECTS;
       }
-      renderPortfolio();
+      if (grid) renderPortfolio();
+      if (trailChips.length > 0) bindTrailChips();
     })
     .catch(() => {
       allProjects = FALLBACK_PROJECTS;
-      renderPortfolio();
+      if (grid) renderPortfolio();
+      if (trailChips.length > 0) bindTrailChips();
     });
+
+  // Vincula chips del rastro en la página de productos para abrir el modal
+  function bindTrailChips() {
+    trailChips.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = btn.dataset.projectId;
+        const project = allProjects.find(p => p.id === id) || FALLBACK_PROJECTS.find(p => p.id === id);
+        if (project) {
+          openProjectModal(project);
+        }
+      });
+    });
+  }
 
   function renderPortfolio() {
     renderFilterButtons();
-    renderCards('all');
+    const urlFilter = new URLSearchParams(window.location.search).get('filter');
+    renderCards(urlFilter || 'all');
   }
 
   // Genera filtros dinámicos según las categorías existentes en la base de datos
   function renderFilterButtons() {
     if (!filtersContainer) return;
     const categories = Array.from(new Set(allProjects.map(p => p.category).filter(Boolean)));
+    const urlFilter = new URLSearchParams(window.location.search).get('filter');
+    const initialFilter = urlFilter || 'all';
 
     filtersContainer.innerHTML = '';
     const allBtn = document.createElement('button');
-    allBtn.className = 'filter-btn active';
+    allBtn.className = initialFilter === 'all' ? 'filter-btn active' : 'filter-btn';
     allBtn.dataset.filter = 'all';
     allBtn.textContent = 'Todos';
     filtersContainer.appendChild(allBtn);
 
     categories.forEach(cat => {
       const btn = document.createElement('button');
-      btn.className = 'filter-btn';
+      btn.className = initialFilter === cat ? 'filter-btn active' : 'filter-btn';
       btn.dataset.filter = cat;
       btn.textContent = cat;
       filtersContainer.appendChild(btn);
@@ -327,6 +343,7 @@ function initPortfolio() {
 
   // Renderiza tarjetas 100% dependientes de la base de datos
   function renderCards(filterCategory) {
+    if (!grid) return;
     grid.innerHTML = '';
 
     const filtered = filterCategory === 'all'
@@ -444,7 +461,6 @@ function initFaq() {
     });
   });
 }
-
 
 /* =========================================================
    6. TRADUCTOR MULTIIDIOMA DISCRETO Y PERSISTENTE

@@ -59,65 +59,275 @@
             </div>
         </header>
 
-        <!-- Frase dorada sobre las tarjetas -->
-        <div class="eyebrow" style="margin-top: 26px;"><span></span>Ideas que dan vida a tu marca<span></span></div>
+        <!-- ===== ENCABEZADO DE SERVICIOS ===== -->
+        <section class="services-header">
+            <div class="eyebrow"><span></span>SOLUCIONES CREATIVAS DE ALTO IMPACTO<span></span></div>
+            <h1 class="services-title">Diseñamos la identidad que tu marca merece</h1>
+            <p class="services-subtitle">
+                Estrategia conceptual, identidad visual vectorizada y producción multimedia premium para marcas que buscan trascender y liderar su sector.
+            </p>
+        </section>
 
-        <!-- ===== LAS CUATRO TARJETAS DE SERVICIOS ===== -->
-        <main class="products-grid">
+        <!-- ===== LAS CUATRO TARJETAS DE SERVICIOS (CARDS COMPACTAS CON FONDO ATMOSFÉRICO) ===== -->
+        <main class="services-grid">
 
-            <!-- Tarjeta 1: LOGOS -->
-            <div class="product-column">
-                <h2>LOGOS</h2>
-                <p class="product-text">Identidad visual auténtica, memorable y vectorizada que deja huella.</p>
-                <div class="card-box">
-                    <img src="/img/servicio-logos.jpeg" alt="Servicio de diseño de logos e isotipos" loading="lazy">
-                </div>
-                <div class="product-card-footer">
-                    <a href="/contacto?service=Diseño+de+Logo" class="btn-card-cta">Cotizar Logo <i class="ti ti-arrow-right"></i></a>
-                </div>
-            </div>
+            <!-- Servicio 1: LOGOS E IDENTIDAD -->
+            <article class="service-card" data-service="Identidad Visual">
+                <div class="service-card-bg" style="background-image: url('/img/servicio-logos.jpeg');" aria-hidden="true"></div>
+                <div class="service-card-overlay" aria-hidden="true"></div>
 
-            <!-- Tarjeta 2: ESLÓGANES -->
-            <div class="product-column">
-                <h2>ESLÓGANES</h2>
-                <p class="product-text">Naming, copy y frases de marca que conectan, inspiran y venden.</p>
-                <div class="card-box">
-                    <img src="/img/servicio-eslogans.jpeg" alt="Servicio de eslóganes y redacción de marca" loading="lazy">
-                </div>
-                <div class="product-card-footer">
-                    <a href="/contacto?service=Eslóganes+y+Mensaje+de+Marca" class="btn-card-cta">Cotizar Eslogan <i class="ti ti-arrow-right"></i></a>
-                </div>
-            </div>
+                <div class="service-card-inner">
+                    <div class="service-card-header">
+                        <span class="service-index-badge">01 / IDENTIDAD VISUAL</span>
+                        <div class="service-icon-wrap" aria-hidden="true">
+                            <i class="ti ti-vector-triangle"></i>
+                        </div>
+                    </div>
 
-            <!-- Tarjeta 3: POSTS Y CONTENIDO -->
-            <div class="product-column">
-                <h2>POSTS Y FEED</h2>
-                <p class="product-text">Contenido visual estratégico y carruseles para contar la historia de tu marca.</p>
-                <div class="card-box">
-                    <img src="/img/servicio-posts.jpg" alt="Servicio de contenido y posts para redes sociales" loading="lazy">
-                </div>
-                <div class="product-card-footer">
-                    <a href="/contacto?service=Posts+y+Redes+Sociales" class="btn-card-cta">Cotizar Posts <i class="ti ti-arrow-right"></i></a>
-                </div>
-            </div>
+                    <h2 class="service-card-title">Diseño de Logotipo e Identidad</h2>
+                    <p class="service-card-desc">
+                        Construcción del ADN visual de tu marca: isotipo, logotipo, paleta cromática profesional y reglas de uso para que tu imagen sea memorable e inconfundible.
+                    </p>
 
-            <!-- Tarjeta 4: VIDEOS -->
-            <div class="product-column">
-                <h2>VIDEOS</h2>
-                <p class="product-text">Reels y producciones multimedia en movimiento que generan alto impacto.</p>
-                <div class="card-box">
-                    <img src="/img/servicio-videos.jpg" alt="Servicio de producción y edición de videos" loading="lazy">
+                    <!-- Entregables incluidos -->
+                    <div class="service-deliverables">
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Vectorial (AI / SVG / PDF)</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Paleta & Tipografías</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Fondos transparentes HD</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Mini manual de uso</span>
+                    </div>
+
+                    <!-- Rastro interactivo de proyectos asociados del portafolio -->
+                    <div class="portfolio-trail">
+                        <div class="trail-header">
+                            <span class="trail-label"><i class="ti ti-sparkles"></i> Proyectos asociados:</span>
+                            <span class="trail-hint"><i class="ti ti-click"></i> Click para ver detalle</span>
+                        </div>
+                        <div class="trail-chips">
+                            <button type="button" class="trail-chip" data-project-id="proj-1" title="Ver detalle de Blend Bar">
+                                <img src="/img/logo-blendbar.png" alt="Blend Bar" class="chip-thumb">
+                                <span class="chip-title">Blend Bar</span>
+                                <span class="chip-tag">Café & Bar</span>
+                                <i class="ti ti-arrow-up-right chip-icon"></i>
+                            </button>
+                            <button type="button" class="trail-chip" data-project-id="proj-2" title="Ver detalle de Rotoxas">
+                                <img src="/img/logo-rotoxas.png" alt="Rotoxas" class="chip-thumb">
+                                <span class="chip-title">Rotoxas</span>
+                                <span class="chip-tag">Industrial</span>
+                                <i class="ti ti-arrow-up-right chip-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Footer de tarjeta con CTA -->
+                    <div class="service-card-footer">
+                        <a href="/contacto?service=Diseño+de+Logo" class="btn-service-quote">Cotizar Logo <i class="ti ti-arrow-right"></i></a>
+                        <a href="/portafolio?filter=Identidad+Visual" class="btn-service-portfolio">Ver categoría <i class="ti ti-chevron-right"></i></a>
+                    </div>
                 </div>
-                <div class="product-card-footer">
-                    <a href="/contacto?service=Videos+y+Multimedia" class="btn-card-cta">Cotizar Video <i class="ti ti-arrow-right"></i></a>
+            </article>
+
+            <!-- Servicio 2: ESLÓGANES Y NAMING -->
+            <article class="service-card" data-service="Estrategia Verbal">
+                <div class="service-card-bg" style="background-image: url('/img/servicio-eslogans.jpeg');" aria-hidden="true"></div>
+                <div class="service-card-overlay" aria-hidden="true"></div>
+
+                <div class="service-card-inner">
+                    <div class="service-card-header">
+                        <span class="service-index-badge">02 / ESTRATEGIA VERBAL</span>
+                        <div class="service-icon-wrap" aria-hidden="true">
+                            <i class="ti ti-bulb"></i>
+                        </div>
+                    </div>
+
+                    <h2 class="service-card-title">Naming, Eslóganes & Tono de Marca</h2>
+                    <p class="service-card-desc">
+                        Arquitectura verbal y mensajes con propósito. Nombres memorables, claims comerciales y eslóganes magnéticos que conectan emocionalmente con tu público y potencian tus ventas.
+                    </p>
+
+                    <div class="service-deliverables">
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Propuestas justificadas</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Verificación fonética</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Storytelling & Manifiesto</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Guía de tono y voz</span>
+                    </div>
+
+                    <div class="portfolio-trail">
+                        <div class="trail-header">
+                            <span class="trail-label"><i class="ti ti-sparkles"></i> Proyectos asociados:</span>
+                            <span class="trail-hint"><i class="ti ti-click"></i> Click para ver detalle</span>
+                        </div>
+                        <div class="trail-chips">
+                            <button type="button" class="trail-chip" data-project-id="proj-3" title="Ver detalle de Zero Waste">
+                                <img src="/img/logo-zerowaste.png" alt="Zero Waste" class="chip-thumb">
+                                <span class="chip-title">Zero Waste</span>
+                                <span class="chip-tag">Sostenibilidad</span>
+                                <i class="ti ti-arrow-up-right chip-icon"></i>
+                            </button>
+                            <button type="button" class="trail-chip" data-project-id="proj-1" title="Ver detalle de Blend Bar">
+                                <img src="/img/logo-blendbar.png" alt="Blend Bar" class="chip-thumb">
+                                <span class="chip-title">Blend Bar</span>
+                                <span class="chip-tag">Naming & Tagline</span>
+                                <i class="ti ti-arrow-up-right chip-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="service-card-footer">
+                        <a href="/contacto?service=Eslóganes+y+Mensaje+de+Marca" class="btn-service-quote">Cotizar Eslogan <i class="ti ti-arrow-right"></i></a>
+                        <a href="/portafolio?filter=Branding+%26+Sostenibilidad" class="btn-service-portfolio">Ver categoría <i class="ti ti-chevron-right"></i></a>
+                    </div>
                 </div>
-            </div>
+            </article>
+
+            <!-- Servicio 3: POSTS Y SOCIAL MEDIA -->
+            <article class="service-card" data-service="Social Media">
+                <div class="service-card-bg" style="background-image: url('/img/servicio-posts.jpeg');" aria-hidden="true"></div>
+                <div class="service-card-overlay" aria-hidden="true"></div>
+
+                <div class="service-card-inner">
+                    <div class="service-card-header">
+                        <span class="service-index-badge">03 / SOCIAL MEDIA</span>
+                        <div class="service-icon-wrap" aria-hidden="true">
+                            <i class="ti ti-layout-grid"></i>
+                        </div>
+                    </div>
+
+                    <h2 class="service-card-title">Estrategia de Feed & Carruseles</h2>
+                    <p class="service-card-desc">
+                        Convierte tu perfil en una vitrina de autoridad. Diseñamos publicaciones de alta estética, carruseles de valor y piezas optimizadas para maximizar el engagement en Instagram y LinkedIn.
+                    </p>
+
+                    <div class="service-deliverables">
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Feed armónico y coherente</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Carruseles educativos</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Plantillas editables</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Portadas destacadas</span>
+                    </div>
+
+                    <div class="portfolio-trail">
+                        <div class="trail-header">
+                            <span class="trail-label"><i class="ti ti-sparkles"></i> Proyectos asociados:</span>
+                            <span class="trail-hint"><i class="ti ti-click"></i> Click para ver detalle</span>
+                        </div>
+                        <div class="trail-chips">
+                            <button type="button" class="trail-chip" data-project-id="proj-4" title="Ver detalle de Crone Studio">
+                                <img src="/img/post-crone.jpeg" alt="Crone Studio" class="chip-thumb">
+                                <span class="chip-title">Crone Studio</span>
+                                <span class="chip-tag">Feed & Carruseles</span>
+                                <i class="ti ti-arrow-up-right chip-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="service-card-footer">
+                        <a href="/contacto?service=Posts+y+Redes+Sociales" class="btn-service-quote">Cotizar Posts <i class="ti ti-arrow-right"></i></a>
+                        <a href="/portafolio?filter=Redes+Sociales" class="btn-service-portfolio">Ver categoría <i class="ti ti-chevron-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Servicio 4: VIDEOS Y MULTIMEDIA -->
+            <article class="service-card" data-service="Multimedia">
+                <div class="service-card-bg" style="background-image: url('/img/servicio-videos.jpg');" aria-hidden="true"></div>
+                <div class="service-card-overlay" aria-hidden="true"></div>
+
+                <div class="service-card-inner">
+                    <div class="service-card-header">
+                        <span class="service-index-badge">04 / MULTIMEDIA & REELS</span>
+                        <div class="service-icon-wrap" aria-hidden="true">
+                            <i class="ti ti-video"></i>
+                        </div>
+                    </div>
+
+                    <h2 class="service-card-title">Reels, Spots & Motion Graphics</h2>
+                    <p class="service-card-desc">
+                        El formato con mayor alcance orgánico. Producimos reels ágiles, animaciones de logotipo y piezas publicitarias con ritmo, sonido comercial y edición moderna orientada a la conversión.
+                    </p>
+
+                    <div class="service-deliverables">
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Formatos 9:16 y 16:9 HD</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Edición dinámica & Motion</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Subtítulos & Musicalización</span>
+                        <span class="deliverable-pill"><i class="ti ti-check"></i> Animación de cierre</span>
+                    </div>
+
+                    <div class="portfolio-trail">
+                        <div class="trail-header">
+                            <span class="trail-label"><i class="ti ti-sparkles"></i> Proyectos asociados:</span>
+                            <span class="trail-hint"><i class="ti ti-click"></i> Click para ver detalle</span>
+                        </div>
+                        <div class="trail-chips">
+                            <button type="button" class="trail-chip" data-project-id="proj-5" title="Ver detalle de Spot Reel & Motion">
+                                <img src="/img/servicio-videos.jpg" alt="Spot Reel" class="chip-thumb">
+                                <span class="chip-title">Spot Reel & Motion</span>
+                                <span class="chip-tag">Video Showcase</span>
+                                <i class="ti ti-arrow-up-right chip-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="service-card-footer">
+                        <a href="/contacto?service=Videos+y+Multimedia" class="btn-service-quote">Cotizar Video <i class="ti ti-arrow-right"></i></a>
+                        <a href="/portafolio?filter=Multimedia+%26+Video" class="btn-service-portfolio">Ver categoría <i class="ti ti-chevron-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
         </main>
 
-        <!-- Banner de llamada a portafolio -->
+        <!-- ===== FRANJA DE GARANTÍAS Y ESTÁNDARES DEL ESTUDIO ===== -->
+        <section class="agency-guarantees" aria-label="Garantías del estudio ESENCIA">
+            <div class="guarantee-box">
+                <i class="ti ti-sparkles"></i>
+                <h3>100% Original</h3>
+                <p>Sin plantillas prefabricadas. Cada proyecto es conceptualizado desde cero para tu nicho.</p>
+            </div>
+            <div class="guarantee-box">
+                <i class="ti ti-file-certificate"></i>
+                <h3>Cesión de Derechos</h3>
+                <p>Los archivos y derechos patrimoniales sobre los diseños finales son 100% de tu propiedad.</p>
+            </div>
+            <div class="guarantee-box">
+                <i class="ti ti-clock"></i>
+                <h3>Entregas Puntuales</h3>
+                <p>Cronograma transparente con hitos definidos y comunicación constante vía WhatsApp o Meet.</p>
+            </div>
+            <div class="guarantee-box">
+                <i class="ti ti-badge-ad"></i>
+                <h3>Archivos Maestros</h3>
+                <p>Recibes todos los formatos editables e industriales listos para imprenta, vallas o digital.</p>
+            </div>
+        </section>
+
+        <!-- ===== BANNER DE LLAMADA A PORTAFOLIO COMPLETO ===== -->
         <div class="portfolio-banner">
-            <p>¿Quieres ver más proyectos creados por ESENCIA?</p>
-            <a href="/portafolio" class="portfolio-banner-link">Explorar Nuestro Portafolio <i class="ti ti-arrow-right"></i></a>
+            <div>
+                <p style="margin-bottom: 4px;">¿Quieres explorar <strong>todos</strong> nuestros proyectos completos?</p>
+                <span style="font-size: 0.85rem; color: var(--texto-suave);">Descubre casos de éxito, identidades y conceptos desarrollados por el estudio.</span>
+            </div>
+            <a href="/portafolio" class="btn-primary" style="padding: 12px 24px;">EXPLORAR TODO EL PORTAFOLIO <i class="ti ti-arrow-right"></i></a>
+        </div>
+
+        <!-- Modal Lightbox para detalles de proyecto (abierto desde el rastro de portafolio) -->
+        <div id="project-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+            <div class="modal-box">
+                <button class="modal-close" id="modal-close-btn" aria-label="Cerrar modal"><i class="ti ti-x"></i></button>
+                <div class="modal-body">
+                    <div class="modal-img-col">
+                        <img id="modal-img" src="" alt="Vista previa del proyecto">
+                    </div>
+                    <div class="modal-info-col">
+                        <span id="modal-cat" class="modal-badge"></span>
+                        <h2 id="modal-title"></h2>
+                        <p id="modal-client" class="modal-client-text"></p>
+                        <p id="modal-desc" class="modal-desc-text"></p>
+                        <div class="modal-actions">
+                            <a id="modal-cta-btn" href="/contacto" class="btn-primary">COTIZAR PROYECTO SIMILAR <i class="ti ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="marca-fondo notranslate" translate="no">ESENCIA</div>

@@ -70,6 +70,15 @@ const DEFAULT_PROJECTS = [
     description: 'Estrategia visual para feeds de Instagram, diseño de publicaciones y carruseles de alta conversión.',
     image: '/img/post-crone.jpeg',
     featured: 1
+  },
+  {
+    id: 'proj-5',
+    title: 'Spot Reel & Motion',
+    category: 'Multimedia & Video',
+    client: 'ESENCIA Showcase',
+    description: 'Producción audiovisual publicitaria con cortes dinámicos, motion graphics e identidad sonora de alto impacto.',
+    image: '/img/servicio-videos.jpg',
+    featured: 1
   }
 ];
 
