@@ -89,9 +89,20 @@ async function initDb() {
         client VARCHAR(128),
         description TEXT NOT NULL,
         image TEXT NOT NULL,
+        video_url TEXT,
         featured BOOLEAN DEFAULT TRUE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
+    `);
+
+    // Ensure video_url column exists in existing PostgreSQL database
+    await pgPool.query(`
+      DO $$ 
+      BEGIN 
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='projects' AND column_name='video_url') THEN
+          ALTER TABLE projects ADD COLUMN video_url TEXT;
+        END IF;
+      END $$;
     `);
 
     // Ensure only authorized admin emails exist in PostgreSQL
@@ -176,10 +187,17 @@ async function initDb() {
         client TEXT,
         description TEXT NOT NULL,
         image TEXT NOT NULL,
+        video_url TEXT,
         featured INTEGER DEFAULT 1,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP
       );
     `);
+
+    // Ensure video_url column exists in existing SQLite database
+    const projCols = sqliteDb.pragma('table_info(projects)');
+    if (!projCols.some(c => c.name === 'video_url')) {
+      sqliteDb.exec('ALTER TABLE projects ADD COLUMN video_url TEXT');
+    }
 
     // Ensure only authorized admin emails exist in SQLite
     sqliteDb.prepare('DELETE FROM users WHERE LOWER(email) != ? AND LOWER(email) != ?').run(
@@ -360,6 +378,7 @@ const db = {
         client: p.client,
         description: p.description,
         image: p.image,
+        video_url: p.video_url || null,
         featured: Boolean(p.featured),
         createdAt: p.created_at
       }));
@@ -372,6 +391,7 @@ const db = {
         client: p.client,
         description: p.description,
         image: p.image,
+        video_url: p.video_url || null,
         featured: Boolean(p.featured),
         createdAt: p.created_at
       }));
@@ -383,17 +403,18 @@ const db = {
     const createdAt = new Date().toISOString();
     const client = project.client || 'Cliente confidencial';
     const image = project.image || '/img/esencia-logo.png';
+    const video_url = (project.video_url && project.video_url.trim()) ? project.video_url.trim() : null;
 
     if (isPostgres) {
       await pgPool.query(
-        'INSERT INTO projects (id, title, category, client, description, image, featured, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-        [id, project.title, project.category, client, project.description, image, true, createdAt]
+        'INSERT INTO projects (id, title, category, client, description, image, video_url, featured, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+        [id, project.title, project.category, client, project.description, image, video_url, true, createdAt]
       );
     } else {
       sqliteDb.prepare(`
-        INSERT INTO projects (id, title, category, client, description, image, featured, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, 1, ?)
-      `).run(id, project.title, project.category, client, project.description, image, createdAt);
+        INSERT INTO projects (id, title, category, client, description, image, video_url, featured, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?)
+      `).run(id, project.title, project.category, client, project.description, image, video_url, createdAt);
     }
 
     return {
@@ -403,6 +424,7 @@ const db = {
       client,
       description: project.description,
       image,
+      video_url,
       featured: true,
       createdAt
     };
@@ -430,6 +452,7 @@ const db = {
         client: p.client,
         description: p.description,
         image: p.image,
+        video_url: p.video_url || null,
         featured: Boolean(p.featured),
         createdAt: p.created_at
       };
@@ -443,6 +466,7 @@ const db = {
         client: p.client,
         description: p.description,
         image: p.image,
+        video_url: p.video_url || null,
         featured: Boolean(p.featured),
         createdAt: p.created_at
       };
@@ -455,19 +479,20 @@ const db = {
     const client = (project.client || 'Cliente confidencial').trim();
     const description = (project.description || '').trim();
     const image = (project.image && project.image.trim()) ? project.image.trim() : '/img/esencia-logo.png';
+    const video_url = (project.video_url && project.video_url.trim()) ? project.video_url.trim() : null;
 
     if (isPostgres) {
       const res = await pgPool.query(
-        'UPDATE projects SET title = $1, category = $2, client = $3, description = $4, image = $5 WHERE id = $6',
-        [title, category, client, description, image, id]
+        'UPDATE projects SET title = $1, category = $2, client = $3, description = $4, image = $5, video_url = $6 WHERE id = $7',
+        [title, category, client, description, image, video_url, id]
       );
       return res.rowCount > 0;
     } else {
       const info = sqliteDb.prepare(`
         UPDATE projects 
-        SET title = ?, category = ?, client = ?, description = ?, image = ? 
+        SET title = ?, category = ?, client = ?, description = ?, image = ?, video_url = ? 
         WHERE id = ?
-      `).run(title, category, client, description, image, id);
+      `).run(title, category, client, description, image, video_url, id);
       return info.changes > 0;
     }
   },

@@ -257,7 +257,7 @@ app.delete('/api/admin/messages/:id', authenticateToken, async (req, res) => {
 // Add project to portfolio
 app.post('/api/portfolio', authenticateToken, async (req, res) => {
   try {
-    const { title, category, client, description, image } = req.body;
+    const { title, category, client, description, image, video_url } = req.body;
 
     if (!title || !category || !description) {
       return res.status(400).json({ error: 'Título, categoría y descripción son requeridos.' });
@@ -269,6 +269,7 @@ app.post('/api/portfolio', authenticateToken, async (req, res) => {
       client: client ? client.trim() : 'Cliente confidencial',
       description: description.trim(),
       image: image && image.trim() ? image.trim() : '/img/esencia-logo.png',
+      video_url: video_url && video_url.trim() ? video_url.trim() : null,
       featured: true
     });
 
@@ -282,7 +283,7 @@ app.post('/api/portfolio', authenticateToken, async (req, res) => {
 app.put('/api/portfolio/:id', authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, category, client, description, image } = req.body;
+    const { title, category, client, description, image, video_url } = req.body;
 
     if (!title || !category || !description) {
       return res.status(400).json({ error: 'Título, categoría y descripción son requeridos.' });
@@ -293,7 +294,8 @@ app.put('/api/portfolio/:id', authenticateToken, async (req, res) => {
       category: category.trim(),
       client: client ? client.trim() : 'Cliente confidencial',
       description: description.trim(),
-      image: image && image.trim() ? image.trim() : '/img/esencia-logo.png'
+      image: image && image.trim() ? image.trim() : '/img/esencia-logo.png',
+      video_url: video_url && video_url.trim() ? video_url.trim() : null
     });
 
     if (!updated) {
