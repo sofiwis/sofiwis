@@ -352,7 +352,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="proj-image">Ruta de Imagen o URL *</label>
-                                <input type="text" id="proj-image" required placeholder="Ej. img/logo-blendbar.png o https://...">
+                                <input type="text" id="proj-image" required placeholder="Ej. /img/esencia-logo.png o https://...">
                             </div>
                         </div>
 
@@ -600,7 +600,7 @@
 
                 list.innerHTML = projects.map(p => `
                     <div class="admin-project-card">
-                        <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" class="admin-project-img" onerror="this.src='/img/servicio-logos.jpg'">
+                        <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" class="admin-project-img" onerror="this.src='/img/esencia-logo.png'">
                         <div class="admin-project-content">
                             <span class="admin-project-cat">${escapeHtml(p.category)}</span>
                             <h3 class="admin-project-title">${escapeHtml(p.title)}</h3>

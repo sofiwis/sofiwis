@@ -268,7 +268,7 @@ app.post('/api/portfolio', authenticateToken, async (req, res) => {
       category: category.trim(),
       client: client ? client.trim() : 'Cliente confidencial',
       description: description.trim(),
-      image: image && image.trim() ? image.trim() : 'img/servicio-logos.jpg',
+      image: image && image.trim() ? image.trim() : '/img/esencia-logo.png',
       featured: true
     });
 

@@ -34,53 +34,7 @@ const DEFAULT_ADMINS = [
   }
 ];
 
-const DEFAULT_PROJECTS = [
-  {
-    id: 'proj-1',
-    title: 'Blend Bar',
-    category: 'Identidad Visual',
-    client: 'Blend Bar Coffee & Cocktails',
-    description: 'Creación de logotipo, identidad de marca moderna y concepto visual para coctelería y café de especialidad.',
-    image: '/img/logo-blendbar.png',
-    featured: 1
-  },
-  {
-    id: 'proj-2',
-    title: 'Rotoxas',
-    category: 'Identidad Visual',
-    client: 'Rotoxas Soluciones',
-    description: 'Diseño de logotipo industrial e isotipo de alto impacto con paleta metálica y sobria.',
-    image: '/img/logo-rotoxas.png',
-    featured: 1
-  },
-  {
-    id: 'proj-3',
-    title: 'Zero Waste Colombia',
-    category: 'Branding & Sostenibilidad',
-    client: 'Zero Waste Initiative',
-    description: 'Identidad visual ecológica, líneas orgánicas y empaques sustentables para concientización ambiental.',
-    image: '/img/logo-zerowaste.png',
-    featured: 1
-  },
-  {
-    id: 'proj-4',
-    title: 'Crone Studio',
-    category: 'Redes Sociales',
-    client: 'Crone Digital',
-    description: 'Estrategia visual para feeds de Instagram, diseño de publicaciones y carruseles de alta conversión.',
-    image: '/img/post-crone.jpeg',
-    featured: 1
-  },
-  {
-    id: 'proj-5',
-    title: 'Spot Reel & Motion',
-    category: 'Multimedia & Video',
-    client: 'ESENCIA Showcase',
-    description: 'Producción audiovisual publicitaria con cortes dinámicos, motion graphics e identidad sonora de alto impacto.',
-    image: '/img/servicio-videos.jpg',
-    featured: 1
-  }
-];
+const DEFAULT_PROJECTS = [];
 
 const DEFAULT_MESSAGES = [
   {
@@ -428,7 +382,7 @@ const db = {
     const id = 'proj-' + Date.now();
     const createdAt = new Date().toISOString();
     const client = project.client || 'Cliente confidencial';
-    const image = project.image || '/img/servicio-logos.jpg';
+    const image = project.image || '/img/esencia-logo.png';
 
     if (isPostgres) {
       await pgPool.query(

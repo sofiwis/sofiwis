@@ -223,49 +223,7 @@ function initPortfolio() {
 
   if (!grid && !modal && trailChips.length === 0) return;
 
-  // Fallback inicial por si la página se abre sin conexión al servidor
-  const FALLBACK_PROJECTS = [
-    {
-      id: 'proj-1',
-      title: 'Blend Bar',
-      category: 'Identidad Visual',
-      client: 'Blend Bar Coffee & Cocktails',
-      description: 'Creación de logotipo, identidad de marca moderna y concepto visual para coctelería y café de especialidad.',
-      image: '/img/logo-blendbar.png'
-    },
-    {
-      id: 'proj-2',
-      title: 'Rotoxas',
-      category: 'Identidad Visual',
-      client: 'Rotoxas Soluciones',
-      description: 'Diseño de logotipo industrial e isotipo de alto impacto con paleta metálica y sobria.',
-      image: '/img/logo-rotoxas.png'
-    },
-    {
-      id: 'proj-3',
-      title: 'Zero Waste Colombia',
-      category: 'Branding & Sostenibilidad',
-      client: 'Zero Waste Initiative',
-      description: 'Identidad visual ecológica, líneas orgánicas y empaques sustentables para concientización ambiental.',
-      image: '/img/logo-zerowaste.png'
-    },
-    {
-      id: 'proj-4',
-      title: 'Crone Studio',
-      category: 'Redes Sociales',
-      client: 'Crone Digital',
-      description: 'Estrategia visual para feeds de Instagram, diseño de publicaciones y carruseles de alta conversión.',
-      image: '/img/post-crone.jpeg'
-    },
-    {
-      id: 'proj-5',
-      title: 'Spot Reel & Motion',
-      category: 'Multimedia & Video',
-      client: 'ESENCIA Showcase',
-      description: 'Producción audiovisual publicitaria con cortes dinámicos, motion graphics e identidad sonora de alto impacto.',
-      image: '/img/servicio-videos.jpg'
-    }
-  ];
+  const FALLBACK_PROJECTS = [];
 
   let allProjects = [];
 
@@ -372,7 +330,7 @@ function initPortfolio() {
 
       card.innerHTML = `
         <div class="portfolio-img-wrap">
-            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.src='/img/servicio-logos.jpg'">
+            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.src='/img/esencia-logo.png'">
             <div class="portfolio-overlay">
                 <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
             </div>
@@ -394,7 +352,7 @@ function initPortfolio() {
 
   function openProjectModal(project) {
     if (!modal) return;
-    document.getElementById('modal-img').src = project.image || '/img/servicio-logos.jpg';
+    document.getElementById('modal-img').src = project.image || '/img/esencia-logo.png';
     document.getElementById('modal-title').textContent = project.title || 'Proyecto ESENCIA';
     document.getElementById('modal-cat').textContent = project.category || 'Identidad Visual';
     document.getElementById('modal-client').textContent = project.client ? `Cliente: ${project.client}` : '';
