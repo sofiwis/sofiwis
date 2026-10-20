@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAuthBadge();
   initContactForm();
   initPortfolio();
+  initFaq();
 });
 
 /* =========================================================
@@ -415,7 +416,38 @@ function initPortfolio() {
 }
 
 /* =========================================================
-   5. TRADUCTOR MULTIIDIOMA DISCRETO Y PERSISTENTE
+   5. ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ)
+   ========================================================= */
+function initFaq() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  if (!faqItems.length) return;
+
+  faqItems.forEach(item => {
+    const questionBtn = item.querySelector('.faq-question');
+    if (!questionBtn) return;
+
+    questionBtn.addEventListener('click', () => {
+      const isCurrentlyActive = item.classList.contains('active');
+
+      // Cerrar otros acordeones abiertos
+      faqItems.forEach(other => {
+        if (other !== item) {
+          other.classList.remove('active');
+          const otherBtn = other.querySelector('.faq-question');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Alternar estado actual
+      item.classList.toggle('active', !isCurrentlyActive);
+      questionBtn.setAttribute('aria-expanded', String(!isCurrentlyActive));
+    });
+  });
+}
+
+
+/* =========================================================
+   6. TRADUCTOR MULTIIDIOMA DISCRETO Y PERSISTENTE
    ========================================================= */
 const idiomaGuardado = localStorage.getItem('idioma_esencia') || 'es';
 
