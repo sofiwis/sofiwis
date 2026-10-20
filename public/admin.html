@@ -362,9 +362,15 @@
                                 <input type="text" id="proj-client" placeholder="Ej. Aura Natural Care">
                             </div>
                             <div class="form-group">
-                                <label for="proj-image">Ruta de Imagen o URL *</label>
+                                <label for="proj-image">Portada (Imagen o Poster) *</label>
                                 <input type="text" id="proj-image" required placeholder="Ej. /img/esencia-logo.png o https://...">
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-video">URL de Video (Opcional — MP4, YouTube o Vimeo)</label>
+                            <input type="text" id="proj-video" placeholder="Ej. /videos/reel.mp4 o https://www.youtube.com/watch?v=... o https://vimeo.com/...">
+                            <small style="color: var(--texto-suave); font-size: 0.75rem; display: block; margin-top: 4px;">Si ingresas un video, se reproducirá en el visor emergente manteniendo la portada como miniatura.</small>
                         </div>
 
                         <div class="form-group">
@@ -618,7 +624,10 @@
                     <div class="admin-project-card">
                         <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" class="admin-project-img" onerror="this.src='/img/esencia-logo.png'">
                         <div class="admin-project-content">
-                            <span class="admin-project-cat">${escapeHtml(p.category)}</span>
+                            <div style="display:flex; justify-content:space-between; align-items:center; gap: 8px;">
+                                <span class="admin-project-cat">${escapeHtml(p.category)}</span>
+                                ${p.video_url ? '<span style="display:inline-flex; align-items:center; gap:4px; font-size:0.7rem; color:var(--dorado-claro); background:rgba(185,138,80,0.15); border:1px solid var(--borde); padding:2px 8px; border-radius:10px;"><i class="ti ti-video"></i> Video</span>' : ''}
+                            </div>
                             <h3 class="admin-project-title">${escapeHtml(p.title)}</h3>
                             <p class="admin-project-desc">${escapeHtml(p.description)}</p>
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 10px; gap: 8px;">
@@ -643,6 +652,7 @@
                         document.getElementById('proj-cat').value = p.category || 'Identidad Visual';
                         document.getElementById('proj-client').value = p.client || '';
                         document.getElementById('proj-image').value = p.image || '';
+                        document.getElementById('proj-video').value = p.video_url || '';
                         document.getElementById('proj-desc').value = p.description || '';
 
                         document.getElementById('form-proj-title').innerHTML = `<i class="ti ti-pencil"></i> Editando Proyecto: <span style="color:#fff;">${escapeHtml(p.title)}</span>`;
@@ -668,6 +678,7 @@
             function resetProjectForm() {
                 document.getElementById('add-project-form').reset();
                 document.getElementById('proj-edit-id').value = '';
+                document.getElementById('proj-video').value = '';
                 document.getElementById('form-proj-title').innerHTML = '<i class="ti ti-plus"></i> Agregar Nuevo Proyecto al Portafolio';
                 document.getElementById('btn-save-proj').innerHTML = '<i class="ti ti-device-floppy"></i> GUARDAR PROYECTO';
                 document.getElementById('btn-cancel-edit-proj').style.display = 'none';
@@ -682,6 +693,7 @@
                 const category = document.getElementById('proj-cat').value;
                 const client = document.getElementById('proj-client').value.trim();
                 const image = document.getElementById('proj-image').value.trim();
+                const video_url = document.getElementById('proj-video').value.trim();
                 const description = document.getElementById('proj-desc').value.trim();
 
                 const isEditing = Boolean(editId);
@@ -691,7 +703,7 @@
                 fetch(url, {
                     method: method,
                     headers: authHeaders,
-                    body: JSON.stringify({ title, category, client, image, description })
+                    body: JSON.stringify({ title, category, client, image, video_url, description })
                 })
                 .then(r => r.json())
                 .then(data => {
