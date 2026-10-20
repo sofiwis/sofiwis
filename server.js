@@ -99,28 +99,35 @@ app.get('/api/portfolio', async (req, res) => {
   }
 });
 
-// 3. Admin Login
+// 3. Admin Login (Restringido estrictamente a los 2 correos autorizados)
 app.post('/api/auth/login', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const emailInput = (req.body.email || req.body.username || '').trim().toLowerCase();
+    const { password } = req.body;
 
-    if (!username || !password) {
-      return res.status(400).json({ error: 'Ingresa tu usuario y contraseña.' });
+    if (!emailInput || !password) {
+      return res.status(400).json({ error: 'Ingresa tu correo autorizado y contraseña.' });
     }
 
-    const user = await db.getUserByUsername(username);
+    if (!db.isEmailAllowed(emailInput)) {
+      return res.status(403).json({
+        error: 'Acceso no autorizado. Solamente los dos correos registrados de ESENCIA tienen acceso a este panel.'
+      });
+    }
+
+    const user = await db.getUserByUsername(emailInput);
     if (!user) {
-      return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
+      return res.status(401).json({ error: 'Credenciales inválidas.' });
     }
 
     const validPassword = bcrypt.compareSync(password, user.passwordHash);
     if (!validPassword) {
-      return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
+      return res.status(401).json({ error: 'Contraseña incorrecta.' });
     }
 
     // Generate JWT token valid for 7 days
     const token = jwt.sign(
-      { id: user.id, username: user.username, role: user.role, name: user.name },
+      { id: user.id, username: user.username, role: user.role, name: user.name, email: user.email },
       JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -140,6 +147,47 @@ app.post('/api/auth/login', async (req, res) => {
   } catch (error) {
     console.error('Error en login:', error);
     res.status(500).json({ error: 'Error interno en el servidor' });
+  }
+});
+
+// 4. Password Recovery / Reset Endpoint
+app.post('/api/auth/forgot-password', async (req, res) => {
+  try {
+    const email = (req.body.email || '').trim().toLowerCase();
+    if (!email) {
+      return res.status(400).json({ error: 'Por favor ingresa tu correo electrónico.' });
+    }
+
+    if (!db.isEmailAllowed(email)) {
+      return res.status(403).json({
+        error: 'El correo ingresado no corresponde a una cuenta administrativa autorizada.'
+      });
+    }
+
+    // Si se envía una nueva contraseña para restablecer
+    if (req.body.newPassword) {
+      const newPassword = String(req.body.newPassword).trim();
+      if (newPassword.length < 6) {
+        return res.status(400).json({ error: 'La nueva contraseña debe tener al menos 6 caracteres.' });
+      }
+      const updated = await db.updatePasswordByEmail(email, newPassword);
+      if (updated) {
+        return res.json({
+          success: true,
+          message: '¡Contraseña restablecida exitosamente! Ya puedes iniciar sesión con tu nueva clave.'
+        });
+      } else {
+        return res.status(500).json({ error: 'No se pudo actualizar la contraseña.' });
+      }
+    }
+
+    return res.json({
+      success: true,
+      message: `Hemos verificado que ${email} es un administrador autorizado de ESENCIA. Puedes ingresar tu nueva clave a continuación.`
+    });
+  } catch (error) {
+    console.error('Error en recuperación:', error);
+    res.status(500).json({ error: 'Error al procesar la solicitud de recuperación' });
   }
 });
 

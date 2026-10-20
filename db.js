@@ -8,15 +8,31 @@ const isPostgres = Boolean(process.env.DATABASE_URL);
 let pgPool = null;
 let sqliteDb = null;
 
+// Allowed admin emails (strict whitelist)
+const ALLOWED_ADMIN_EMAILS = [
+  'angelavalanta2009@gmail.com',
+  'esenciadesign9@gmail.com'
+];
+
 // Initial seed data
-const DEFAULT_ADMIN = {
-  id: 'admin-1',
-  username: 'admin',
-  email: 'admin@esencia.com',
-  passwordHash: bcrypt.hashSync('admin123', 10),
-  name: 'Sofía — Directora ESENCIA',
-  role: 'admin'
-};
+const DEFAULT_ADMINS = [
+  {
+    id: 'admin-esencia',
+    username: 'esenciadesign9@gmail.com',
+    email: 'esenciadesign9@gmail.com',
+    passwordHash: bcrypt.hashSync('admin123', 10),
+    name: 'Sofía — Directora ESENCIA',
+    role: 'admin'
+  },
+  {
+    id: 'admin-personal',
+    username: 'angelavalanta2009@gmail.com',
+    email: 'angelavalanta2009@gmail.com',
+    passwordHash: bcrypt.hashSync('admin123', 10),
+    name: 'Angela Valanta — ESENCIA',
+    role: 'admin'
+  }
+];
 
 const DEFAULT_PROJECTS = [
   {
@@ -115,14 +131,20 @@ async function initDb() {
       );
     `);
 
-    // Seed admin if not present
-    const userRes = await pgPool.query('SELECT COUNT(*) FROM users');
-    if (parseInt(userRes.rows[0].count, 10) === 0) {
-      await pgPool.query(
-        'INSERT INTO users (id, username, email, password_hash, name, role) VALUES ($1, $2, $3, $4, $5, $6)',
-        [DEFAULT_ADMIN.id, DEFAULT_ADMIN.username, DEFAULT_ADMIN.email, DEFAULT_ADMIN.passwordHash, DEFAULT_ADMIN.name, DEFAULT_ADMIN.role]
-      );
-      console.log('✅ Usuario administrador inicial creado en PostgreSQL.');
+    // Ensure only authorized admin emails exist in PostgreSQL
+    await pgPool.query('DELETE FROM users WHERE LOWER(email) != $1 AND LOWER(email) != $2', [
+      ALLOWED_ADMIN_EMAILS[0],
+      ALLOWED_ADMIN_EMAILS[1]
+    ]);
+    for (const admin of DEFAULT_ADMINS) {
+      const existing = await pgPool.query('SELECT id FROM users WHERE LOWER(email) = LOWER($1)', [admin.email]);
+      if (existing.rows.length === 0) {
+        await pgPool.query(
+          'INSERT INTO users (id, username, email, password_hash, name, role) VALUES ($1, $2, $3, $4, $5, $6)',
+          [admin.id, admin.username, admin.email, admin.passwordHash, admin.name, admin.role]
+        );
+        console.log(`✅ Administrador autorizado ${admin.email} registrado en PostgreSQL.`);
+      }
     }
 
     // Seed projects if not present
@@ -196,14 +218,20 @@ async function initDb() {
       );
     `);
 
-    // Seed admin if not present
-    const userCount = sqliteDb.prepare('SELECT COUNT(*) as count FROM users').get().count;
-    if (userCount === 0) {
-      sqliteDb.prepare(`
-        INSERT INTO users (id, username, email, password_hash, name, role)
-        VALUES (?, ?, ?, ?, ?, ?)
-      `).run(DEFAULT_ADMIN.id, DEFAULT_ADMIN.username, DEFAULT_ADMIN.email, DEFAULT_ADMIN.passwordHash, DEFAULT_ADMIN.name, DEFAULT_ADMIN.role);
-      console.log('✅ Usuario administrador inicial creado en SQLite.');
+    // Ensure only authorized admin emails exist in SQLite
+    sqliteDb.prepare('DELETE FROM users WHERE LOWER(email) != ? AND LOWER(email) != ?').run(
+      ALLOWED_ADMIN_EMAILS[0],
+      ALLOWED_ADMIN_EMAILS[1]
+    );
+    for (const admin of DEFAULT_ADMINS) {
+      const existing = sqliteDb.prepare('SELECT id FROM users WHERE LOWER(email) = LOWER(?)').get(admin.email);
+      if (!existing) {
+        sqliteDb.prepare(`
+          INSERT INTO users (id, username, email, password_hash, name, role)
+          VALUES (?, ?, ?, ?, ?, ?)
+        `).run(admin.id, admin.username, admin.email, admin.passwordHash, admin.name, admin.role);
+        console.log(`✅ Administrador autorizado ${admin.email} registrado en SQLite.`);
+      }
     }
 
     // Seed projects if not present
@@ -423,6 +451,26 @@ const db = {
       return res.rowCount > 0;
     } else {
       const info = sqliteDb.prepare('DELETE FROM projects WHERE id = ?').run(id);
+      return info.changes > 0;
+    }
+  },
+
+  ALLOWED_ADMIN_EMAILS,
+
+  isEmailAllowed(email) {
+    if (!email) return false;
+    return ALLOWED_ADMIN_EMAILS.includes(email.trim().toLowerCase());
+  },
+
+  async updatePasswordByEmail(email, newPassword) {
+    const cleanEmail = (email || '').trim().toLowerCase();
+    if (!ALLOWED_ADMIN_EMAILS.includes(cleanEmail)) return false;
+    const hash = bcrypt.hashSync(newPassword, 10);
+    if (isPostgres) {
+      const res = await pgPool.query('UPDATE users SET password_hash = $1 WHERE LOWER(email) = LOWER($2)', [hash, cleanEmail]);
+      return res.rowCount > 0;
+    } else {
+      const info = sqliteDb.prepare('UPDATE users SET password_hash = ? WHERE LOWER(email) = LOWER(?)').run(hash, cleanEmail);
       return info.changes > 0;
     }
   }

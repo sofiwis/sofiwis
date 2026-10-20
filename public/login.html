@@ -32,43 +32,87 @@
         </header>
 
         <!-- ===== CONTENIDO DE LOGIN ===== -->
+        <!-- ===== CONTENIDO DE LOGIN Y RECUPERACIÓN ===== -->
         <main class="login-wrapper">
             <div class="login-card">
-                <div class="eyebrow"><span></span>ÁREA RESTRINGIDA<span></span></div>
-                <h1 class="login-title">Iniciar Sesión</h1>
-                <p class="login-subtitle">Acceso administrativo para gestionar proyectos de portafolio y revisar mensajes recibidos.</p>
+                
+                <!-- SECCIÓN 1: INICIO DE SESIÓN -->
+                <div id="login-section">
+                    <div class="eyebrow"><span></span>ÁREA RESTRINGIDA<span></span></div>
+                    <h1 class="login-title">Iniciar Sesión</h1>
+                    <p class="login-subtitle">Acceso administrativo exclusivo para gestión de portafolio y revisión de cotizaciones.</p>
 
-                <form id="login-form" class="custom-form login-form">
-                    <div class="form-group">
-                        <label for="login-username">Usuario o Correo</label>
-                        <input type="text" id="login-username" name="username" required placeholder="Ej. admin" autocomplete="username" autofocus>
-                    </div>
+                    <form id="login-form" class="custom-form login-form">
+                        <div class="form-group">
+                            <label for="login-email">Correo Electrónico Autorizado</label>
+                            <input type="email" id="login-email" name="email" required placeholder="tu@correo.com" autocomplete="email" autofocus>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="login-password">Contraseña</label>
-                        <input type="password" id="login-password" name="password" required placeholder="Tu contraseña de acceso" autocomplete="current-password">
-                    </div>
+                        <div class="form-group">
+                            <label for="login-password">Contraseña</label>
+                            <input type="password" id="login-password" name="password" required placeholder="Tu contraseña de acceso" autocomplete="current-password">
+                        </div>
 
-                    <button type="submit" id="btn-submit-login" class="btn-primary form-submit-btn">
-                        <span class="btn-text">INGRESAR AL PANEL <i class="ti ti-arrow-right"></i></span>
-                        <span class="btn-loader" style="display:none;"><i class="ti ti-loader"></i> Verificando...</span>
-                    </button>
+                        <!-- Enlace ¿Olvidaste tu contraseña? -->
+                        <div style="display:flex; justify-content: flex-end; margin-top: -6px; margin-bottom: 16px;">
+                            <button type="button" id="btn-to-recovery" style="background:none; border:none; color:var(--dorado-claro); font-size:0.84rem; cursor:pointer; text-decoration:underline; padding:4px 0;">
+                                ¿Olvidaste tu contraseña?
+                            </button>
+                        </div>
 
-                    <div id="login-alert" class="status-box alert-error" style="display:none;" role="alert"></div>
+                        <button type="submit" id="btn-submit-login" class="btn-primary form-submit-btn" style="width:100%;">
+                            <span class="btn-text">INGRESAR AL PANEL <i class="ti ti-arrow-right"></i></span>
+                            <span class="btn-loader" style="display:none;"><i class="ti ti-loader"></i> Verificando...</span>
+                        </button>
 
-                    <!-- Nota con credenciales por defecto -->
-                    <div class="demo-credentials-box">
-                        <strong>Credenciales iniciales:</strong>
-                        <p>Usuario: <code>admin</code> | Clave: <code>admin123</code></p>
-                    </div>
-                </form>
+                        <div id="login-alert" class="status-box alert-error" style="display:none;" role="alert"></div>
+
+                        <div class="demo-credentials-box">
+                            <strong>Cuentas autorizadas:</strong>
+                            <p style="margin-top:4px;"><code>esenciadesign9@gmail.com</code></p>
+                            <p style="margin-top:2px;"><code>angelavalanta2009@gmail.com</code></p>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- SECCIÓN 2: RECUPERAR CONTRASEÑA -->
+                <div id="recovery-section" style="display:none;">
+                    <div class="eyebrow"><span></span>SEGURIDAD DE ACCESO<span></span></div>
+                    <h1 class="login-title">Recuperar Contraseña</h1>
+                    <p class="login-subtitle">Ingresa tu correo autorizado para restablecer la contraseña de acceso al panel.</p>
+
+                    <form id="recovery-form" class="custom-form login-form">
+                        <div class="form-group">
+                            <label for="recovery-email">Correo Electrónico Autorizado</label>
+                            <input type="email" id="recovery-email" name="email" required placeholder="ej. angelavalanta2009@gmail.com" autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recovery-new-password">Nueva Contraseña</label>
+                            <input type="password" id="recovery-new-password" name="newPassword" required minlength="6" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button type="submit" id="btn-submit-recovery" class="btn-primary form-submit-btn" style="flex: 2;">
+                                <span class="btn-text">RESTABLECER <i class="ti ti-check"></i></span>
+                                <span class="btn-loader" style="display:none;"><i class="ti ti-loader"></i> Guardando...</span>
+                            </button>
+                            <button type="button" id="btn-cancel-recovery" class="btn-secondary" style="flex: 1; justify-content: center;">
+                                CANCELAR
+                            </button>
+                        </div>
+
+                        <div id="recovery-alert" class="status-box" style="display:none;" role="alert"></div>
+                    </form>
+                </div>
+
             </div>
         </main>
 
         <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
     </div>
 
-    <!-- Script de autenticación -->
+    <!-- Script de autenticación y recuperación -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('esencia_token');
@@ -85,34 +129,65 @@
                 .catch(() => {});
             }
 
-            const loginForm = document.getElementById('login-form');
-            const alertBox = document.getElementById('login-alert');
-            const btn = document.getElementById('btn-submit-login');
-            const btnText = btn.querySelector('.btn-text');
-            const btnLoader = btn.querySelector('.btn-loader');
+            // Elementos de vistas
+            const loginSection = document.getElementById('login-section');
+            const recoverySection = document.getElementById('recovery-section');
+            const btnToRecovery = document.getElementById('btn-to-recovery');
+            const btnCancelRecovery = document.getElementById('btn-cancel-recovery');
 
+            // Formularios y alertas
+            const loginForm = document.getElementById('login-form');
+            const loginAlert = document.getElementById('login-alert');
+            const btnLogin = document.getElementById('btn-submit-login');
+
+            const recoveryForm = document.getElementById('recovery-form');
+            const recoveryAlert = document.getElementById('recovery-alert');
+            const btnRecovery = document.getElementById('btn-submit-recovery');
+
+            // Alternar a recuperación
+            btnToRecovery.addEventListener('click', () => {
+                loginAlert.style.display = 'none';
+                recoveryAlert.style.display = 'none';
+                loginSection.style.display = 'none';
+                recoverySection.style.display = 'block';
+                document.getElementById('recovery-email').focus();
+            });
+
+            // Opción CANCELAR: volver a login
+            btnCancelRecovery.addEventListener('click', () => {
+                recoveryAlert.style.display = 'none';
+                loginAlert.style.display = 'none';
+                recoverySection.style.display = 'none';
+                loginSection.style.display = 'block';
+                document.getElementById('login-email').focus();
+            });
+
+            // Manejo de Login
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                alertBox.style.display = 'none';
+                loginAlert.style.display = 'none';
 
-                const username = document.getElementById('login-username').value.trim();
+                const email = document.getElementById('login-email').value.trim();
                 const password = document.getElementById('login-password').value;
 
-                if (!username || !password) {
-                    alertBox.textContent = 'Por favor ingresa usuario y contraseña.';
-                    alertBox.style.display = 'block';
+                if (!email || !password) {
+                    loginAlert.className = 'status-box alert-error';
+                    loginAlert.textContent = 'Por favor ingresa tu correo y contraseña.';
+                    loginAlert.style.display = 'block';
                     return;
                 }
 
+                const btnText = btnLogin.querySelector('.btn-text');
+                const btnLoader = btnLogin.querySelector('.btn-loader');
                 btnText.style.display = 'none';
                 btnLoader.style.display = 'inline-flex';
-                btn.disabled = true;
+                btnLogin.disabled = true;
 
                 try {
                     const res = await fetch('/api/auth/login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username, password })
+                        body: JSON.stringify({ email, password })
                     });
 
                     const data = await res.json();
@@ -126,12 +201,81 @@
 
                     window.location.href = '/admin';
                 } catch (err) {
-                    alertBox.textContent = err.message || 'Error de conexión. Asegúrate de que el servidor esté activo.';
-                    alertBox.style.display = 'block';
+                    loginAlert.className = 'status-box alert-error';
+                    loginAlert.textContent = err.message || 'Error de conexión. Asegúrate de que el servidor esté activo.';
+                    loginAlert.style.display = 'block';
                 } finally {
                     btnText.style.display = 'inline-flex';
                     btnLoader.style.display = 'none';
-                    btn.disabled = false;
+                    btnLogin.disabled = false;
+                }
+            });
+
+            // Manejo de Recuperación de contraseña
+            recoveryForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                recoveryAlert.style.display = 'none';
+
+                const email = document.getElementById('recovery-email').value.trim();
+                const newPassword = document.getElementById('recovery-new-password').value;
+
+                if (!email || !newPassword) {
+                    recoveryAlert.className = 'status-box alert-error';
+                    recoveryAlert.textContent = 'Por favor ingresa tu correo y la nueva contraseña.';
+                    recoveryAlert.style.display = 'block';
+                    return;
+                }
+
+                if (newPassword.length < 6) {
+                    recoveryAlert.className = 'status-box alert-error';
+                    recoveryAlert.textContent = 'La nueva contraseña debe tener mínimo 6 caracteres.';
+                    recoveryAlert.style.display = 'block';
+                    return;
+                }
+
+                const recText = btnRecovery.querySelector('.btn-text');
+                const recLoader = btnRecovery.querySelector('.btn-loader');
+                recText.style.display = 'none';
+                recLoader.style.display = 'inline-flex';
+                btnRecovery.disabled = true;
+
+                try {
+                    const res = await fetch('/api/auth/forgot-password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, newPassword })
+                    });
+
+                    const data = await res.json();
+
+                    if (!res.ok || !data.success) {
+                        throw new Error(data.error || 'No se pudo procesar la recuperación.');
+                    }
+
+                    recoveryAlert.className = 'status-box alert-success';
+                    recoveryAlert.innerHTML = `<i class="ti ti-circle-check"></i> ${data.message}`;
+                    recoveryAlert.style.display = 'block';
+
+                    // Esperar 2 segundos y volver automáticamente al login con el correo listo
+                    setTimeout(() => {
+                        recoverySection.style.display = 'none';
+                        loginSection.style.display = 'block';
+                        document.getElementById('login-email').value = email;
+                        document.getElementById('login-password').value = '';
+                        document.getElementById('login-password').focus();
+                        loginAlert.className = 'status-box alert-success';
+                        loginAlert.textContent = 'Contraseña actualizada. Ya puedes ingresar con tu nueva clave.';
+                        loginAlert.style.display = 'block';
+                    }, 2200);
+
+                } catch (err) {
+                    recoveryAlert.className = 'status-box alert-error';
+                    recoveryAlert.textContent = err.message || 'Error al restablecer la contraseña.';
+                    recoveryAlert.style.display = 'block';
+                } finally {
+                    recText.style.display = 'inline-flex';
+                    recLoader.style.display = 'none';
+                    btnRecovery.disabled = false;
                 }
             });
         });
