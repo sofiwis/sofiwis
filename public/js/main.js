@@ -318,25 +318,68 @@ function initPortfolio() {
       return;
     }
 
-    filtered.forEach(p => {
+  function buildVideoEmbed(url) {
+    if (!url || typeof url !== 'string') return null;
+    const cleanUrl = url.trim();
+    if (!cleanUrl) return null;
+
+    // YouTube regex (handles standard watch URLs, youtu.be, embed, shorts)
+    const ytMatch = cleanUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/i);
+    if (ytMatch && ytMatch[1]) {
+      const ytId = ytMatch[1];
+      return `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&playsinline=1" title="Video del proyecto" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    }
+
+    // Vimeo regex
+    const vimeoMatch = cleanUrl.match(/(?:vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/[^\/]*\/videos\/|album\/\d+\/video\/|video\/|)(\d+))/i);
+    if (vimeoMatch && vimeoMatch[1]) {
+      const vimeoId = vimeoMatch[1];
+      return `<iframe src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0" title="Video del proyecto" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    }
+
+    // Direct video file (.mp4, .webm, .ogg) or local file
+    const isDirectVideo = /\.(mp4|webm|ogg)(\?.*)?$/i.test(cleanUrl) || cleanUrl.startsWith('/videos/') || cleanUrl.includes('.mp4');
+    if (isDirectVideo) {
+      return `<video src="${escapeHtml(cleanUrl)}" controls autoplay playsinline loop preload="metadata" class="modal-video-player"></video>`;
+    }
+
+    // Generic embed link
+    if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+      return `<iframe src="${escapeHtml(cleanUrl)}" title="Video del proyecto" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+    }
+
+    return null;
+  }
+
+  filtered.forEach(p => {
+      const hasVideo = Boolean(p.video_url && p.video_url.trim());
       const card = document.createElement('article');
-      card.className = 'portfolio-card';
+      card.className = 'portfolio-card' + (hasVideo ? ' has-video' : '');
       card.dataset.id = p.id;
       card.dataset.category = p.category;
       card.dataset.title = p.title;
       card.dataset.client = p.client || '';
       card.dataset.desc = p.description;
       card.dataset.img = p.image;
+      if (hasVideo) card.dataset.video = p.video_url;
 
       card.innerHTML = `
         <div class="portfolio-img-wrap">
             <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.src='/img/esencia-logo.png'">
+            ${hasVideo ? `
+              <div class="portfolio-video-pill">
+                <i class="ti ti-player-play-filled"></i> Video
+              </div>
+            ` : ''}
             <div class="portfolio-overlay">
-                <span class="view-tag"><i class="ti ti-eye"></i> Ver Detalle</span>
+                <span class="view-tag"><i class="ti ti-${hasVideo ? 'player-play' : 'eye'}"></i> ${hasVideo ? 'Ver Video y Detalle' : 'Ver Detalle'}</span>
             </div>
         </div>
         <div class="portfolio-info">
-            <span class="portfolio-cat">${escapeHtml(p.category)}</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap: 8px;">
+                <span class="portfolio-cat">${escapeHtml(p.category)}</span>
+                ${hasVideo ? `<span class="portfolio-video-tag"><i class="ti ti-video"></i> Video</span>` : ''}
+            </div>
             <h3 class="portfolio-name">${escapeHtml(p.title)}</h3>
             <p class="portfolio-desc">${escapeHtml(p.description)}</p>
         </div>
@@ -352,7 +395,26 @@ function initPortfolio() {
 
   function openProjectModal(project) {
     if (!modal) return;
-    document.getElementById('modal-img').src = project.image || '/img/esencia-logo.png';
+    const modalImg = document.getElementById('modal-img');
+    const videoContainer = document.getElementById('modal-video-container');
+
+    const embedHtml = project.video_url ? buildVideoEmbed(project.video_url) : null;
+
+    if (embedHtml && videoContainer) {
+      videoContainer.innerHTML = embedHtml;
+      videoContainer.style.display = 'flex';
+      if (modalImg) modalImg.style.display = 'none';
+    } else {
+      if (videoContainer) {
+        videoContainer.innerHTML = '';
+        videoContainer.style.display = 'none';
+      }
+      if (modalImg) {
+        modalImg.style.display = 'block';
+        modalImg.src = project.image || '/img/esencia-logo.png';
+      }
+    }
+
     document.getElementById('modal-title').textContent = project.title || 'Proyecto ESENCIA';
     document.getElementById('modal-cat').textContent = project.category || 'Identidad Visual';
     document.getElementById('modal-client').textContent = project.client ? `Cliente: ${project.client}` : '';
@@ -371,6 +433,11 @@ function initPortfolio() {
     if (!modal) return;
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
+    const videoContainer = document.getElementById('modal-video-container');
+    if (videoContainer) {
+      videoContainer.innerHTML = '';
+      videoContainer.style.display = 'none';
+    }
   }
 
   if (modalClose) {
