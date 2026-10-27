@@ -1,258 +1,433 @@
-<!DOCTYPE html>
+<!doctype html>
 <!-- =========================================================
      ESENCIA — PRODUCTOS Y SERVICIOS
      ========================================================= -->
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Productos y Servicios — ESENCIA | Soluciones Creativas</title>
-    <meta name="description" content="Logotipos, eslóganes, contenido para redes sociales y videos publicitarios para comunicar la esencia de tu marca.">
-    <meta name="theme-color" content="#040509">
-    <link rel="icon" href="/img/esencia-logo.png">
+    <meta
+      name="description"
+      content="Logotipos, eslóganes, contenido para redes sociales y videos publicitarios para comunicar la esencia de tu marca."
+    />
+    <meta name="theme-color" content="#040509" />
+    <link rel="icon" href="/img/esencia-logo.png" />
     <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body class="bg-outer">
-
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="bg-outer">
     <div class="card-container">
+      <!-- ===== BARRA SUPERIOR (3 CONTENEDORES EQUILIBRADOS) ===== -->
+      <header class="navbar">
+        <!-- 1. Contenedor Izquierdo: LOGO -->
+        <a href="/" class="brand notranslate" translate="no">
+          <img
+            src="/img/esencia-logo.png"
+            alt="Logo de ESENCIA"
+            class="logo-img"
+          />
+          <span class="brand-divider"></span>
+          <span class="brand-text notranslate" translate="no">ESENCIA</span>
+        </a>
 
-        <!-- ===== BARRA SUPERIOR (3 CONTENEDORES EQUILIBRADOS) ===== -->
-        <header class="navbar">
-            <!-- 1. Contenedor Izquierdo: LOGO -->
-            <a href="/" class="brand notranslate" translate="no">
-                <img src="/img/esencia-logo.png" alt="Logo de ESENCIA" class="logo-img">
-                <span class="brand-divider"></span>
-                <span class="brand-text notranslate" translate="no">ESENCIA</span>
-            </a>
+        <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">
+          <i class="ti ti-menu-2"></i>
+        </button>
 
-            <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">
-                <i class="ti ti-menu-2"></i>
-            </button>
+        <!-- 2. Contenedor Central: PÁGINAS PRINCIPALES -->
+        <nav class="nav-links">
+          <a href="/">INICIO</a>
+          <a href="/quienes-somos">¿QUIÉNES SOMOS?</a>
+          <a href="/productos" class="active">PRODUCTOS</a>
+          <a href="/portafolio">PORTAFOLIO</a>
+          <a href="/contacto">CONTÁCTANOS</a>
 
-            <!-- 2. Contenedor Central: PÁGINAS PRINCIPALES -->
-            <nav class="nav-links">
-                <a href="/">INICIO</a>
-                <a href="/quienes-somos">¿QUIÉNES SOMOS?</a>
-                <a href="/productos" class="active">PRODUCTOS</a>
-                <a href="/portafolio">PORTAFOLIO</a>
-                <a href="/contacto">CONTÁCTANOS</a>
+          <!-- Acciones móviles dentro del menú desplegable -->
+          <div class="mobile-nav-actions">
+            <a
+              href="/files/manual-esencia.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="nav-resource-btn"
+              title="Ver Manual de Marca"
+              ><i class="ti ti-book"></i> MANUAL</a
+            >
+            <a
+              href="/files/brief-esencia.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="nav-resource-btn"
+              title="Ver Brief Creativo"
+              ><i class="ti ti-file-text"></i> BRIEF</a
+            >
+            <a href="/login" class="nav-login-btn">ACCESO</a>
+          </div>
+        </nav>
 
-                <!-- Acciones móviles dentro del menú desplegable -->
-                <div class="mobile-nav-actions">
-                    <a href="/files/manual-esencia.pdf" target="_blank" rel="noopener noreferrer" class="nav-resource-btn" title="Ver Manual de Marca"><i class="ti ti-book"></i> MANUAL</a>
-                    <a href="/files/brief-esencia.pdf" target="_blank" rel="noopener noreferrer" class="nav-resource-btn" title="Ver Brief Creativo"><i class="ti ti-file-text"></i> BRIEF</a>
-                    <a href="/login" class="nav-login-btn">ACCESO</a>
-                </div>
-            </nav>
-
-            <!-- 3. Contenedor Derecho: BOTONES AGRUPADOS -->
-            <div class="nav-actions">
-                <a href="/files/manual-esencia.pdf" target="_blank" rel="noopener noreferrer" class="nav-resource-btn" title="Ver / Descargar Manual de Marca">
-                    <i class="ti ti-book"></i> MANUAL
-                </a>
-                <a href="/files/brief-esencia.pdf" target="_blank" rel="noopener noreferrer" class="nav-resource-btn" title="Ver / Descargar Brief Creativo">
-                    <i class="ti ti-file-text"></i> BRIEF
-                </a>
-                <a href="/login" class="nav-login-btn">ACCESO</a>
-            </div>
-        </header>
-
-        <!-- ===== ENCABEZADO DE SERVICIOS ===== -->
-        <section class="services-header">
-            <div class="eyebrow"><span></span>SOLUCIONES CREATIVAS DE ALTO IMPACTO<span></span></div>
-            <h1 class="services-title">Diseñamos la identidad que tu marca merece</h1>
-            <p class="services-subtitle">
-                Estrategia conceptual, identidad visual vectorizada y producción multimedia premium para marcas que buscan trascender y liderar su sector.
-            </p>
-        </section>
-
-        <!-- ===== LAS CUATRO TARJETAS DE SERVICIOS (CARDS COMPACTAS CON FONDO ATMOSFÉRICO) ===== -->
-        <main class="services-grid">
-
-            <!-- Servicio 1: LOGOS E IDENTIDAD -->
-            <article class="service-card" data-service="Identidad Visual">
-                <div class="service-card-bg" style="background-image: url('/img/servicio-logos.jpeg');" aria-hidden="true"></div>
-                <div class="service-card-overlay" aria-hidden="true"></div>
-
-                <div class="service-card-inner">
-                    <div class="service-card-header">
-                        <span class="service-index-badge">01 / IDENTIDAD VISUAL</span>
-                        <div class="service-icon-wrap" aria-hidden="true">
-                            <i class="ti ti-vector-triangle"></i>
-                        </div>
-                    </div>
-
-                    <h2 class="service-card-title">Diseño de Logotipo e Identidad</h2>
-                    <p class="service-card-desc">
-                        Construcción del ADN visual de tu marca: isotipo, logotipo, paleta cromática profesional y reglas de uso para que tu imagen sea memorable e inconfundible.
-                    </p>
-
-                    <!-- Entregables incluidos -->
-                    <div class="service-deliverables">
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Vectorial (AI / SVG / PDF)</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Paleta & Tipografías</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Fondos transparentes HD</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Mini manual de uso</span>
-                    </div>
-
-                    <!-- Footer de tarjeta con CTA -->
-                    <div class="service-card-footer">
-                        <a href="/contacto?service=Diseño+de+Logo" class="btn-service-quote">Cotizar Logo <i class="ti ti-arrow-right"></i></a>
-                        <a href="/portafolio?filter=Identidad+Visual" class="btn-service-portfolio">Ver categoría <i class="ti ti-chevron-right"></i></a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Servicio 2: ESLÓGANES Y NAMING -->
-            <article class="service-card" data-service="Estrategia Verbal">
-                <div class="service-card-bg" style="background: radial-gradient(circle at 15% 85%, rgba(215, 183, 123, 0.16), transparent 60%), linear-gradient(225deg, rgba(185, 138, 80, 0.08) 0%, transparent 70%);" aria-hidden="true"></div>
-                <div class="service-card-overlay" aria-hidden="true"></div>
-
-                <div class="service-card-inner">
-                    <div class="service-card-header">
-                        <span class="service-index-badge">02 / ESTRATEGIA VERBAL</span>
-                        <div class="service-icon-wrap" aria-hidden="true">
-                            <i class="ti ti-bulb"></i>
-                        </div>
-                    </div>
-
-                    <h2 class="service-card-title">Naming, Eslóganes & Tono de Marca</h2>
-                    <p class="service-card-desc">
-                        Arquitectura verbal y mensajes con propósito. Nombres memorables, claims comerciales y eslóganes magnéticos que conectan emocionalmente con tu público y potencian tus ventas.
-                    </p>
-
-                    <div class="service-deliverables">
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Propuestas justificadas</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Verificación fonética</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Storytelling & Manifiesto</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Guía de tono y voz</span>
-                    </div>
-
-                    <div class="service-card-footer">
-                        <a href="/contacto?service=Eslóganes+y+Mensaje+de+Marca" class="btn-service-quote">Cotizar Eslogan <i class="ti ti-arrow-right"></i></a>
-                        <a href="/portafolio?filter=Branding+%26+Sostenibilidad" class="btn-service-portfolio">Ver categoría <i class="ti ti-chevron-right"></i></a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Servicio 3: POSTS Y SOCIAL MEDIA -->
-            <article class="service-card" data-service="Social Media">
-                <div class="service-card-bg" style="background-image: url('/img/servicio-posts.jpeg');" aria-hidden="true"></div>
-                <div class="service-card-overlay" aria-hidden="true"></div>
-
-                <div class="service-card-inner">
-                    <div class="service-card-header">
-                        <span class="service-index-badge">03 / SOCIAL MEDIA</span>
-                        <div class="service-icon-wrap" aria-hidden="true">
-                            <i class="ti ti-layout-grid"></i>
-                        </div>
-                    </div>
-
-                    <h2 class="service-card-title">Estrategia de Feed & Carruseles</h2>
-                    <p class="service-card-desc">
-                        Convierte tu perfil en una vitrina de autoridad. Diseñamos publicaciones de alta estética, carruseles de valor y piezas optimizadas para maximizar el engagement en Instagram y LinkedIn.
-                    </p>
-
-                    <div class="service-deliverables">
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Feed armónico y coherente</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Carruseles educativos</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Plantillas editables</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Portadas destacadas</span>
-                    </div>
-
-                    <div class="service-card-footer">
-                        <a href="/contacto?service=Posts+y+Redes+Sociales" class="btn-service-quote">Cotizar Posts <i class="ti ti-arrow-right"></i></a>
-                        <a href="/portafolio?filter=Redes+Sociales" class="btn-service-portfolio">Ver categoría <i class="ti ti-chevron-right"></i></a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Servicio 4: VIDEOS Y MULTIMEDIA -->
-            <article class="service-card" data-service="Multimedia">
-                <div class="service-card-bg" style="background: radial-gradient(circle at 15% 15%, rgba(215, 183, 123, 0.16), transparent 60%), linear-gradient(45deg, rgba(185, 138, 80, 0.08) 0%, transparent 70%);" aria-hidden="true"></div>
-                <div class="service-card-overlay" aria-hidden="true"></div>
-
-                <div class="service-card-inner">
-                    <div class="service-card-header">
-                        <span class="service-index-badge">04 / MULTIMEDIA & REELS</span>
-                        <div class="service-icon-wrap" aria-hidden="true">
-                            <i class="ti ti-video"></i>
-                        </div>
-                    </div>
-
-                    <h2 class="service-card-title">Reels, Spots & Motion Graphics</h2>
-                    <p class="service-card-desc">
-                        El formato con mayor alcance orgánico. Producimos reels ágiles, animaciones de logotipo y piezas publicitarias con ritmo, sonido comercial y edición moderna orientada a la conversión.
-                    </p>
-
-                    <div class="service-deliverables">
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Formatos 9:16 y 16:9 HD</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Edición dinámica & Motion</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Subtítulos & Musicalización</span>
-                        <span class="deliverable-pill"><i class="ti ti-check"></i> Animación de cierre</span>
-                    </div>
-
-                    <div class="service-card-footer">
-                        <a href="/contacto?service=Videos+y+Multimedia" class="btn-service-quote">Cotizar Video <i class="ti ti-arrow-right"></i></a>
-                        <a href="/portafolio?filter=Multimedia+%26+Video" class="btn-service-portfolio">Ver categoría <i class="ti ti-chevron-right"></i></a>
-                    </div>
-                </div>
-            </article>
-
-        </main>
-
-        <!-- ===== FRANJA DE GARANTÍAS Y ESTÁNDARES DEL ESTUDIO ===== -->
-        <section class="agency-guarantees" aria-label="Garantías del estudio ESENCIA">
-            <div class="guarantee-box">
-                <i class="ti ti-sparkles"></i>
-                <h3>100% Original</h3>
-                <p>Sin plantillas prefabricadas. Cada proyecto es conceptualizado desde cero para tu nicho.</p>
-            </div>
-            <div class="guarantee-box">
-                <i class="ti ti-file-certificate"></i>
-                <h3>Cesión de Derechos</h3>
-                <p>Los archivos y derechos patrimoniales sobre los diseños finales son 100% de tu propiedad.</p>
-            </div>
-            <div class="guarantee-box">
-                <i class="ti ti-clock"></i>
-                <h3>Entregas Puntuales</h3>
-                <p>Cronograma transparente con hitos definidos y comunicación constante vía WhatsApp o Meet.</p>
-            </div>
-            <div class="guarantee-box">
-                <i class="ti ti-badge-ad"></i>
-                <h3>Archivos Maestros</h3>
-                <p>Recibes todos los formatos editables e industriales listos para imprenta, vallas o digital.</p>
-            </div>
-        </section>
-
-        <!-- ===== BANNER DE LLAMADA A PORTAFOLIO COMPLETO ===== -->
-        <div class="portfolio-banner">
-            <div>
-                <p style="margin-bottom: 4px;">¿Quieres explorar <strong>todos</strong> nuestros proyectos completos?</p>
-                <span style="font-size: 0.85rem; color: var(--texto-suave);">Descubre casos de éxito, identidades y conceptos desarrollados por el estudio.</span>
-            </div>
-            <a href="/portafolio" class="btn-primary" style="padding: 12px 24px;">EXPLORAR TODO EL PORTAFOLIO <i class="ti ti-arrow-right"></i></a>
+        <!-- 3. Contenedor Derecho: BOTONES AGRUPADOS -->
+        <div class="nav-actions">
+          <a
+            href="/files/manual-esencia.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-resource-btn"
+            title="Ver / Descargar Manual de Marca"
+          >
+            <i class="ti ti-book"></i> MANUAL
+          </a>
+          <a
+            href="/files/brief-esencia.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-resource-btn"
+            title="Ver / Descargar Brief Creativo"
+          >
+            <i class="ti ti-file-text"></i> BRIEF
+          </a>
+          <a href="/login" class="nav-login-btn">ACCESO</a>
         </div>
+      </header>
 
-        <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
+      <!-- ===== ENCABEZADO DE SERVICIOS ===== -->
+      <section class="services-header">
+        <div class="eyebrow">
+          <span></span>SOLUCIONES CREATIVAS DE ALTO IMPACTO<span></span>
+        </div>
+        <h1 class="services-title">
+          Diseñamos la identidad<br />que tu marca merece
+        </h1>
+        <p class="services-subtitle">
+          Estrategia conceptual, identidad visual vectorizada y producción
+          multimedia premium<br />para marcas que buscan trascender y liderar su
+          sector.
+        </p>
+      </section>
+
+      <!-- ===== LAS CUATRO TARJETAS DE SERVICIOS (CARDS COMPACTAS CON FONDO ATMOSFÉRICO) ===== -->
+      <main class="services-grid">
+        <!-- Servicio 1: LOGOS E IDENTIDAD -->
+        <article class="service-card" data-service="Identidad Visual">
+          <div
+            class="service-card-bg"
+            style="background-image: url(&quot;/img/servicio-logos.jpeg&quot;)"
+            aria-hidden="true"
+          ></div>
+          <div class="service-card-overlay" aria-hidden="true"></div>
+
+          <div class="service-card-inner">
+            <div class="service-card-header">
+              <span class="service-index-badge">01 / IDENTIDAD VISUAL</span>
+              <div class="service-icon-wrap" aria-hidden="true">
+                <i class="ti ti-vector-triangle"></i>
+              </div>
+            </div>
+
+            <h2 class="service-card-title">Diseño de Logotipo e Identidad</h2>
+            <p class="service-card-desc">
+              Construcción del ADN visual de tu marca: isotipo, logotipo, paleta
+              cromática profesional y reglas de uso para que tu imagen sea
+              memorable e inconfundible.
+            </p>
+
+            <!-- Entregables incluidos -->
+            <div class="service-deliverables">
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Vectorial (AI / SVG / PDF)</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Paleta & Tipografías</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Fondos transparentes HD</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Mini manual de uso</span
+              >
+            </div>
+
+            <!-- Footer de tarjeta con CTA -->
+            <div class="service-card-footer">
+              <a
+                href="/contacto?service=Diseño+de+Logo"
+                class="btn-service-quote"
+                >Cotizar Logo <i class="ti ti-arrow-right"></i
+              ></a>
+              <a
+                href="/portafolio?filter=Identidad+Visual"
+                class="btn-service-portfolio"
+                >Ver categoría <i class="ti ti-chevron-right"></i
+              ></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Servicio 2: ESLÓGANES Y NAMING -->
+        <article class="service-card" data-service="Estrategia Verbal">
+          <div
+            class="service-card-bg"
+            style="
+              background:
+                radial-gradient(
+                  circle at 15% 85%,
+                  rgba(215, 183, 123, 0.16),
+                  transparent 60%
+                ),
+                linear-gradient(
+                  225deg,
+                  rgba(185, 138, 80, 0.08) 0%,
+                  transparent 70%
+                );
+            "
+            aria-hidden="true"
+          ></div>
+          <div class="service-card-overlay" aria-hidden="true"></div>
+
+          <div class="service-card-inner">
+            <div class="service-card-header">
+              <span class="service-index-badge">02 / ESTRATEGIA VERBAL</span>
+              <div class="service-icon-wrap" aria-hidden="true">
+                <i class="ti ti-bulb"></i>
+              </div>
+            </div>
+
+            <h2 class="service-card-title">
+              Naming, Eslóganes & Tono de Marca
+            </h2>
+            <p class="service-card-desc">
+              Arquitectura verbal y mensajes con propósito. Nombres memorables,
+              claims comerciales y eslóganes magnéticos que conectan
+              emocionalmente con tu público y potencian tus ventas.
+            </p>
+
+            <div class="service-deliverables">
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Propuestas justificadas</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Verificación fonética</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Storytelling & Manifiesto</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Guía de tono y voz</span
+              >
+            </div>
+
+            <div class="service-card-footer">
+              <a
+                href="/contacto?service=Eslóganes+y+Mensaje+de+Marca"
+                class="btn-service-quote"
+                >Cotizar Eslogan <i class="ti ti-arrow-right"></i
+              ></a>
+              <a
+                href="/portafolio?filter=Branding+%26+Sostenibilidad"
+                class="btn-service-portfolio"
+                >Ver categoría <i class="ti ti-chevron-right"></i
+              ></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Servicio 3: POSTS Y SOCIAL MEDIA -->
+        <article class="service-card" data-service="Social Media">
+          <div
+            class="service-card-bg"
+            style="background-image: url(&quot;/img/servicio-posts.jpeg&quot;)"
+            aria-hidden="true"
+          ></div>
+          <div class="service-card-overlay" aria-hidden="true"></div>
+
+          <div class="service-card-inner">
+            <div class="service-card-header">
+              <span class="service-index-badge">03 / SOCIAL MEDIA</span>
+              <div class="service-icon-wrap" aria-hidden="true">
+                <i class="ti ti-layout-grid"></i>
+              </div>
+            </div>
+
+            <h2 class="service-card-title">Estrategia de Feed & Carruseles</h2>
+            <p class="service-card-desc">
+              Convierte tu perfil en una vitrina de autoridad. Diseñamos
+              publicaciones de alta estética, carruseles de valor y piezas
+              optimizadas para maximizar el engagement en Instagram y LinkedIn.
+            </p>
+
+            <div class="service-deliverables">
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Feed armónico y coherente</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Carruseles educativos</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Plantillas editables</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Portadas destacadas</span
+              >
+            </div>
+
+            <div class="service-card-footer">
+              <a
+                href="/contacto?service=Posts+y+Redes+Sociales"
+                class="btn-service-quote"
+                >Cotizar Posts <i class="ti ti-arrow-right"></i
+              ></a>
+              <a
+                href="/portafolio?filter=Redes+Sociales"
+                class="btn-service-portfolio"
+                >Ver categoría <i class="ti ti-chevron-right"></i
+              ></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Servicio 4: VIDEOS Y MULTIMEDIA -->
+        <article class="service-card" data-service="Multimedia">
+          <div
+            class="service-card-bg"
+            style="
+              background:
+                radial-gradient(
+                  circle at 15% 15%,
+                  rgba(215, 183, 123, 0.16),
+                  transparent 60%
+                ),
+                linear-gradient(
+                  45deg,
+                  rgba(185, 138, 80, 0.08) 0%,
+                  transparent 70%
+                );
+            "
+            aria-hidden="true"
+          ></div>
+          <div class="service-card-overlay" aria-hidden="true"></div>
+
+          <div class="service-card-inner">
+            <div class="service-card-header">
+              <span class="service-index-badge">04 / MULTIMEDIA & REELS</span>
+              <div class="service-icon-wrap" aria-hidden="true">
+                <i class="ti ti-video"></i>
+              </div>
+            </div>
+
+            <h2 class="service-card-title">Reels, Spots & Motion Graphics</h2>
+            <p class="service-card-desc">
+              El formato con mayor alcance orgánico. Producimos reels ágiles,
+              animaciones de logotipo y piezas publicitarias con ritmo, sonido
+              comercial y edición moderna orientada a la conversión.
+            </p>
+
+            <div class="service-deliverables">
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Formatos 9:16 y 16:9 HD</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Edición dinámica & Motion</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Subtítulos & Musicalización</span
+              >
+              <span class="deliverable-pill"
+                ><i class="ti ti-check"></i> Animación de cierre</span
+              >
+            </div>
+
+            <div class="service-card-footer">
+              <a
+                href="/contacto?service=Videos+y+Multimedia"
+                class="btn-service-quote"
+                >Cotizar Video <i class="ti ti-arrow-right"></i
+              ></a>
+              <a
+                href="/portafolio?filter=Multimedia+%26+Video"
+                class="btn-service-portfolio"
+                >Ver categoría <i class="ti ti-chevron-right"></i
+              ></a>
+            </div>
+          </div>
+        </article>
+      </main>
+
+      <!-- ===== FRANJA DE GARANTÍAS Y ESTÁNDARES DEL ESTUDIO ===== -->
+      <section
+        class="agency-guarantees"
+        aria-label="Garantías del estudio ESENCIA"
+      >
+        <div class="guarantee-box">
+          <i class="ti ti-sparkles"></i>
+          <h3>100% Original</h3>
+          <p>
+            Sin plantillas prefabricadas. Cada proyecto es conceptualizado desde
+            cero para tu nicho.
+          </p>
+        </div>
+        <div class="guarantee-box">
+          <i class="ti ti-file-certificate"></i>
+          <h3>Cesión de Derechos</h3>
+          <p>
+            Los archivos y derechos patrimoniales sobre los diseños finales son
+            100% de tu propiedad.
+          </p>
+        </div>
+        <div class="guarantee-box">
+          <i class="ti ti-clock"></i>
+          <h3>Entregas Puntuales</h3>
+          <p>
+            Cronograma transparente con hitos definidos y comunicación constante
+            vía WhatsApp o Meet.
+          </p>
+        </div>
+        <div class="guarantee-box">
+          <i class="ti ti-badge-ad"></i>
+          <h3>Archivos Maestros</h3>
+          <p>
+            Recibes todos los formatos editables e industriales listos para
+            imprenta, vallas o digital.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===== BANNER DE LLAMADA A PORTAFOLIO COMPLETO ===== -->
+      <div class="portfolio-banner">
+        <div>
+          <p style="margin-bottom: 4px">
+            ¿Quieres explorar <strong>todos</strong> nuestros proyectos
+            completos?
+          </p>
+          <span style="font-size: 0.85rem; color: var(--texto-suave)"
+            >Descubre casos de éxito, identidades y conceptos desarrollados por
+            el estudio.</span
+          >
+        </div>
+        <a href="/portafolio" class="btn-primary" style="padding: 12px 24px"
+          >EXPLORAR TODO EL PORTAFOLIO <i class="ti ti-arrow-right"></i
+        ></a>
+      </div>
+
+      <div class="marca-fondo notranslate" translate="no">ESENCIA</div>
     </div>
 
     <!-- Selector de idioma -->
     <div class="language-switcher">
-        <i class="ti ti-world" aria-hidden="true"></i>
-        <label for="language-select" class="sr-only">Seleccionar idioma</label>
-        <select id="language-select" aria-label="Seleccionar idioma">
-            <option value="es">ES</option>
-            <option value="en">EN</option>
-            <option value="pt">PT</option>
-            <option value="fr">FR</option>
-        </select>
+      <i class="ti ti-world" aria-hidden="true"></i>
+      <label for="language-select" class="sr-only">Seleccionar idioma</label>
+      <select id="language-select" aria-label="Seleccionar idioma">
+        <option value="es">ES</option>
+        <option value="en">EN</option>
+        <option value="pt">PT</option>
+        <option value="fr">FR</option>
+      </select>
     </div>
     <div id="google_translate_element" aria-hidden="true"></div>
 
     <script src="/js/main.js"></script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-</body>
+  </body>
 </html>
